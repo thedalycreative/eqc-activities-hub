@@ -732,9 +732,9 @@
         <span><strong id="revealedCount">0</strong> revealed</span>
       </div>
       <div class="actions">
-        <button class="btn" id="hideAllBtn" type="button">Hide all</button>
-        <button class="btn" id="addManualBtn" type="button">+ Paste code</button>
-        <button class="btn danger" id="clearBtn" type="button">Clear wall</button>
+        <button class="btn" id="hideAllBtn" type="button" title="Toggle visibility">👁️ Hide all</button>
+        <button class="btn" id="addManualBtn" type="button" title="Paste HTML code">📋 Paste</button>
+        <button class="btn danger" id="clearBtn" type="button" title="Clear wall">🗑️ Clear</button>
         <button class="help-btn" id="helpBtn" type="button" aria-label="Help">?</button>
       </div>
     </div>
@@ -810,7 +810,11 @@
       appId: "1:456073643885:web:8cee09be079d4b1e0ebc64"
     };
 
-    window.__firebase = { initializeApp, getDatabase, ref, set, onValue, remove, update, config: firebaseConfig };
+    // Initialize ONCE — re-init throws and silently breaks subsequent submits
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.__firebase = { db, ref, set, onValue, remove, update, config: firebaseConfig };
     window.__firebaseReady = true;
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
@@ -871,22 +875,30 @@
 
       let firebaseDb = null;
       function boot() {
-        if (window.__firebaseReady && window.__firebase.config.apiKey !== 'REPLACE_WITH_YOUR_API_KEY') {
-          const { initializeApp, getDatabase, ref, onValue } = window.__firebase;
-          const app = initializeApp(window.__firebase.config);
-          firebaseDb = getDatabase(app);
-          onValue(ref(firebaseDb, TILE_PATH_ROOT), (snap) => {
+        if (window.__firebaseReady) {
+          const { db, ref, onValue } = window.__firebase;
+          onValue(ref(db, TILE_PATH_ROOT), (snap) => {
             applyTiles(snap.val() || {});
           });
         } else {
+          // If the module hasn't run yet, wait for the event
+          window.addEventListener('firebase-ready', () => {
+            const { db, ref, onValue } = window.__firebase;
+            onValue(ref(db, TILE_PATH_ROOT), (snap) => {
+              applyTiles(snap.val() || {});
+            });
+          });
+          
+          // Local fallback polishing if needed
           function poll() {
+            if (window.__firebaseReady) return;
             let next;
             try { next = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}') || {}; }
             catch (e) { next = {}; }
             applyTiles(next);
           }
           poll();
-          setInterval(poll, 2000);
+          setInterval(poll, 4000);
         }
       }
 
@@ -960,9 +972,9 @@
       }
 
       async function saveTile(tile) {
-        if (firebaseDb) {
-          const { ref, set } = window.__firebase;
-          await set(ref(firebaseDb, `${TILE_PATH_ROOT}/${tile.id}`), tile);
+        if (window.__firebaseReady) {
+          const { db, ref, set } = window.__firebase;
+          await set(ref(db, `${TILE_PATH_ROOT}/${tile.id}`), tile);
         } else {
           const all = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}');
           all[tile.id] = tile;
@@ -973,9 +985,9 @@
       }
 
       async function removeTile(id) {
-        if (firebaseDb) {
-          const { ref, remove } = window.__firebase;
-          await remove(ref(firebaseDb, `${TILE_PATH_ROOT}/${id}`));
+        if (window.__firebaseReady) {
+          const { db, ref, remove } = window.__firebase;
+          await remove(ref(db, `${TILE_PATH_ROOT}/${id}`));
         } else {
           const all = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}');
           delete all[id];
@@ -988,9 +1000,9 @@
       }
 
       async function clearAllTiles() {
-        if (firebaseDb) {
-          const { ref, set } = window.__firebase;
-          await set(ref(firebaseDb, TILE_PATH_ROOT), null);
+        if (window.__firebaseReady) {
+          const { db, ref, set } = window.__firebase;
+          await set(ref(db, TILE_PATH_ROOT), null);
         } else {
           localStorage.setItem(LOCAL_KEY, '{}');
           tiles = {};
@@ -1199,10 +1211,22 @@ ${factsStr}
       });
 
       $('hideAllBtn').addEventListener('click', () => {
-        revealed = {};
+        const ids = Object.keys(tiles);
+        const anyHidden = ids.some(id => !revealed[id]);
+        
+        if (anyHidden) {
+          // Reveal everything
+          ids.forEach(id => revealed[id] = true);
+          $('hideAllBtn').innerHTML = '👁️‍🗨️ Show all';
+          showToast('All tiles revealed');
+        } else {
+          // Hide everything
+          revealed = {};
+          $('hideAllBtn').innerHTML = '👁️ Hide all';
+          showToast('All tiles hidden');
+        }
         saveReveal();
         render();
-        showToast('All tiles hidden');
       });
       $('clearBtn').addEventListener('click', async () => {
         const count = Object.keys(tiles).length;

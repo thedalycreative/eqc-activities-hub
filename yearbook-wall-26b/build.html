@@ -833,6 +833,30 @@
       color: var(--accent)
     }
 
+    .reset-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      color: var(--muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px
+    }
+
+    .reset-btn:hover {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--ink)
+    }
+
     .code-panel {
       background: #1a1a1a;
       border-radius: 4px;
@@ -1215,6 +1239,7 @@
           <h3>Ready to send it?</h3>
           <p>Hit submit — your tile appears on the wall on the projector. You'll see your code after.</p>
           <button class="submit-btn" id="submitBtn" type="button">Submit to the wall</button>
+          <button class="reset-btn" id="resetBtn" type="button"><span>↺</span> Start fresh / New tile</button>
           <div class="submit-status" id="submitStatus"></div>
 
           <div class="code-panel" id="codePanel">
@@ -1758,6 +1783,13 @@ ${factsStr}
       });
 
       $('resubmitBtn').addEventListener('click', submitTile);
+
+      $('resetBtn').addEventListener('click', () => {
+        if (confirm('Clear everything and start a new tile? This will reset your local draft.')) {
+          localStorage.removeItem('yearbook26b:my-tile');
+          location.reload();
+        }
+      });
 
       let toastTm;
       function showToast(msg, isError) {
