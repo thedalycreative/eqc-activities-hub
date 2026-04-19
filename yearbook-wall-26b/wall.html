@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>26B · The Yearbook Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&family=Major+Mono+Display&family=DM+Serif+Display&family=Rubik+Mono+One&family=Caveat:wght@400;700&family=Archivo+Black&family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rozha+One&family=Monoton&family=Shrikhand&family=Work+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111;
+    --bg:#ffffff;
+    --surface:#f7f7f5;
+    --line:#1a1a1a;
+    --line-soft:#e5e5e3;
+    --green:#1f7a3e;
+    --green-bright:#2da555;
+    --green-pale:#e7f4ea;
+    --muted:#5a5a58;
+    --faint:#9a9a96;
+    --accent:#c84a2e;
+    --lie:#b83a24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;min-height:100vh;font-feature-settings:"ss01","ss02"}
+  body{padding:40px 28px 80px;line-height:1.5}
+
+  .shell{max-width:1680px;margin:0 auto}
+
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:32px}
+  .meta-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:16px}
+  .meta-row .issue{color:var(--green);font-weight:500}
+  h1{font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(44px,7vw,72px);line-height:1;letter-spacing:-0.03em}
+  .kicker{font-size:18px;color:var(--muted);margin-top:10px;max-width:720px;line-height:1.5}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:28px}
+  .stats{display:flex;gap:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase}
+  .stats strong{color:var(--green);font-weight:600;font-size:16px}
+  .stats .sep{color:var(--faint)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .btn{font-size:12px;padding:10px 16px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer;font-weight:500;transition:all 0.15s}
+  .btn:hover{background:var(--ink);color:var(--bg)}
+  .btn.primary{background:var(--ink);color:var(--bg)}
+  .btn.primary:hover{background:var(--green);border-color:var(--green)}
+  .btn.danger{border-color:var(--accent);color:var(--accent)}
+  .btn.danger:hover{background:var(--accent);color:var(--bg)}
+
+  .help-btn{width:36px;height:36px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:50%;cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-family:'Inter',sans-serif}
+  .help-btn:hover{background:var(--ink);color:var(--bg)}
+
+  .help-popup{position:fixed;top:80px;right:32px;width:360px;max-width:calc(100vw - 32px);background:var(--bg);border:2px solid var(--ink);border-radius:4px;padding:20px;z-index:90;box-shadow:0 12px 40px rgba(0,0,0,0.15);display:none}
+  .help-popup.open{display:block;animation:fadeIn 0.2s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .help-popup h3{font-size:16px;font-weight:600;margin-bottom:4px}
+  .help-popup .sub{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+  .help-popup h4{font-size:11px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin:14px 0 8px;font-weight:500}
+  .help-popup ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+  .help-popup .key-row{display:flex;align-items:center;gap:8px;font-size:13px}
+  .help-popup .key-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:500;border:1.5px solid;flex-shrink:0;min-width:90px;justify-content:center}
+  .help-popup .instructions{font-size:13px;line-height:1.6;color:var(--ink)}
+  .help-popup .instructions kbd{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--surface);padding:1px 6px;border-radius:3px;border:1px solid var(--line-soft)}
+  .help-popup .close{position:absolute;top:10px;right:10px;background:none;border:0;font-size:18px;cursor:pointer;color:var(--muted);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:3px}
+  .help-popup .close:hover{background:var(--surface);color:var(--ink)}
+
+  .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:24px}
+
+  .tile{position:relative;border:2px solid var(--ink);border-radius:4px;padding:28px 28px 22px;min-height:340px;display:flex;flex-direction:column;cursor:pointer;transition:transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease}
+  .tile.new-tile{animation:tileIn 0.6s cubic-bezier(0.4,0,0.2,1) backwards}
+  @keyframes tileIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .tile:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.12)}
+
+  .tile-controls{position:absolute;top:10px;right:10px;display:flex;gap:5px;z-index:5;opacity:0;transition:opacity 0.15s ease}
+  .tile:hover .tile-controls{opacity:1}
+  .tile-ctrl{width:30px;height:30px;border:1.5px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-weight:500;transition:all 0.15s}
+  .tile-ctrl:hover{background:var(--ink);color:var(--bg)}
+  .tile-ctrl.remove:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+
+  .tile-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:18px}
+  .tile-avatar{width:104px;height:104px;border-radius:4px;background:rgba(255,255,255,0.35);border:1.5px solid rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden;flex-shrink:0}
+  .tile-avatar img{width:100%;height:100%;object-fit:cover}
+  .tile-head-text{min-width:0;flex:1}
+  .tile-name{font-size:30px;font-weight:600;line-height:1.05;letter-spacing:-0.015em;word-break:break-word;margin-bottom:6px}
+  .tile-bio{font-size:16px;line-height:1.5;opacity:0.9}
+
+  .tile-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .tile-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:500;font-family:'Inter',sans-serif;border:1.5px solid}
+
+  .tile-facts{display:flex;flex-direction:column;gap:9px;flex:1}
+  .fact{padding:13px 15px;border-radius:4px;background:rgba(0,0,0,0.12);font-size:15.5px;line-height:1.45;position:relative;transition:background 0.25s ease, box-shadow 0.25s ease}
+
+  .tile.revealed .fact[data-truth="true"]{background:rgba(31,122,62,0.2);box-shadow:inset 3px 0 0 var(--green)}
+  .tile.revealed .fact[data-truth="false"]{background:rgba(184,58,36,0.25);box-shadow:inset 3px 0 0 var(--lie);animation:shake 0.5s ease}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+  .fact-label{position:absolute;top:9px;right:11px;font-family:'JetBrains Mono';font-size:9.5px;padding:2px 8px;border-radius:3px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;opacity:0;transition:opacity 0.4s ease 0.2s}
+  .tile.revealed .fact-label{opacity:1}
+  .fact[data-truth="true"] .fact-label{background:var(--green);color:var(--bg)}
+  .fact[data-truth="false"] .fact-label{background:var(--lie);color:var(--bg)}
+
+  .tile-foot{font-family:'JetBrains Mono';font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;margin-top:14px;padding-top:12px;border-top:1.5px solid rgba(0,0,0,0.15);display:flex;justify-content:space-between;opacity:0.7}
+
+  .empty-state{grid-column:1/-1;text-align:center;padding:100px 20px;border:2px dashed var(--line);border-radius:4px;background:var(--surface)}
+  .empty-state h3{font-size:32px;font-weight:600;margin-bottom:10px;letter-spacing:-0.02em}
+  .empty-state p{color:var(--muted);font-size:16px}
+
+  .modal-bg{position:fixed;inset:0;background:rgba(17,17,17,0.5);backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;padding:60px 20px;z-index:100;overflow-y:auto}
+  .modal-bg.open{display:flex;animation:fadeBg 0.2s ease}
+  @keyframes fadeBg{from{opacity:0}to{opacity:1}}
+  .modal{background:var(--bg);border:2px solid var(--ink);border-radius:4px;max-width:780px;width:100%;padding:28px;animation:modalUp 0.3s ease;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+  @keyframes modalUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .modal h2{font-size:26px;font-weight:600;margin-bottom:4px;letter-spacing:-0.02em}
+  .modal p.hint{color:var(--muted);margin-bottom:18px;font-size:15px;line-height:1.5}
+  .modal textarea{width:100%;min-height:320px;font-family:'JetBrains Mono';font-size:13px;line-height:1.6;padding:16px;background:#1a1a1a;border:1.5px solid var(--ink);border-radius:4px;color:#d9d0ad;resize:vertical}
+  .modal textarea:focus{outline:none;box-shadow:0 0 0 2px var(--green)}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+
+  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:4px;font-size:13px;font-weight:500;opacity:0;pointer-events:none;transition:all 0.3s;z-index:200;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.error{background:var(--accent)}
+
+  .live-indicator{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono';font-size:11px;color:var(--green)}
+  .live-indicator .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <header>
+    <div class="meta-row">
+      <span>EQC · Intake 26B</span>
+      <span class="issue">Issue № 01</span>
+      <span><span class="live-indicator"><span class="dot"></span>LIVE · <span id="liveDate">—</span></span></span>
+    </div>
+    <h1>The Yearbook Wall.</h1>
+    <p class="kicker">Three facts each. Two true, one a lie. Click a tile to reveal — after we've all had a guess.</p>
+  </header>
+
+  <div class="toolbar">
+    <div class="stats">
+      <span><strong id="tileCount">0</strong> tiles</span>
+      <span class="sep">·</span>
+      <span><strong id="revealedCount">0</strong> revealed</span>
+    </div>
+    <div class="actions">
+      <button class="btn" id="hideAllBtn" type="button">Hide all</button>
+      <button class="btn" id="addManualBtn" type="button">+ Paste code</button>
+      <button class="btn danger" id="clearBtn" type="button">Clear wall</button>
+      <button class="help-btn" id="helpBtn" type="button" aria-label="Help">?</button>
+    </div>
+  </div>
+
+  <div class="help-popup" id="helpPopup">
+    <button class="close" id="helpClose" type="button" aria-label="Close">×</button>
+    <h3>Yearbook wall · key</h3>
+    <p class="sub">Badge colours, controls, and how the wall works.</p>
+
+    <h4>Running the reveal round</h4>
+    <div class="instructions">
+      <p style="margin-bottom:8px">• <strong>Click a tile</strong> — reveals the lie (red) and truths (green)</p>
+      <p style="margin-bottom:8px">• Click again to hide</p>
+      <p style="margin-bottom:8px">• <strong>Hover a tile</strong> for edit (<kbd>&lt;/&gt;</kbd>) and remove (<kbd>×</kbd>) controls</p>
+      <p style="margin-bottom:8px">• <kbd>Hide all</kbd> resets for a fresh round</p>
+      <p>• <kbd>+ Paste code</kbd> if a student texted you HTML manually</p>
+    </div>
+
+    <h4>Badge categories</h4>
+    <ul id="helpBadgeKey"></ul>
+  </div>
+
+  <div class="wall" id="wall">
+    <div class="empty-state" id="emptyState">
+      <h3>The wall is waiting.</h3>
+      <p>Tiles will appear here as students hit submit.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-bg" id="pasteModal">
+  <div class="modal">
+    <h2>Paste tile code</h2>
+    <p class="hint">Drop the HTML block a student sent you. You can paste multiple tiles at once.</p>
+    <textarea id="pasteArea" placeholder="<!-- 26B tile: ... -->
+<div class='tile' data-name='...'>
+  ...
+</div>"></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="pasteCancelBtn" type="button">Cancel</button>
+      <button class="btn primary" id="pasteAddBtn" type="button">Add to wall</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="editModal">
+  <div class="modal">
+    <h2>Edit tile code</h2>
+    <p class="hint">Tweak the HTML directly. Changes save to the wall when you hit update.</p>
+    <textarea id="editArea"></textarea>
+    <div class="modal-actions">
+      <button class="btn" id="editCancelBtn" type="button">Cancel</button>
+      <button class="btn primary" id="editSaveBtn" type="button">Update tile</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAbnnEv2VI0ApqviiqrSB2QYmj0lkDtQ2w",
+    authDomain: "eqc-26b-yearbook.firebaseapp.com",
+    databaseURL: "https://eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "eqc-26b-yearbook",
+    storageBucket: "eqc-26b-yearbook.firebasestorage.app",
+    messagingSenderId: "456073643885",
+    appId: "1:456073643885:web:8cee09be079d4b1e0ebc64"
+  };
+
+  window.__firebase = { initializeApp, getDatabase, ref, set, onValue, remove, update, config: firebaseConfig };
+  window.__firebaseReady = true;
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<script>
+(() => {
+  const TILE_PATH_ROOT = 'yearbook26b/tiles';
+  const LOCAL_KEY = 'yearbook26b:wall';
+  const REVEAL_KEY = 'yearbook26b:revealed';
+
+  const TAG_CATEGORIES = [
+    {id:'learn',       label:'I want to learn',     prefix:'📚',  bg:'#e3efd9', border:'#4a9956', text:'#1e4a28'},
+    {id:'know',        label:'I already know',      prefix:'✓',   bg:'#d1e7ff', border:'#2b6cb0', text:'#1a3a5e'},
+    {id:'dream-job',   label:'Dream job',           prefix:'★',   bg:'#ffe4b5', border:'#c97c2e', text:'#6b3d0d'},
+    {id:'working-on',  label:"I'm working on",      prefix:'●',   bg:'#ffd6d6', border:'#c44040', text:'#6e1b1b'},
+    {id:'class-hub',   label:'For the class hub',   prefix:'#',   bg:'#e8dcff', border:'#7040c4', text:'#3a1e6b'},
+    {id:'learn-style', label:'How I learn',         prefix:'⌁',   bg:'#d0f0ee', border:'#1f8074', text:'#0d3a34'},
+    {id:'tool',        label:'Tool I love',         prefix:'◈',   bg:'#ffe8f0', border:'#b84778', text:'#5e1a38'},
+    {id:'interests',   label:'Outside of tech',     prefix:'♡',   bg:'#f0e4d0', border:'#8b5e2b', text:'#3e2a13'},
+    {id:'vibe',        label:'My vibe',             prefix:'◉',   bg:'#fff3a3', border:'#a08420', text:'#40360a'},
+    {id:'goal',        label:'End of course goal',  prefix:'→',   bg:'#d8f0ff', border:'#2e7db8', text:'#124361'},
+  ];
+
+  const $ = id => document.getElementById(id);
+
+  let tiles = {};
+  let revealed = {};
+  let editingId = null;
+  let renderedTileIds = new Set();
+  let lastFingerprints = {};
+
+  $('liveDate').textContent = new Date().toLocaleDateString('en-AU', {day:'numeric', month:'long', year:'numeric'}).toUpperCase();
+
+  (function buildHelpKey(){
+    const ul = $('helpBadgeKey');
+    TAG_CATEGORIES.forEach(c => {
+      const li = document.createElement('li');
+      li.className = 'key-row';
+      li.innerHTML = `<span class="key-badge" style="background:${c.bg};border-color:${c.border};color:${c.text}">${c.prefix} ${c.label}</span>`;
+      ul.appendChild(li);
+    });
+  })();
+
+  $('helpBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    $('helpPopup').classList.toggle('open');
+  });
+  $('helpClose').addEventListener('click', () => $('helpPopup').classList.remove('open'));
+  document.addEventListener('click', (e) => {
+    const popup = $('helpPopup');
+    if (popup.classList.contains('open') && !popup.contains(e.target) && e.target.id !== 'helpBtn'){
+      popup.classList.remove('open');
+    }
+  });
+
+  try { revealed = JSON.parse(localStorage.getItem(REVEAL_KEY) || '{}'); } catch(e){ revealed = {}; }
+  function saveReveal(){ localStorage.setItem(REVEAL_KEY, JSON.stringify(revealed)); }
+
+  let firebaseDb = null;
+  function boot(){
+    if (window.__firebaseReady && window.__firebase.config.apiKey !== 'REPLACE_WITH_YOUR_API_KEY'){
+      const { initializeApp, getDatabase, ref, onValue } = window.__firebase;
+      const app = initializeApp(window.__firebase.config);
+      firebaseDb = getDatabase(app);
+      onValue(ref(firebaseDb, TILE_PATH_ROOT), (snap) => {
+        applyTiles(snap.val() || {});
+      });
+    } else {
+      function poll(){
+        let next;
+        try { next = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}') || {}; }
+        catch(e){ next = {}; }
+        applyTiles(next);
+      }
+      poll();
+      setInterval(poll, 2000);
+    }
+  }
+
+  // Diff-based: skip re-render if nothing changed (fixes the flicker)
+  function applyTiles(next){
+    const nextIds = Object.keys(next);
+    const prevIds = Object.keys(tiles);
+    if (nextIds.length === prevIds.length){
+      let same = true;
+      for (const id of nextIds){
+        const fp = fingerprint(next[id]);
+        if (fp !== lastFingerprints[id]){ same = false; break; }
+      }
+      if (same) return;
+    }
+    tiles = next;
+    render();
+  }
+
+  function fingerprint(t){
+    if (!t) return '';
+    return [
+      t.name, t.bg, t.bio, t.photo ? t.photo.slice(0, 40) : '',
+      t.fontTitle, t.fontBody, t.headerColor, t.bodyColor,
+      (t.tags||[]).map(x => x.text+'|'+x.category).join(','),
+      (t.facts||[]).map(x => x.text+'|'+x.isTruth).join(','),
+    ].join('::');
+  }
+
+  function parsePaste(raw){
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = raw.trim();
+    const parsed = [];
+    wrapper.querySelectorAll('.tile').forEach(el => {
+      const name = el.getAttribute('data-name') || 'Unknown';
+      const slug = el.getAttribute('data-slug') || name.toLowerCase().replace(/[^a-z0-9]/g,'-');
+      const photo = el.getAttribute('data-photo') || null;
+      const bg = el.getAttribute('data-bg') || '#f4d35e';
+      const fontTitle = el.getAttribute('data-font-title') || 'Inter';
+      const fontBody = el.getAttribute('data-font-body') || 'Inter';
+      const headerColor = el.getAttribute('data-header-color') || '#111111';
+      const bodyColor = el.getAttribute('data-body-color') || '#1a1a1a';
+      const bio = el.getAttribute('data-bio') || '';
+      const tags = [];
+      el.querySelectorAll('.tag').forEach(t => {
+        const text = t.textContent.trim();
+        tags.push({
+          text: text.replace(/^\S+\s+/, ''),
+          prefix: (text.match(/^\S+/) || [''])[0],
+          category: t.getAttribute('data-category') || 'learn',
+          bg: t.getAttribute('data-bg') || '#e3efd9',
+          border: t.getAttribute('data-border') || '#4a9956',
+          color: t.getAttribute('data-color') || '#1e4a28',
+        });
+      });
+      const facts = [];
+      el.querySelectorAll('.fact').forEach(f => {
+        const truth = f.getAttribute('data-truth');
+        facts.push({
+          text: f.textContent.trim(),
+          isTruth: truth === 'true' ? true : truth === 'false' ? false : null,
+        });
+      });
+      parsed.push({
+        id: slug + '-' + Date.now() + Math.random().toString(36).slice(2,5),
+        name, slug, photo, bg, fontTitle, fontBody, headerColor, bodyColor, bio, tags, facts,
+        submittedAt: Date.now(),
+      });
+    });
+    return parsed;
+  }
+
+  async function saveTile(tile){
+    if (firebaseDb){
+      const { ref, set } = window.__firebase;
+      await set(ref(firebaseDb, `${TILE_PATH_ROOT}/${tile.id}`), tile);
+    } else {
+      const all = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}');
+      all[tile.id] = tile;
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(all));
+      tiles = all;
+      render();
+    }
+  }
+
+  async function removeTile(id){
+    if (firebaseDb){
+      const { ref, remove } = window.__firebase;
+      await remove(ref(firebaseDb, `${TILE_PATH_ROOT}/${id}`));
+    } else {
+      const all = JSON.parse(localStorage.getItem(LOCAL_KEY) || '{}');
+      delete all[id];
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(all));
+      tiles = all;
+      render();
+    }
+    delete revealed[id];
+    saveReveal();
+  }
+
+  async function clearAllTiles(){
+    if (firebaseDb){
+      const { ref, set } = window.__firebase;
+      await set(ref(firebaseDb, TILE_PATH_ROOT), null);
+    } else {
+      localStorage.setItem(LOCAL_KEY, '{}');
+      tiles = {};
+      render();
+    }
+    revealed = {};
+    saveReveal();
+  }
+
+  function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function renderBioHtml(raw){
+    let s = escapeHTML(raw);
+    s = s.replace(/&lt;(\/?)(b|i|u)&gt;/g, '<$1$2>');
+    return s;
+  }
+
+  function buildTileElement(t, idx, id){
+    const el = document.createElement('div');
+    el.className = 'tile' + (revealed[id] ? ' revealed' : '') + (renderedTileIds.has(id) ? '' : ' new-tile');
+    el.dataset.id = id;
+    el.style.background = t.bg;
+    el.style.borderColor = 'var(--ink)';
+    el.style.color = t.bodyColor;
+
+    const avatarHTML = t.photo ? `<div class="tile-avatar"><img src="${t.photo}" alt=""></div>` : `<div class="tile-avatar">👋</div>`;
+
+    const tagsHTML = (t.tags || []).map(tag =>
+      `<span class="tile-tag" style="background:${tag.bg};border-color:${tag.border};color:${tag.color}">${escapeHTML(tag.prefix||'')} ${escapeHTML(tag.text||'')}</span>`
+    ).join('');
+
+    const factsHTML = (t.facts || []).map(f => {
+      const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
+      const label = f.isTruth === true ? 'TRUTH' : 'LIE';
+      return `<div class="fact" data-truth="${truth}" style="font-family:'${t.fontBody}',sans-serif">
+        ${escapeHTML(f.text)}
+        <span class="fact-label">${label}</span>
+      </div>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div class="tile-controls">
+        <button class="tile-ctrl edit" title="Edit code" data-action="edit" data-id="${id}">&lt;/&gt;</button>
+        <button class="tile-ctrl remove" title="Remove" data-action="remove" data-id="${id}">×</button>
+      </div>
+      <div class="tile-head">
+        ${avatarHTML}
+        <div class="tile-head-text">
+          <h3 class="tile-name" style="font-family:'${t.fontTitle}',serif;color:${t.headerColor}">${escapeHTML(t.name)}</h3>
+          ${t.bio ? `<p class="tile-bio" style="font-family:'${t.fontBody}',sans-serif">${renderBioHtml(t.bio)}</p>` : ''}
+        </div>
+      </div>
+      ${tagsHTML ? `<div class="tile-tags">${tagsHTML}</div>` : ''}
+      <div class="tile-facts">${factsHTML}</div>
+      <div class="tile-foot">
+        <span>№ ${String(idx+1).padStart(2,'0')}</span>
+        <span>${revealed[id] ? 'Revealed' : 'Tap to reveal'}</span>
+      </div>
+    `;
+
+    el.addEventListener('click', (e) => {
+      if (e.target.closest('.tile-ctrl')) return;
+      revealed[id] = !revealed[id];
+      saveReveal();
+      render();
+    });
+
+    return el;
+  }
+
+  function render(){
+    const wall = $('wall');
+    const empty = $('emptyState');
+    const ids = Object.keys(tiles).sort((a,b) => (tiles[a].submittedAt||0) - (tiles[b].submittedAt||0));
+
+    $('tileCount').textContent = ids.length;
+    $('revealedCount').textContent = ids.filter(id => revealed[id]).length;
+
+    if (ids.length === 0){
+      empty.style.display = 'block';
+      wall.querySelectorAll('.tile').forEach(n => n.remove());
+      renderedTileIds.clear();
+      lastFingerprints = {};
+      return;
+    }
+    empty.style.display = 'none';
+
+    wall.querySelectorAll('.tile').forEach(el => {
+      const id = el.dataset.id;
+      if (!(id in tiles)){
+        el.remove();
+        renderedTileIds.delete(id);
+        delete lastFingerprints[id];
+      }
+    });
+
+    ids.forEach((id, idx) => {
+      const t = tiles[id];
+      const fp = fingerprint(t);
+      const existingEl = wall.querySelector(`.tile[data-id="${CSS.escape(id)}"]`);
+
+      if (!existingEl){
+        const el = buildTileElement(t, idx, id);
+        wall.appendChild(el);
+        wireTileControls(el);
+        renderedTileIds.add(id);
+        lastFingerprints[id] = fp;
+      } else if (lastFingerprints[id] !== fp){
+        const el = buildTileElement(t, idx, id);
+        el.classList.remove('new-tile');
+        existingEl.replaceWith(el);
+        wireTileControls(el);
+        lastFingerprints[id] = fp;
+      } else {
+        existingEl.classList.toggle('revealed', !!revealed[id]);
+        const foot = existingEl.querySelector('.tile-foot span:last-child');
+        if (foot) foot.textContent = revealed[id] ? 'Revealed' : 'Tap to reveal';
+        const num = existingEl.querySelector('.tile-foot span:first-child');
+        if (num) num.textContent = '№ ' + String(idx+1).padStart(2,'0');
+      }
+    });
+
+    const wallChildren = Array.from(wall.querySelectorAll('.tile'));
+    const needsReorder = wallChildren.some((el, i) => el.dataset.id !== ids[i]);
+    if (needsReorder){
+      ids.forEach(id => {
+        const el = wall.querySelector(`.tile[data-id="${CSS.escape(id)}"]`);
+        if (el) wall.appendChild(el);
+      });
+    }
+  }
+
+  function wireTileControls(tileEl){
+    tileEl.querySelectorAll('.tile-ctrl').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        if (action === 'remove'){
+          if (confirm(`Remove ${tiles[id]?.name || 'this tile'}?`)){
+            await removeTile(id);
+            showToast('Tile removed');
+          }
+        } else if (action === 'edit'){
+          editingId = id;
+          $('editArea').value = tileToCode(tiles[id]);
+          $('editModal').classList.add('open');
+        }
+      });
+    });
+  }
+
+  function tileToCode(t){
+    const tagsStr = (t.tags || []).map(tag =>
+      `    <span class="tag" data-category="${escapeHTML(tag.category)}" data-bg="${escapeHTML(tag.bg)}" data-border="${escapeHTML(tag.border)}" data-color="${escapeHTML(tag.color)}">${escapeHTML(tag.prefix||'')} ${escapeHTML(tag.text||'')}</span>`
+    ).join('\n');
+    const factsStr = (t.facts || []).map(f => {
+      const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
+      return `    <div class="fact" data-truth="${truth}">${escapeHTML(f.text)}</div>`;
+    }).join('\n');
+    const photoAttr = t.photo ? ` data-photo="${t.photo}"` : '';
+    return `<!-- 26B tile: ${escapeHTML(t.name)} -->
+<div class="tile" data-name="${escapeHTML(t.name)}" data-slug="${escapeHTML(t.slug||'')}"${photoAttr}
+     data-bg="${t.bg}" data-font-title="${t.fontTitle}" data-font-body="${t.fontBody}"
+     data-header-color="${t.headerColor}" data-body-color="${t.bodyColor}"
+     data-bio="${escapeHTML(t.bio||'')}">
+  <h3 class="tile-name">${escapeHTML(t.name)}</h3>
+  <p class="tile-bio">${renderBioHtml(t.bio||'')}</p>
+  <div class="tile-tags">
+${tagsStr}
+  </div>
+  <div class="tile-facts">
+${factsStr}
+  </div>
+</div>`;
+  }
+
+  $('addManualBtn').addEventListener('click', () => {
+    $('pasteArea').value = '';
+    $('pasteModal').classList.add('open');
+    setTimeout(() => $('pasteArea').focus(), 100);
+  });
+  $('pasteCancelBtn').addEventListener('click', () => $('pasteModal').classList.remove('open'));
+  $('pasteAddBtn').addEventListener('click', async () => {
+    const raw = $('pasteArea').value.trim();
+    if (!raw){ showToast('Paste some code first', true); return; }
+    const parsed = parsePaste(raw);
+    if (parsed.length === 0){ showToast('No valid tiles found', true); return; }
+    for (const tile of parsed){ await saveTile(tile); }
+    $('pasteModal').classList.remove('open');
+    showToast(`Added ${parsed.length} tile${parsed.length > 1 ? 's' : ''}`);
+  });
+
+  $('editCancelBtn').addEventListener('click', () => { $('editModal').classList.remove('open'); editingId = null; });
+  $('editSaveBtn').addEventListener('click', async () => {
+    const raw = $('editArea').value.trim();
+    const parsed = parsePaste(raw);
+    if (parsed.length === 0){ showToast('Invalid tile code', true); return; }
+    const fresh = parsed[0];
+    fresh.id = editingId;
+    fresh.submittedAt = tiles[editingId]?.submittedAt || Date.now();
+    await saveTile(fresh);
+    $('editModal').classList.remove('open');
+    editingId = null;
+    showToast('Tile updated');
+  });
+
+  $('hideAllBtn').addEventListener('click', () => {
+    revealed = {};
+    saveReveal();
+    render();
+    showToast('All tiles hidden');
+  });
+  $('clearBtn').addEventListener('click', async () => {
+    const count = Object.keys(tiles).length;
+    if (count === 0) return;
+    if (confirm(`Clear all ${count} tiles? This cannot be undone.`)){
+      await clearAllTiles();
+      showToast('Wall cleared');
+    }
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape'){
+      $('pasteModal').classList.remove('open');
+      $('editModal').classList.remove('open');
+      $('helpPopup').classList.remove('open');
+      editingId = null;
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter'){
+      if ($('pasteModal').classList.contains('open')){ e.preventDefault(); $('pasteAddBtn').click(); }
+      if ($('editModal').classList.contains('open')){ e.preventDefault(); $('editSaveBtn').click(); }
+    }
+  });
+
+  let toastTm;
+  function showToast(msg, isError){
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.toggle('error', !!isError);
+    t.classList.add('show');
+    clearTimeout(toastTm);
+    toastTm = setTimeout(() => t.classList.remove('show'), 2600);
+  }
+
+  boot();
+})();
+</script>
+
+</body>
+</html>
