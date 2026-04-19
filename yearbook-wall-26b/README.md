@@ -9,32 +9,33 @@ Firebase Realtime Database sync. No build step — pure HTML/CSS/JS.
 
 ## URLs
 
-After Vercel deploy:
-
-- Projector (always open): `yourdomain.vercel.app/wall`
-- Student link (share on Monday): `yourdomain.vercel.app/build`
+- **GitHub Repo:** [thedalycreative/eqc-26b-yearbook-repo](https://github.com/thedalycreative/eqc-26b-yearbook-repo)
+- **Firebase Database:** [eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app](https://eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app/)
+- **Vercel Project:** (Deploying to Vercel...)
 
 ## Local dev
 
 Just open the `.html` files in a browser. Firebase works over `file://`.
 
-## Firebase
+## Firebase Configuration
 
-Project: `eqc-26b-yearbook` · Region: `asia-southeast1` · Database: Realtime Database in **test mode**.
+The project uses the following configuration:
 
-Test mode rules expire 30 days from creation. To extend, go to Realtime Database → Rules and either re-set the expiry date or use this (still open, but no expiry):
-
-```json
-{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}
+```javascript
+const firebaseConfig = {
+  apiKey: "AIzaSyAbnnEv2VI0ApqviiqrSB2QYmj0lkDtQ2w",
+  authDomain: "eqc-26b-yearbook.firebaseapp.com",
+  databaseURL: "https://eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "eqc-26b-yearbook",
+  storageBucket: "eqc-26b-yearbook.firebasestorage.app",
+  messagingSenderId: "456073643885",
+  appId: "1:456073643885:web:8cee09be079d4b1e0ebc64"
+};
 ```
 
-For tighter rules once classroom use is done, see the talk-track.
+## Setup & Deploy
 
-## Deploy
-
-Push to `main`, Vercel auto-deploys. Preview deploys from other branches.
+1. Initialize git: `git init`
+2. Add remote: `git remote add origin https://github.com/thedalycreative/eqc-26b-yearbook-repo.git`
+3. Push to GitHub: `git push -u origin main`
+4. Deploy to Vercel: `vercel --prod`
