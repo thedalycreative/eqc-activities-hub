@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ============================================================================
+  INDEX.HTML - HOMEPAGE
+  =============================================================================
+  This is the main homepage of our Apple clone, built entirely with Bootstrap 5.
+
+  BOOTSTRAP COMPONENTS USED ON THIS PAGE:
+  - Navbar (responsive navigation)
+  - Carousel (image slideshow)
+  - Cards (product showcase)
+  - Grid System (container, row, col)
+  - Buttons & Button Variants
+  - Typography Utilities
+  - Spacing Utilities
+  - Display Utilities (d-flex, d-none, d-lg-flex)
+  - Background & Text Color Utilities
+  - Footer with Lists
+
+  DOCS: https://getbootstrap.com/docs/5.3/getting-started/introduction/
+  ============================================================================ -->
+
+<head>
+  <!-- Required meta tags for responsive design -->
+  <!-- Docs: https://getbootstrap.com/docs/5.3/getting-started/introduction/#quick-start -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Apple (AU) - Bootstrap Teaching Clone</title>
+
+  <!-- Bootstrap 5.3 CSS - This single file gives us the entire Bootstrap framework -->
+  <!-- Docs: https://getbootstrap.com/docs/5.3/getting-started/download/#cdn-via-jsdelivr -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons - Free icon library that works perfectly with Bootstrap -->
+  <!-- Docs: https://icons.getbootstrap.com/ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+  <!-- Our minimal custom CSS - only for things Bootstrap can't handle -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+    COMPONENT: Navbar (Responsive Navigation)
+    Docs: https://getbootstrap.com/docs/5.3/components/navbar/
+
+    KEY CLASSES:
+    - navbar              = Base navbar class
+    - navbar-expand-lg    = Collapses into hamburger below "lg" breakpoint (992px)
+    - bg-dark             = Dark background colour
+    - navbar-dark         = Light text for dark backgrounds (deprecated in 5.3, use data-bs-theme)
+    - data-bs-theme="dark"= Bootstrap 5.3 dark theme attribute
+    - sticky-top          = Sticks navbar to top of viewport on scroll
+
+    The navbar is the most complex Bootstrap component. It combines:
+    - Brand/logo
+    - Collapsible nav links
+    - Responsive toggler button
+    - Utility classes for alignment
+    ========================================================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark" style="background-color: rgba(29,29,31,0.9); backdrop-filter: blur(20px);">
+
+    <!-- container-fluid = Full-width container (vs "container" which has max-width breakpoints) -->
+    <!-- Docs: https://getbootstrap.com/docs/5.3/layout/containers/ -->
+    <div class="container-fluid px-4">
+
+      <!-- Navbar Brand - Usually your logo or site name -->
+      <!-- Docs: https://getbootstrap.com/docs/5.3/components/navbar/#brand -->
+      <a class="navbar-brand" href="index.html">
+        <!-- We use a small Apple logo image - sized via our custom CSS class -->
+        <img class="apple-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+          alt="Apple Logo" style="filter: invert(1);" />
+      </a>
+
+      <!-- =======================================================================
+        Navbar Links (Desktop) - Hidden on mobile, shown on large screens
+
+        KEY CLASSES:
+        - collapse            = Content that can be toggled (hidden/shown)
+        - navbar-collapse     = Specific collapse styling for navbar
+        - d-none              = display: none (hidden by default)
+        - d-lg-flex           = display: flex on large screens and up
+        - justify-content-center = Centers the nav links horizontally
+
+        Docs: https://getbootstrap.com/docs/5.3/utilities/display/
+        ======================================================================= -->
+      <div class="collapse navbar-collapse d-none d-lg-flex justify-content-center">
+
+        <!-- navbar-nav = Flex container for nav items -->
+        <!-- Docs: https://getbootstrap.com/docs/5.3/components/navbar/#nav -->
+        <ul class="navbar-nav mb-2 mb-lg-0">
+
+          <!-- Each nav-item contains a nav-link -->
+          <!-- nav-link gives proper padding and hover effects -->
+          <li class="nav-item">
+            <a class="nav-link active small" aria-current="page" href="store.html">Store</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="mac.html">Mac</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="ipad.html">iPad</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="iphone.html">iPhone</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="watch.html">Watch</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="#">Vision</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="#">AirPods</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="#">TV &amp; Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="#">Entertainment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link small" href="support.html">Support</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- =======================================================================
+        Right-side icons and hamburger toggler
+
+        KEY CLASSES:
+        - d-flex        = Flexbox container
+        - gap-3         = Gap between flex children (0.75rem)
+        - align-items-center = Vertically center items
+
+        Docs: https://getbootstrap.com/docs/5.3/utilities/flex/
+        ======================================================================= -->
+      <div class="d-flex gap-3 align-items-center">
+
+        <!-- Bootstrap Icons - Used with <i> tags and class names -->
+        <!-- Docs: https://icons.getbootstrap.com/ -->
+        <a href="#" class="text-white text-decoration-none"><i class="bi bi-search"></i></a>
+        <a href="store.html" class="text-white text-decoration-none"><i class="bi bi-bag"></i></a>
+
+        <!-- Navbar Toggler - The hamburger menu button for mobile -->
+        <!-- data-bs-toggle="collapse" tells Bootstrap JS what to toggle -->
+        <!-- data-bs-target="#mobileNav" points to the element to show/hide -->
+        <!-- Docs: https://getbootstrap.com/docs/5.3/components/navbar/#toggler -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mobileNav" aria-controls="mobileNav" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+      Mobile Navigation Menu (Collapsible)
+
+      This is the dropdown menu that appears when the hamburger is clicked.
+      It uses Bootstrap's Collapse component.
+
+      KEY CLASSES:
+      - collapse    = Hidden by default, toggled by the button above
+      - d-lg-none   = Hidden on large screens (desktop shows the inline nav)
+      - px-4        = Horizontal padding
+
+      Docs: https://getbootstrap.com/docs/5.3/components/collapse/
+      ======================================================================= -->
+    <div class="collapse d-lg-none px-4" id="mobileNav">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="store.html">Store</a></li>
+        <li class="nav-item"><a class="nav-link" href="mac.html">Mac</a></li>
+        <li class="nav-item"><a class="nav-link" href="ipad.html">iPad</a></li>
+        <li class="nav-item"><a class="nav-link" href="iphone.html">iPhone</a></li>
+        <li class="nav-item"><a class="nav-link" href="watch.html">Watch</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Vision</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">AirPods</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">TV &amp; Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Entertainment</a></li>
+        <li class="nav-item"><a class="nav-link" href="support.html">Support</a></li>
+        <!-- Divider using Bootstrap border utility -->
+        <li><hr class="border-secondary"></li>
+        <li class="nav-item"><a class="nav-link" href="components.html">Components Reference</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+    COMPONENT: Hero Section
+    Uses: Flexbox utilities, Typography, Buttons
+
+    KEY CLASSES:
+    - d-flex                  = Display flex
+    - justify-content-center  = Center content horizontally
+    - flex-column             = Stack children vertically
+    - align-items-center      = Center children horizontally (in column direction)
+    - text-center             = Center text alignment
+    - mt-5                    = Margin-top 5 (3rem)
+    - pt-5                    = Padding-top 5
+    - gap-2                   = Space between flex children
+
+    The hero section uses our custom CSS class "hero-iphone" for the
+    background image, because Bootstrap has no background-image utility.
+    Everything else is pure Bootstrap.
+
+    Docs (Flex): https://getbootstrap.com/docs/5.3/utilities/flex/
+    Docs (Spacing): https://getbootstrap.com/docs/5.3/utilities/spacing/
+    ========================================================================== -->
+  <section class="hero-iphone d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center text-center mt-5 pt-5">
+
+      <!-- Typography: Bootstrap heading classes -->
+      <!-- Docs: https://getbootstrap.com/docs/5.3/content/typography/ -->
+      <h1 class="display-4 fw-semibold">iPhone 16</h1>
+      <h3 class="fw-normal text-secondary">Meet the iPhone 16 family.</h3>
+
+      <!-- Button Group using flexbox and gap -->
+      <!-- Docs: https://getbootstrap.com/docs/5.3/components/buttons/ -->
+      <div class="d-flex gap-3 mt-3">
+        <!-- btn = Base button class -->
+        <!-- btn-primary = Blue filled button -->
+        <!-- btn-outline-primary = Blue bordered button -->
+        <!-- rounded-pill = Fully rounded corners (pill shape) -->
+        <a href="iphone.html" class="btn btn-primary rounded-pill px-4">Learn more</a>
+        <a href="store.html" class="btn btn-outline-primary rounded-pill px-4">Shop iPhone</a>
+      </div>
+
+      <!-- Small text with muted colour -->
+      <!-- text-body-secondary = Muted/secondary text colour (adapts to light/dark mode) -->
+      <p class="text-body-secondary small mt-3">Built for Apple Intelligence</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Announcement Banner using Alert
+    Docs: https://getbootstrap.com/docs/5.3/components/alerts/
+
+    KEY CLASSES:
+    - alert           = Base alert class
+    - alert-dark      = Dark-themed alert
+    - text-center     = Center the text
+    - mb-0            = No bottom margin
+    - rounded-0       = Remove border radius (square edges)
+    - py-3            = Vertical padding
+    ========================================================================== -->
+  <div class="alert alert-dark text-center mb-0 rounded-0 py-3" role="alert">
+    <!-- fw-semibold = Semi-bold font weight -->
+    Get AU$200-AU$830 off iPhone 16 when you trade in.
+    <a href="store.html" class="alert-link">Shop iPhone &rsaquo;</a>
+    <!-- alert-link = Styled link that matches the alert colour -->
+  </div>
+
+  <!-- ==========================================================================
+    SECTION: Product Grid - Using Bootstrap Cards
+    Docs (Cards): https://getbootstrap.com/docs/5.3/components/card/
+    Docs (Grid): https://getbootstrap.com/docs/5.3/layout/grid/
+
+    The Grid System is Bootstrap's most fundamental layout tool.
+    It uses a 12-column system with rows and columns.
+
+    KEY CLASSES:
+    - container     = Centered container with max-width at each breakpoint
+    - row           = Flex container for columns
+    - col-md-6      = Takes 6/12 columns (50%) on medium screens and up
+    - col-12        = Takes full width (12/12) on all screens
+    - g-3           = Gutter (gap) of 3 between grid items
+
+    Docs: https://getbootstrap.com/docs/5.3/layout/grid/
+    ========================================================================== -->
+  <section class="bg-apple-gray py-4">
+    <div class="container-fluid px-3">
+
+      <!-- row = Creates a horizontal group of columns -->
+      <!-- g-3 = Sets the gutter (spacing between columns) to 1rem -->
+      <div class="row g-3">
+
+        <!-- =================================================================
+          CARD 1: MacBook Air (Full Width)
+          col-12 = Full width on all screen sizes
+
+          Card Anatomy:
+          - card            = Base card class (border, border-radius, bg)
+          - card-body       = Padding container for card content
+          - card-title      = Styled heading
+          - card-text       = Styled paragraph
+          - card-img-top    = Image at top of card
+
+          Docs: https://getbootstrap.com/docs/5.3/components/card/
+          ================================================================= -->
+        <div class="col-12">
+          <div class="card text-center border-0 rounded-4 overflow-hidden bg-white">
+            <div class="card-body pt-5">
+              <h2 class="card-title fw-semibold">MacBook Air</h2>
+              <p class="card-text text-secondary">Lean. Mean. M4 machine.</p>
+              <div class="d-flex gap-3 justify-content-center mb-3">
+                <a href="mac.html" class="btn btn-link text-primary text-decoration-none">Learn more &rsaquo;</a>
+                <a href="store.html" class="btn btn-link text-primary text-decoration-none">Shop &rsaquo;</a>
+              </div>
+            </div>
+            <!-- card-img-bottom = Image at bottom of card -->
+            <!-- aspect-ratio + object-fit: cover crops the image to a wide hero shape -->
+            <img src="images/macbook-desk.jpg" class="card-img-bottom"
+              style="aspect-ratio: 21/9; object-fit: cover;" alt="MacBook Air on a desk">
+          </div>
+        </div>
+
+        <!-- =================================================================
+          CARDS 2 & 3: Two-Column Layout
+          col-md-6 = Half width on medium screens and up, full width on mobile
+
+          This demonstrates Bootstrap's responsive grid.
+          On mobile (<768px): each card takes full width (stacked)
+          On tablet+ (>=768px): each card takes half width (side by side)
+          ================================================================= -->
+        <div class="col-md-6">
+          <div class="card text-center border-0 rounded-4 overflow-hidden bg-white product-card">
+            <div class="card-body pt-5">
+              <h2 class="card-title fw-semibold">iPhone 16 Pro</h2>
+              <p class="card-text text-secondary">The ultimate iPhone.</p>
+              <a href="iphone.html" class="btn btn-link text-primary text-decoration-none">Learn more &rsaquo;</a>
+            </div>
+            <!-- aspect-ratio: 4/3 = landscape product showcase shape -->
+            <img src="images/iphone-pro.jpg" class="card-img-bottom"
+              style="aspect-ratio: 4/3; object-fit: cover; object-position: center;" alt="iPhone 16 Pro">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card text-center border-0 rounded-4 overflow-hidden text-white product-card"
+            style="background-color: #1d1d1f;">
+            <!-- NOTE: text-white overrides Bootstrap's default dark text for cards -->
+            <div class="card-body pt-5">
+              <h2 class="card-title fw-semibold">iPad Pro</h2>
+              <p class="card-text text-white-50">Impossibly thin. Incredibly powerful.</p>
+              <a href="ipad.html" class="btn btn-link text-primary text-decoration-none">Learn more &rsaquo;</a>
+            </div>
+            <img src="images/ipad.jpg" class="card-img-bottom"
+              style="aspect-ratio: 4/3; object-fit: cover; object-position: center;" alt="iPad Pro">
+          </div>
+        </div>
+
+        <!-- =================================================================
+          CARDS 4 & 5: Another Two-Column Row
+          This shows the grid system reused for consistent layouts
+          ================================================================= -->
+        <div class="col-md-6">
+          <div class="card text-center border-0 rounded-4 overflow-hidden bg-white product-card">
+            <div class="card-body pt-5">
+              <h2 class="card-title fw-semibold">Apple Watch Ultra 2</h2>
+              <p class="card-text text-secondary">New finish. Never quit.</p>
+              <a href="watch.html" class="btn btn-link text-primary text-decoration-none">Learn more &rsaquo;</a>
+            </div>
+            <img src="images/apple-watch-wrist.jpg" class="card-img-bottom"
+              style="aspect-ratio: 4/3; object-fit: cover; object-position: center;" alt="Apple Watch on wrist">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card text-center border-0 rounded-4 overflow-hidden bg-white product-card">
+            <div class="card-body pt-5">
+              <h2 class="card-title fw-semibold">MacBook Pro</h2>
+              <p class="card-text text-secondary">Mind-blowing. Head-turning.</p>
+              <a href="mac.html" class="btn btn-link text-primary text-decoration-none">Learn more &rsaquo;</a>
+            </div>
+            <img src="images/macbook-open.jpg" class="card-img-bottom"
+              style="aspect-ratio: 4/3; object-fit: cover; object-position: center;" alt="MacBook Pro">
+          </div>
+        </div>
+
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Carousel (Image Slideshow)
+    Docs: https://getbootstrap.com/docs/5.3/components/carousel/
+
+    The Carousel is a JavaScript-powered slideshow component.
+    It requires Bootstrap's JS bundle to work.
+
+    KEY CLASSES & ATTRIBUTES:
+    - carousel            = Base carousel class
+    - slide               = Adds CSS slide transition animation
+    - data-bs-ride="carousel" = Auto-starts the carousel on page load
+    - carousel-indicators = Dot indicators at the bottom
+    - carousel-inner      = Wrapper for slide items
+    - carousel-item       = Individual slide
+    - active              = Marks the currently visible slide
+    - carousel-caption    = Text overlay on slides
+    - carousel-control-prev/next = Arrow navigation buttons
+
+    IMPORTANT: The carousel needs:
+    1. A unique ID (used by indicators and controls to target this carousel)
+    2. At least one carousel-item with the "active" class
+    3. The Bootstrap JS bundle loaded at the bottom of the page
+    ========================================================================== -->
+  <section class="py-0">
+    <div id="tvCarousel" class="carousel slide" data-bs-ride="carousel">
+
+      <!-- Carousel Indicators (the small dots) -->
+      <!-- data-bs-target must match the carousel's ID -->
+      <!-- data-bs-slide-to specifies which slide (0-indexed) -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#tvCarousel" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#tvCarousel" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#tvCarousel" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#tvCarousel" data-bs-slide-to="3"
+          aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#tvCarousel" data-bs-slide-to="4"
+          aria-label="Slide 5"></button>
+      </div>
+
+      <!-- Carousel Slides Container -->
+      <div class="carousel-inner">
+
+        <!-- Slide 1 (Active - this slide shows first) -->
+        <div class="carousel-item active">
+          <!-- d-block = display: block (prevents image from being inline) -->
+          <!-- w-100 = width: 100% (fills the carousel width) -->
+          <img src="images/baseball.png" alt="Baseball on Apple TV+" class="d-block w-100">
+
+          <!-- Carousel Caption - Text overlay positioned on the slide -->
+          <!-- Docs: https://getbootstrap.com/docs/5.3/components/carousel/#captions -->
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100">
+            <h2 class="fw-bold display-6">Apple TV+</h2>
+            <p class="mb-3">Watch award-winning series and films.</p>
+            <a href="#" class="btn btn-light rounded-pill">Watch now</a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <img src="images/f1-movie.png" alt="F1 Movie on Apple TV+" class="d-block w-100">
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100">
+            <h2 class="fw-bold display-6">F1</h2>
+            <p class="mb-3">Coming soon to cinemas.</p>
+            <a href="#" class="btn btn-light rounded-pill">Learn more</a>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <img src="images/monarch.png" alt="Monarch on Apple TV+" class="d-block w-100">
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+          <img src="images/the-last-thing.png" alt="The Last Thing He Told Me" class="d-block w-100">
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100">
+            <h2 class="fw-bold display-6">Apple TV+</h2>
+            <p class="mb-3">Award-winning storytelling.</p>
+            <a href="#" class="btn btn-light rounded-pill">Watch now</a>
+          </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="carousel-item">
+          <img src="images/shrinking.png" alt="Shrinking on Apple TV+" class="d-block w-100">
+        </div>
+      </div>
+
+      <!-- Carousel Controls (Previous / Next arrows) -->
+      <!-- data-bs-slide="prev" / "next" tells Bootstrap which direction -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#tvCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+        <!-- visually-hidden = Hidden visually but readable by screen readers -->
+        <!-- Docs: https://getbootstrap.com/docs/5.3/helpers/visually-hidden/ -->
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#tvCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    SECTION: Quick Links / Call to Action using List Group
+    Docs: https://getbootstrap.com/docs/5.3/components/list-group/
+
+    KEY CLASSES:
+    - list-group                = Base list group container
+    - list-group-horizontal     = Horizontal layout
+    - list-group-item           = Individual list item
+    - list-group-item-action    = Adds hover effect for clickable items
+    ========================================================================== -->
+  <section class="bg-apple-gray py-5">
+    <div class="container text-center">
+      <h2 class="fw-semibold mb-3">Quick Links</h2>
+      <div class="list-group list-group-horizontal-md justify-content-center">
+        <a href="components.html" class="list-group-item list-group-item-action border-0 bg-transparent text-primary">
+          <i class="bi bi-grid me-1"></i> All Components
+        </a>
+        <a href="store.html" class="list-group-item list-group-item-action border-0 bg-transparent text-primary">
+          <i class="bi bi-bag me-1"></i> Store
+        </a>
+        <a href="support.html" class="list-group-item list-group-item-action border-0 bg-transparent text-primary">
+          <i class="bi bi-question-circle me-1"></i> Support
+        </a>
+        <a href="iphone.html" class="list-group-item list-group-item-action border-0 bg-transparent text-primary">
+          <i class="bi bi-phone me-1"></i> iPhone
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Footer
+    Uses: Grid System, Lists, Typography, Spacing, Borders
+    Docs: https://getbootstrap.com/docs/5.3/layout/grid/
+
+    Apple's footer uses a multi-column layout with link lists.
+    We achieve this with Bootstrap's grid (row/col) and list utilities.
+
+    KEY CLASSES:
+    - bg-light          = Light grey background
+    - py-5              = Vertical padding (3rem)
+    - list-unstyled     = Removes bullet points and default list padding
+    - text-decoration-none = Removes underline from links
+    - text-reset        = Resets text colour to inherit from parent
+    - small             = Smaller font size
+    - border-top        = Adds a top border
+    - text-body-secondary = Muted/secondary text colour
+
+    Docs (Text): https://getbootstrap.com/docs/5.3/utilities/text/
+    Docs (Borders): https://getbootstrap.com/docs/5.3/utilities/borders/
+    ========================================================================== -->
+  <footer class="bg-light py-5">
+    <div class="container">
+
+      <!-- Small disclaimer text like Apple's real footer -->
+      <p class="small text-body-secondary border-bottom pb-3">
+        * Trade-in values vary based on condition, year and configuration of your trade-in device.
+        This is a Bootstrap teaching project, not affiliated with Apple Inc.
+      </p>
+
+      <!-- Footer Link Columns using Bootstrap Grid -->
+      <div class="row mt-3">
+
+        <!-- Column 1: Shop and Learn -->
+        <!-- col-6 = Half width on mobile -->
+        <!-- col-md-2 = 2/12 width on medium+ screens -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Shop and Learn</h6>
+          <ul class="list-unstyled small">
+            <li><a href="store.html" class="text-decoration-none text-body-secondary">Store</a></li>
+            <li><a href="mac.html" class="text-decoration-none text-body-secondary">Mac</a></li>
+            <li><a href="ipad.html" class="text-decoration-none text-body-secondary">iPad</a></li>
+            <li><a href="iphone.html" class="text-decoration-none text-body-secondary">iPhone</a></li>
+            <li><a href="watch.html" class="text-decoration-none text-body-secondary">Watch</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">AirPods</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">TV &amp; Home</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: Services -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Services</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple Music</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple TV+</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple Arcade</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">iCloud</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple One</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple Card</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Account -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Account</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-decoration-none text-body-secondary">Manage Your Apple ID</a></li>
+            <li><a href="store.html" class="text-decoration-none text-body-secondary">Apple Store Account</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">iCloud.com</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Apple Values -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Apple Values</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-decoration-none text-body-secondary">Accessibility</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Environment</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Privacy</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Supply Chain</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 5: About Apple -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">About Apple</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#" class="text-decoration-none text-body-secondary">Newsroom</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Apple Leadership</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Investors</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Ethics</a></li>
+            <li><a href="#" class="text-decoration-none text-body-secondary">Contact Apple</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 6: Learning Project -->
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Learning Pages</h6>
+          <ul class="list-unstyled small">
+            <li><a href="components.html" class="text-decoration-none text-body-secondary">All Components</a></li>
+            <li><a href="support.html" class="text-decoration-none text-body-secondary">Support (FAQ)</a></li>
+            <li><a href="store.html" class="text-decoration-none text-body-secondary">Store (Forms)</a></li>
+          </ul>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- Footer Bottom Bar -->
+      <!-- border-top = Adds a line above this section -->
+      <div class="border-top pt-3 mt-3">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <!-- text-body-secondary = Muted text -->
+            <p class="small text-body-secondary mb-0">
+              &copy; 2025 Bootstrap Teaching Clone. Not affiliated with Apple Inc.
+            </p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="#" class="small text-decoration-none text-body-secondary me-3">Privacy Policy</a>
+            <a href="#" class="small text-decoration-none text-body-secondary me-3">Terms of Use</a>
+            <a href="#" class="small text-decoration-none text-body-secondary">Site Map</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </footer>
+
+  <!-- ==========================================================================
+    Bootstrap JavaScript Bundle
+    This MUST be included for interactive components to work:
+    - Carousel, Collapse (navbar toggler), Modals, Dropdowns, Tooltips, etc.
+
+    The "bundle" version includes Popper.js (needed for dropdowns/tooltips).
+    Place it just before </body> so the page content loads first.
+
+    Docs: https://getbootstrap.com/docs/5.3/getting-started/introduction/#js
+    ========================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

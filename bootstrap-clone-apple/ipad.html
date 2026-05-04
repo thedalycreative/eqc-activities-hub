@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ============================================================================
+  IPAD.HTML - iPad Product Page
+  =============================================================================
+  BOOTSTRAP COMPONENTS TAUGHT ON THIS PAGE:
+  - Nav Tabs & Pills (tabbed navigation)
+  - Tab Content / Panes (content that switches with tabs)
+  - Accordion (collapsible content panels)
+  - Progress Bars (visual progress indicators)
+  - Collapse (show/hide content)
+  - Navs & Navs: Vertical (sidebar-style navigation)
+  - Card with Image Overlay
+
+  Each component has a comment block explaining what it does and linking
+  to the official Bootstrap documentation.
+  ============================================================================ -->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>iPad - Bootstrap Teaching Clone</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar navbar-expand-lg sticky-top" data-bs-theme="dark"
+    style="background-color: rgba(29,29,31,0.9); backdrop-filter: blur(20px);">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="index.html">
+        <img class="apple-logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+          alt="Apple Logo" style="filter: invert(1);" />
+      </a>
+      <div class="collapse navbar-collapse d-none d-lg-flex justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link small" href="store.html">Store</a></li>
+          <li class="nav-item"><a class="nav-link small" href="mac.html">Mac</a></li>
+          <li class="nav-item"><a class="nav-link active small" href="ipad.html">iPad</a></li>
+          <li class="nav-item"><a class="nav-link small" href="iphone.html">iPhone</a></li>
+          <li class="nav-item"><a class="nav-link small" href="watch.html">Watch</a></li>
+          <li class="nav-item"><a class="nav-link small" href="#">AirPods</a></li>
+          <li class="nav-item"><a class="nav-link small" href="support.html">Support</a></li>
+        </ul>
+      </div>
+      <div class="d-flex gap-3 align-items-center">
+        <a href="#" class="text-white text-decoration-none"><i class="bi bi-search"></i></a>
+        <a href="store.html" class="text-white text-decoration-none"><i class="bi bi-bag"></i></a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mobileNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+    <div class="collapse d-lg-none px-4" id="mobileNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="store.html">Store</a></li>
+        <li class="nav-item"><a class="nav-link" href="mac.html">Mac</a></li>
+        <li class="nav-item"><a class="nav-link" href="ipad.html">iPad</a></li>
+        <li class="nav-item"><a class="nav-link" href="iphone.html">iPhone</a></li>
+        <li class="nav-item"><a class="nav-link" href="watch.html">Watch</a></li>
+        <li class="nav-item"><a class="nav-link" href="support.html">Support</a></li>
+        <li>
+          <hr class="border-secondary">
+        </li>
+        <li class="nav-item"><a class="nav-link" href="components.html">Components Reference</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="bg-light py-2">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 small">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">iPad</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-ipad text-center py-5">
+    <div class="container py-5">
+      <h1 class="display-2 fw-bold">iPad</h1>
+      <p class="lead text-secondary">Touch, draw, and type. Like nothing else.</p>
+      <a href="store.html" class="btn btn-dark rounded-pill px-4 mt-3">Shop iPad</a>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Nav Tabs (Tabbed Navigation)
+    Docs: https://getbootstrap.com/docs/5.3/components/navs-tabs/
+
+    Tabs let users switch between different views/content without leaving
+    the page. They combine Nav Tabs (the clickable tabs) with Tab Panes
+    (the content that shows/hides).
+
+    HOW IT WORKS:
+    1. Create nav tabs with data-bs-toggle="tab"
+    2. Each tab button has a data-bs-target="#paneId"
+    3. Create tab-pane elements with matching IDs
+    4. The "active" class marks the default tab and pane
+
+    KEY CLASSES (Tabs):
+    - nav                 = Base nav class
+    - nav-tabs            = Tab-style navigation (with underline)
+    - nav-pills           = Pill-style navigation (with background fill)
+    - nav-link            = Individual tab/pill button
+    - nav-justified       = Equal-width tabs that fill the container
+    - active              = Currently selected tab
+
+    KEY CLASSES (Panes):
+    - tab-content         = Container for all tab panes
+    - tab-pane            = Individual pane (content area)
+    - fade                = Fade transition effect
+    - show                = Makes the pane visible
+    - active              = Currently visible pane
+
+    IMPORTANT: The "active" and "show" classes must be on both the
+    nav-link AND its corresponding tab-pane for the default tab.
+    ========================================================================== -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-2">iPad Models</h2>
+      <p class="text-body-secondary mb-4">
+        Uses Nav Tabs to switch between content. Docs:
+        <a href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs" target="_blank">Nav Tabs</a>
+      </p>
+
+      <!-- Nav Tabs (the clickable tab buttons) -->
+      <!-- nav-tabs = Underlined tab style -->
+      <!-- nav-justified = Each tab takes equal width -->
+      <ul class="nav nav-tabs nav-justified mb-4" id="iPadTabs" role="tablist">
+
+        <!-- Tab 1 (Active by default) -->
+        <li class="nav-item" role="presentation">
+          <!-- data-bs-toggle="tab" = Tells Bootstrap this is a tab trigger -->
+          <!-- data-bs-target="#pro" = Points to the tab pane with id="pro" -->
+          <!-- aria-selected="true" = Accessibility: this tab is selected -->
+          <button class="nav-link active" id="pro-tab" data-bs-toggle="tab" data-bs-target="#pro" type="button"
+            role="tab" aria-controls="pro" aria-selected="true">
+            iPad Pro
+          </button>
+        </li>
+
+        <!-- Tab 2 -->
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="air-tab" data-bs-toggle="tab" data-bs-target="#air" type="button" role="tab"
+            aria-controls="air" aria-selected="false">
+            iPad Air
+          </button>
+        </li>
+
+        <!-- Tab 3 -->
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="base-tab" data-bs-toggle="tab" data-bs-target="#base" type="button" role="tab"
+            aria-controls="base" aria-selected="false">
+            iPad
+          </button>
+        </li>
+
+        <!-- Tab 4 -->
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="mini-tab" data-bs-toggle="tab" data-bs-target="#mini" type="button" role="tab"
+            aria-controls="mini" aria-selected="false">
+            iPad mini
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content (the panes that show/hide) -->
+      <!-- tab-content = Container for all panes -->
+      <div class="tab-content" id="iPadTabContent">
+
+        <!-- Tab Pane 1 (Active by default) -->
+        <!-- tab-pane = Individual content area -->
+        <!-- fade = Enables fade animation -->
+        <!-- show active = This pane is visible by default -->
+        <div class="tab-pane fade show active" id="pro" role="tabpanel" aria-labelledby="pro-tab">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h3 class="fw-semibold">iPad Pro</h3>
+              <p class="lead">The ultimate iPad experience.</p>
+              <p class="text-secondary">Impossibly thin. Incredibly powerful. The M4 chip makes iPad Pro the
+                most advanced iPad ever. With a stunning display and all-day battery life.</p>
+              <p class="fw-semibold fs-5">From A$1,799</p>
+              <a href="store.html" class="btn btn-dark rounded-pill px-4">Buy</a>
+            </div>
+            <div class="col-md-6 text-center">
+              <img src="/images/imperfectwomen copy.png" class="img-fluid rounded-4" alt="iPad Pro">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane 2 -->
+        <div class="tab-pane fade" id="air" role="tabpanel" aria-labelledby="air-tab">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h3 class="fw-semibold">iPad Air</h3>
+              <p class="lead">Supercharged by M3.</p>
+              <p class="text-secondary">Fresh new colours, the powerful M3 chip,
+                and a brilliant Liquid Retina display.</p>
+              <p class="fw-semibold fs-5">From A$999</p>
+              <a href="store.html" class="btn btn-dark rounded-pill px-4">Buy</a>
+            </div>
+            <div class="col-md-6 text-center">
+              <img src="images/ipad-keyboard.jpg" class="img-fluid rounded-4" style="aspect-ratio: 4/3; object-fit: cover; width: 100%;"
+                alt="iPad Air">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane 3 -->
+        <div class="tab-pane fade" id="base" role="tabpanel" aria-labelledby="base-tab">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h3 class="fw-semibold">iPad</h3>
+              <p class="lead">Lovable. Drawable. Magical.</p>
+              <p class="text-secondary">The colourful, all-screen iPad designed
+                for the things you do every day.</p>
+              <p class="fw-semibold fs-5">From A$599</p>
+              <a href="store.html" class="btn btn-dark rounded-pill px-4">Buy</a>
+            </div>
+            <div class="col-md-6 text-center">
+              <img src="images/tech-3.jpg" class="img-fluid rounded-4" style="aspect-ratio: 4/3; object-fit: cover; width: 100%;"
+                alt="iPad">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Pane 4 -->
+        <div class="tab-pane fade" id="mini" role="tabpanel" aria-labelledby="mini-tab">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h3 class="fw-semibold">iPad mini</h3>
+              <p class="lead">Small in size. Big on capability.</p>
+              <p class="text-secondary">The most portable iPad with an edge-to-edge display
+                and the A17 Pro chip.</p>
+              <p class="fw-semibold fs-5">From A$799</p>
+              <a href="store.html" class="btn btn-dark rounded-pill px-4">Buy</a>
+            </div>
+            <div class="col-md-6 text-center">
+              <img src="images/tech-4.jpg" class="img-fluid rounded-4" style="aspect-ratio: 4/3; object-fit: cover; width: 100%;"
+                alt="iPad mini">
+            </div>
+          </div>
+        </div>
+      </div><!-- /tab-content -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Nav Pills (Alternative Tab Style)
+    Docs: https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills
+
+    Pills are an alternative to tabs - they use filled backgrounds
+    instead of underlines. Everything else works the same way.
+
+    KEY CLASS:
+    - nav-pills = Pill-style (filled background) instead of underlined tabs
+
+    You can also use nav-pills with nav-fill or nav-justified for equal widths.
+    ========================================================================== -->
+  <section class="bg-apple-gray py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-2">iPad Accessories</h2>
+      <p class="text-body-secondary mb-4">
+        Uses Nav Pills (filled background style). Docs:
+        <a href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills" target="_blank">Nav Pills</a>
+      </p>
+
+      <!-- nav-pills = Pill-style tabs (background fill instead of underline) -->
+      <!-- nav-fill = Each pill takes proportional width based on content -->
+      <ul class="nav nav-pills nav-fill mb-4" id="accessoryPills" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pencil" type="button" role="tab">Apple
+            Pencil</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#keyboard" type="button" role="tab">Magic
+            Keyboard</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cases" type="button" role="tab">Cases</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="pencil" role="tabpanel">
+          <div class="card border-0 rounded-4 shadow-sm">
+            <div class="card-body p-4">
+              <h4>Apple Pencil Pro</h4>
+              <p class="text-secondary">Pixel-perfect precision and industry-leading low latency.
+                Now with squeeze, barrel roll, and haptic feedback.</p>
+              <span class="badge text-bg-success">In Stock</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="keyboard" role="tabpanel">
+          <div class="card border-0 rounded-4 shadow-sm">
+            <div class="card-body p-4">
+              <h4>Magic Keyboard for iPad Pro</h4>
+              <p class="text-secondary">The best typing experience on iPad. With trackpad,
+                USB-C charging, and function row.</p>
+              <span class="badge text-bg-warning">Limited Stock</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="cases" role="tabpanel">
+          <div class="card border-0 rounded-4 shadow-sm">
+            <div class="card-body p-4">
+              <h4>Smart Folio</h4>
+              <p class="text-secondary">Thin and light protection that automatically wakes
+                and sleeps your iPad.</p>
+              <span class="badge text-bg-info">New Colours</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Accordion (Collapsible Content Panels)
+    Docs: https://getbootstrap.com/docs/5.3/components/accordion/
+
+    Accordions show collapsible content panels for presenting information
+    in a limited space. Only one panel is open at a time (by default).
+
+    KEY CLASSES & ATTRIBUTES:
+    - accordion           = Base accordion container
+    - accordion-item      = Individual panel
+    - accordion-header    = Header area (contains the button)
+    - accordion-button    = Clickable header button (includes arrow icon)
+    - accordion-collapse  = The collapsible body wrapper
+    - accordion-body      = Content area
+
+    KEY ATTRIBUTES:
+    - data-bs-toggle="collapse" = Makes the button toggle its panel
+    - data-bs-target="#id"      = Which panel to toggle
+    - data-bs-parent="#id"      = Close other panels when one opens
+
+    NOTE: If you want multiple panels open at once, remove data-bs-parent.
+    ========================================================================== -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-2">iPad Specifications</h2>
+      <p class="text-body-secondary mb-4">
+        Uses the Accordion component. Docs:
+        <a href="https://getbootstrap.com/docs/5.3/components/accordion/" target="_blank">Accordion</a>
+      </p>
+
+      <!-- accordion = Container for all accordion items -->
+      <div class="accordion" id="specsAccordion">
+
+        <!-- Accordion Item 1 (Open by default) -->
+        <div class="accordion-item">
+          <!-- accordion-header = The clickable header -->
+          <h2 class="accordion-header">
+            <!-- accordion-button = Styled button with arrow indicator -->
+            <!-- NOT "collapsed" = This item starts OPEN -->
+            <!-- data-bs-toggle="collapse" = Toggle functionality -->
+            <!-- data-bs-target="#collapseDisplay" = Which panel to toggle -->
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDisplay"
+              aria-expanded="true" aria-controls="collapseDisplay">
+              <i class="bi bi-display me-2"></i> Display
+            </button>
+          </h2>
+          <!-- accordion-collapse = The collapsible wrapper -->
+          <!-- show = This panel starts visible (matches the button not being "collapsed") -->
+          <!-- data-bs-parent="#specsAccordion" = Close this when another opens -->
+          <div id="collapseDisplay" class="accordion-collapse collapse show" data-bs-parent="#specsAccordion">
+            <!-- accordion-body = The content area -->
+            <div class="accordion-body">
+              <strong>13-inch or 11-inch Ultra Retina XDR display.</strong>
+              Featuring ProMotion technology with adaptive refresh rates up to 120Hz,
+              P3 wide colour, and nano-texture display glass option.
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 2 (Closed by default) -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <!-- "collapsed" class = This item starts CLOSED -->
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseChip" aria-expanded="false" aria-controls="collapseChip">
+              <i class="bi bi-cpu me-2"></i> Chip
+            </button>
+          </h2>
+          <!-- No "show" class = This panel starts hidden -->
+          <div id="collapseChip" class="accordion-collapse collapse" data-bs-parent="#specsAccordion">
+            <div class="accordion-body">
+              <strong>Apple M4 chip.</strong>
+              9-core CPU with 3 performance and 6 efficiency cores.
+              10-core GPU. 16-core Neural Engine.
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseCamera" aria-expanded="false" aria-controls="collapseCamera">
+              <i class="bi bi-camera me-2"></i> Camera
+            </button>
+          </h2>
+          <div id="collapseCamera" class="accordion-collapse collapse" data-bs-parent="#specsAccordion">
+            <div class="accordion-body">
+              <strong>12MP Wide camera.</strong> Adaptive True Tone flash.
+              12MP Ultra Wide front camera with Centre Stage.
+              4K video recording, ProRes video, and Slow-mo support.
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseBattery" aria-expanded="false" aria-controls="collapseBattery">
+              <i class="bi bi-battery-full me-2"></i> Battery
+            </button>
+          </h2>
+          <div id="collapseBattery" class="accordion-collapse collapse" data-bs-parent="#specsAccordion">
+            <div class="accordion-body">
+              <strong>Up to 10 hours</strong> of web browsing on Wi-Fi.
+              Built-in 36.7-watt-hour lithium-polymer battery.
+              USB-C connector for charging.
+            </div>
+          </div>
+        </div>
+      </div><!-- /accordion -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Progress Bars
+    Docs: https://getbootstrap.com/docs/5.3/components/progress/
+
+    Progress bars display progress visually. They can show determinate
+    progress (like a download) or be used decoratively.
+
+    KEY CLASSES:
+    - progress            = Outer container (the track/background)
+    - progress-bar        = Inner bar (the filled portion)
+    - progress-stacked    = Container for stacked/segmented bars
+    - progress-bar-striped    = Adds diagonal stripes
+    - progress-bar-animated   = Animates the stripes
+
+    KEY ATTRIBUTES:
+    - style="width: 75%"  = Sets how much of the bar is filled
+    - aria-valuenow="75"  = Accessibility: current value
+    - aria-valuemin="0"   = Accessibility: minimum value
+    - aria-valuemax="100" = Accessibility: maximum value
+
+    COLOUR: Use bg-* classes on the progress-bar (bg-success, bg-danger, etc.)
+    ========================================================================== -->
+  <section class="bg-apple-gray py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-2">Performance Benchmarks</h2>
+      <p class="text-body-secondary mb-4">
+        Uses Progress Bars. Docs:
+        <a href="https://getbootstrap.com/docs/5.3/components/progress/" target="_blank">Progress Bars</a>
+      </p>
+
+      <!-- Basic Progress Bar -->
+      <h5 class="mb-2">CPU Performance</h5>
+      <p class="small text-body-secondary mb-1">iPad Pro M4 vs previous models</p>
+
+      <!-- progress = The outer track -->
+      <div class="progress mb-3" role="progressbar" aria-label="CPU M4" aria-valuenow="100" aria-valuemin="0"
+        aria-valuemax="100" style="height: 25px;">
+        <!-- progress-bar = The filled portion. Width sets how full it is. -->
+        <div class="progress-bar bg-primary" style="width: 100%;">M4 - 100%</div>
+      </div>
+
+      <div class="progress mb-3" role="progressbar" aria-label="CPU M2" aria-valuenow="75" aria-valuemin="0"
+        aria-valuemax="100" style="height: 25px;">
+        <div class="progress-bar bg-info" style="width: 75%;">M2 - 75%</div>
+      </div>
+
+      <div class="progress mb-4" role="progressbar" aria-label="CPU M1" aria-valuenow="55" aria-valuemin="0"
+        aria-valuemax="100" style="height: 25px;">
+        <div class="progress-bar bg-secondary" style="width: 55%;">M1 - 55%</div>
+      </div>
+
+      <!-- Striped & Animated Progress Bar -->
+      <h5 class="mb-2">Storage Used</h5>
+      <p class="small text-body-secondary mb-1">
+        <code>progress-bar-striped progress-bar-animated</code> adds animated stripes
+      </p>
+
+      <div class="progress mb-4" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"
+        style="height: 30px;">
+        <!-- progress-bar-striped = Diagonal stripe pattern -->
+        <!-- progress-bar-animated = Animates the stripes (moving effect) -->
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width: 68%;">
+          68% Used
+        </div>
+      </div>
+
+      <!-- Stacked/Segmented Progress Bar -->
+      <h5 class="mb-2">Storage Breakdown</h5>
+      <p class="small text-body-secondary mb-1">
+        <code>progress-stacked</code> shows multiple segments in one bar
+      </p>
+
+      <!-- progress-stacked = Multiple bars side by side -->
+      <div class="progress-stacked" style="height: 30px;">
+        <div class="progress" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"
+          style="width: 35%">
+          <div class="progress-bar bg-primary">Apps 35%</div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+          style="width: 20%">
+          <div class="progress-bar bg-success">Photos 20%</div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
+          style="width: 15%">
+          <div class="progress-bar bg-info">Other 15%</div>
+        </div>
+        <div class="progress" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+          style="width: 30%">
+          <div class="progress-bar bg-light text-dark">Free 30%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Collapse (Show/Hide Content)
+    Docs: https://getbootstrap.com/docs/5.3/components/collapse/
+
+    Collapse toggles the visibility of content. It's the foundation
+    behind accordions and the navbar toggler, but can be used standalone.
+
+    KEY ATTRIBUTES:
+    - data-bs-toggle="collapse" = Makes a button toggle content
+    - data-bs-target="#id"      = Which element to show/hide
+    - href="#id"                = Alternative to data-bs-target (for <a> tags)
+
+    KEY CLASSES:
+    - collapse       = Hidden by default
+    - show           = Start visible
+    - collapsing     = Applied during the animation (Bootstrap handles this)
+
+    TIP: You can toggle multiple elements at once by targeting a class
+    instead of an ID, or by having multiple data-bs-target values.
+    ========================================================================== -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-2">More iPad Details</h2>
+      <p class="text-body-secondary mb-4">
+        Uses Collapse to show/hide content. Docs:
+        <a href="https://getbootstrap.com/docs/5.3/components/collapse/" target="_blank">Collapse</a>
+      </p>
+
+      <!-- Toggle Button -->
+      <!-- data-bs-toggle="collapse" tells Bootstrap to toggle the target -->
+      <!-- data-bs-target="#collapseDetails" points to the content to toggle -->
+      <button class="btn btn-outline-dark mb-3" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+        <i class="bi bi-chevron-down me-1"></i> Show iPad comparison details
+      </button>
+
+      <!-- Collapsible Content -->
+      <!-- collapse = Hidden by default. Adding "show" class would start it visible -->
+      <div class="collapse" id="collapseDetails">
+        <div class="card card-body border-0 rounded-4 bg-light">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <i class="bi bi-phone display-4 text-primary"></i>
+              <h5 class="mt-2">iPad Pro</h5>
+              <p class="small text-secondary">M4 chip, XDR display, Face ID</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <i class="bi bi-tablet display-4 text-info"></i>
+              <h5 class="mt-2">iPad Air</h5>
+              <p class="small text-secondary">M3 chip, Liquid Retina, Touch ID</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <i class="bi bi-tablet-landscape display-4 text-success"></i>
+              <h5 class="mt-2">iPad</h5>
+              <p class="small text-secondary">A14 chip, Liquid Retina, Touch ID</p>
+            </div>
+            <div class="col-md-3 text-center">
+              <i class="bi bi-phone-landscape display-4 text-warning"></i>
+              <h5 class="mt-2">iPad mini</h5>
+              <p class="small text-secondary">A17 Pro, 8.3" display, Touch ID</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+    COMPONENT: Card with Image Overlay
+    Docs: https://getbootstrap.com/docs/5.3/components/card/#image-overlays
+
+    Image overlays place card content ON TOP of the image, creating
+    a visually striking hero-style card.
+
+    KEY CLASSES:
+    - card-img-overlay = Positions content over the card image
+    - card-img         = Full-bleed image (no border radius on specific corners)
+    - text-white       = White text (usually needed for readability over images)
+
+    IMPORTANT: Ensure the image is dark enough or use a text-shadow
+    so the overlaid text remains readable.
+    ========================================================================== -->
+  <section class="bg-apple-gray py-5">
+    <div class="container">
+      <h2 class="fw-semibold mb-4">Featured</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card text-white rounded-4 overflow-hidden border-0">
+            <!-- card-img = The background image -->
+            <img src="images/ios-icons.jpg" class="card-img" style="aspect-ratio: 16/9; object-fit: cover;" alt="iPadOS">
+            <!-- card-img-overlay = Content positioned OVER the image -->
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+              <h3 class="card-title fw-bold">iPadOS 18</h3>
+              <p class="card-text">More ways to customise. More capability. More intelligence.</p>
+              <a href="#" class="btn btn-outline-light rounded-pill" style="width: fit-content;">Learn more</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card text-white rounded-4 overflow-hidden border-0">
+            <img src="images/ipad-keyboard.jpg" class="card-img" style="aspect-ratio: 16/9; object-fit: cover; object-position: center;" alt="Apple Pencil">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-4">
+              <h3 class="card-title fw-bold">Apple Pencil Pro</h3>
+              <p class="card-text">Squeeze, roll, and create like never before.</p>
+              <a href="store.html" class="btn btn-outline-light rounded-pill" style="width: fit-content;">Shop</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation links -->
+  <section class="py-4">
+    <div class="container text-center">
+      <p class="text-body-secondary">
+        <a href="mac.html" class="text-decoration-none">&lsaquo; Previous: Mac</a> |
+        <a href="watch.html" class="text-decoration-none">Next: Watch &rsaquo;</a> |
+        <a href="components.html" class="text-decoration-none">All Components</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Shop and Learn</h6>
+          <ul class="list-unstyled small">
+            <li><a href="store.html" class="text-decoration-none text-body-secondary">Store</a></li>
+            <li><a href="mac.html" class="text-decoration-none text-body-secondary">Mac</a></li>
+            <li><a href="ipad.html" class="text-decoration-none text-body-secondary">iPad</a></li>
+            <li><a href="iphone.html" class="text-decoration-none text-body-secondary">iPhone</a></li>
+            <li><a href="watch.html" class="text-decoration-none text-body-secondary">Watch</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold small">Learning Pages</h6>
+          <ul class="list-unstyled small">
+            <li><a href="components.html" class="text-decoration-none text-body-secondary">All Components</a></li>
+            <li><a href="support.html" class="text-decoration-none text-body-secondary">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-top pt-3 mt-3">
+        <p class="small text-body-secondary mb-0">&copy; 2025 Bootstrap Teaching Clone.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
