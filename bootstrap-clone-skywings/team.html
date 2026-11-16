@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Team - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/images/Skywing icon only.png" type="image/png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item active" aria-current="page" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item"><a href="about.html" class="text-light opacity-75">About</a></li>
+            <li class="breadcrumb-item text-white active">Our Team</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Meet the Team</h2>
+      </div>
+    </header>
+    <!-- End Navbar + Page Header -->
+
+
+    <!-- ======= TEAM CONTENT ======= -->
+    <!-- Bootstrap: Grid, Cards (circular image), Social icons, Badges -->
+
+    <main class="container my-5">
+
+      <!-- Intro -->
+      <div class="text-center mb-5">
+        <p class="lead">The passionate people behind SKYWINGS — dedicated to creating unforgettable travel experiences.</p>
+      </div>
+
+
+      <!-- ======= LEADERSHIP TEAM ======= -->
+      <h3 class="text-center mb-4">Leadership</h3>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+
+        <!-- Team member: John -->
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <!-- Circular team photo using .member class from styles.css -->
+              <div class="member mx-auto mb-3">
+                <img src="/images/John Doe.jpg" alt="John Doe" />
+              </div>
+              <h5 class="card-title fw-bold">John Doe</h5>
+              <span class="badge text-bg-secondary mb-2">Chief Executive Officer</span>
+              <p class="card-text text-muted small">John has 20 years of experience in luxury travel and hospitality. He founded SKYWINGS with a vision to make premium resort experiences accessible to everyone.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-twitter text-info fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team member: Jane -->
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Jane Smith.jpg" alt="Jane Smith" />
+              </div>
+              <h5 class="card-title fw-bold">Jane Smith</h5>
+              <span class="badge text-bg-secondary mb-2">Chief Operations Officer</span>
+              <p class="card-text text-muted small">Jane oversees all daily operations across our global resort partnerships. With a background in international hospitality management, she ensures every guest experience exceeds expectations.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-twitter text-info fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team member: Michael -->
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Michael Johnson.jpg" alt="Michael Johnson" />
+              </div>
+              <h5 class="card-title fw-bold">Michael Johnson</h5>
+              <span class="badge text-bg-secondary mb-2">Head of Partnerships</span>
+              <p class="card-text text-muted small">Michael manages our network of resort and airline partnerships worldwide. He has negotiated over 200 exclusive deals that deliver exceptional value to SKYWINGS clients.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-twitter text-info fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Leadership -->
+
+
+      <!-- ======= TRAVEL CONSULTANTS ======= -->
+      <h3 class="text-center mb-4">Travel Consultants</h3>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem1.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Sophie Williams</h5>
+              <span class="badge text-bg-success mb-2">Maldives Specialist</span>
+              <p class="card-text text-muted small">Sophie has personally visited over 30 Maldivian resorts. She is the go-to consultant for overwater villa bookings and honeymoon packages.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem2.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Daniel Park</h5>
+              <span class="badge text-bg-success mb-2">Asia Pacific Specialist</span>
+              <p class="card-text text-muted small">Daniel specialises in Asia Pacific destinations including Singapore, Bali, and Japan. Fluent in English, Korean, and Mandarin.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem3.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Anika Patel</h5>
+              <span class="badge text-bg-success mb-2">Events Coordinator</span>
+              <p class="card-text text-muted small">Anika brings 10 years of wedding and corporate event planning to the team. She turns resort experiences into memories that last a lifetime.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem4.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Tom Nguyen</h5>
+              <span class="badge text-bg-success mb-2">Australia & NZ Specialist</span>
+              <p class="card-text text-muted small">Tom is an Aussie local with expert knowledge of the best resorts from the Gold Coast to the Great Barrier Reef and beyond.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem5.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Lena Kovac</h5>
+              <span class="badge text-bg-success mb-2">European Destinations</span>
+              <p class="card-text text-muted small">Lena covers Europe and the Caribbean, specialising in boutique hotels and adults-only retreats for discerning travellers.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 text-center shadow team-member">
+            <div class="card-body pt-4">
+              <div class="member mx-auto mb-3">
+                <img src="/images/Team mem6.jpg" alt="Team Member" />
+              </div>
+              <h5 class="card-title fw-bold">Marcus Bell</h5>
+              <span class="badge text-bg-success mb-2">Corporate Travel Manager</span>
+              <p class="card-text text-muted small">Marcus handles corporate accounts and group bookings. From executive retreats to incentive travel, he delivers seamless end-to-end service.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="404.html"><i class="bi bi-linkedin text-primary fs-5 me-2"></i></a>
+              <a href="404.html"><i class="bi bi-envelope-fill text-secondary fs-5"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Consultants -->
+
+
+      <!-- Join the team CTA -->
+      <div class="container-fluid cardpink rounded-3 p-5 text-center">
+        <h4 class="cardheading mb-3">Want to join the SKYWINGS team?</h4>
+        <p class="mb-4">We're always looking for passionate travel professionals. Send us your CV and let's talk.</p>
+        <a href="contact.html" class="btn btn-outline btn-lg px-5">
+          <i class="bi bi-send-fill me-2"></i> Get in Touch
+        </a>
+      </div>
+
+    </main>
+    <!-- End Team Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailTeam" class="visually-hidden">Email Address</label>
+                <input id="emailTeam" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

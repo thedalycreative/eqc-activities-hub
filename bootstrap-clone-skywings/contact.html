@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Us - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/images/Skywing icon only.png" type="image/png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item text-white active">Contact</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Get In Touch</h2>
+      </div>
+    </header>
+    <!-- End Navbar + Page Header -->
+
+
+    <!-- ======= CONTACT CONTENT ======= -->
+
+    <main class="container my-5">
+
+      <!-- ======= CONTACT INFO CARDS ======= -->
+      <!-- Bootstrap: 3-column grid, Cards, Bootstrap Icons -->
+
+      <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm text-center p-4">
+            <div class="card-body">
+              <i class="bi bi-telephone-fill fs-2 mb-3" style="color: var(--corePink);"></i>
+              <h5 class="card-title fw-bold">Phone</h5>
+              <p class="card-text text-muted">Mon–Fri: 9am – 6pm<br />Sat–Sun: 10am – 4pm</p>
+              <a href="tel:+61299998888" class="btn btn-sm btn-outline">+61 2 9999 8888</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm text-center p-4">
+            <div class="card-body">
+              <i class="bi bi-envelope-fill fs-2 mb-3" style="color: var(--corePink);"></i>
+              <h5 class="card-title fw-bold">Email</h5>
+              <p class="card-text text-muted">We respond to all enquiries within 24 hours.</p>
+              <a href="mailto:hello@skywings.com" class="btn btn-sm btn-outline">hello@skywings.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 border-0 shadow-sm text-center p-4">
+            <div class="card-body">
+              <i class="bi bi-geo-alt-fill fs-2 mb-3" style="color: var(--corePink);"></i>
+              <h5 class="card-title fw-bold">Visit Us</h5>
+              <p class="card-text text-muted">Level 12, 333 George Street<br />Sydney NSW 2000, Australia</p>
+              <a href="404.html" class="btn btn-sm btn-outline">Get Directions</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Contact Info Cards -->
+
+
+      <!-- ======= CONTACT FORM ======= -->
+      <!-- Bootstrap: Form (form-label, form-control, form-select, form-check, input-group) -->
+
+      <div class="row g-5">
+
+        <!-- Form column -->
+        <div class="col-lg-7">
+          <h3 class="cardheading mb-4">Send us a message</h3>
+
+          <form>
+
+            <!-- Name row: two inputs side by side on medium+ -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Jane" required />
+              </div>
+              <div class="col-md-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="contactEmail" class="form-label">Email address</label>
+              <!-- input-group adds the icon prefix to the input -->
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                <input type="email" class="form-control" id="contactEmail" placeholder="jane@example.com" required />
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+              <label for="contactPhone" class="form-label">Phone <span class="text-muted">(optional)</span></label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                <input type="tel" class="form-control" id="contactPhone" placeholder="+61 4xx xxx xxx" />
+              </div>
+            </div>
+
+            <!-- Enquiry type: dropdown (form-select) -->
+            <div class="mb-3">
+              <label for="enquiryType" class="form-label">Type of Enquiry</label>
+              <select class="form-select" id="enquiryType">
+                <option value="" selected>Select an option...</option>
+                <option value="resort">Resort Booking</option>
+                <option value="package">Travel Package</option>
+                <option value="event">Event / Wedding</option>
+                <option value="corporate">Corporate Travel</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <!-- Destination -->
+            <div class="mb-3">
+              <label for="destination" class="form-label">Preferred Destination</label>
+              <input type="text" class="form-control" id="destination" placeholder="e.g. Maldives, Dubai, Hawaii..." />
+            </div>
+
+            <!-- Message: textarea -->
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your dream trip..."></textarea>
+            </div>
+
+            <!-- Checkbox: form-check -->
+            <div class="mb-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletter" />
+                <label class="form-check-label" for="newsletter">
+                  Subscribe me to the SKYWINGS newsletter for travel tips and exclusive deals.
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-outline btn-lg w-100">
+              <i class="bi bi-send-fill me-2"></i> Send Message
+            </button>
+
+          </form>
+        </div>
+        <!-- End Form Column -->
+
+
+        <!-- Sidebar info column -->
+        <div class="col-lg-5">
+
+          <!-- Image -->
+          <img src="/images/13 Contact pexels-belle-co-1000445.jpg"
+            class="img-fluid rounded-3 shadow mb-4"
+            alt="Beach contact" />
+
+          <!-- Why contact us -->
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <h5 class="card-title cardheading mb-3">Why contact us?</h5>
+              <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i> Personalised resort recommendations</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i> Exclusive rates not available online</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i> Dedicated consultant from enquiry to return</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i> 24/7 emergency support while you travel</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i> Free itinerary planning service</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- End Contact Form section -->
+
+    </main>
+    <!-- End Contact Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailContact" class="visually-hidden">Email Address</label>
+                <input id="emailContact" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
