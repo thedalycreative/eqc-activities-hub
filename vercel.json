@@ -1,0 +1,8 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/yearbook-wall-26b/wall", "destination": "/yearbook-wall-26b/wall.html", "permanent": false },
+    { "source": "/yearbook-wall-26b/build", "destination": "/yearbook-wall-26b/build.html", "permanent": false },
+    { "source": "/flexbox-exercise", "destination": "/flexbox-exercise/flexbox_starter.html", "permanent": false }
+  ]
+}

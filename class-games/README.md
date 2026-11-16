@@ -2,7 +2,7 @@
 
 > A hub of quick classroom games: Emoji Guess, AI Prompts Playground and Two Truths & A Lie. 🚧 Flagged for an update.
 
-**Live demo:** [eqc-class-games.vercel.app](https://eqc-class-games.vercel.app)
+**Live demo:** [eqc-activities-hub.vercel.app/class-games/](https://eqc-activities-hub.vercel.app/class-games/)
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square)
 
@@ -21,14 +21,14 @@
 ## Run it locally
 
 ```bash
-git clone https://github.com/thedalycreative/eqc-class-games.git
-cd eqc-class-games
+git clone https://github.com/thedalycreative/eqc-activities-hub.git && cd eqc-activities-hub/class-games
+
 npx serve .
 ```
 
 ## Deployment (Vercel)
 
-Static site, repo root is the output. The Vercel project **eqc-class-games** deploys `main` to **https://eqc-class-games.vercel.app**. (Previously deployed by CLI as `nugget-warriors-party`; source recovered from that deployment, with a stray line of text removed from the top of the home page.)
+Static site, this folder is the output. It now lives in the **eqc-activities-hub** repo, whose Vercel project deploys `main` to **https://eqc-activities-hub.vercel.app/class-games/**. (Previously deployed by CLI as `nugget-warriors-party`; source recovered from that deployment, with a stray line of text removed from the top of the home page.)
 
 ## Screenshots
 
@@ -39,7 +39,7 @@ Static site, repo root is the output. The Vercel project **eqc-class-games** dep
   <img src="docs/screenshots/mobile.jpg" alt="On a phone" width="260">
 </p>
 
-_Captured from the live site (https://eqc-class-games.vercel.app). Regenerate with any headless browser; files live in `docs/screenshots/`._
+_Captured from the live site (https://eqc-activities-hub.vercel.app/class-games/). Regenerate with any headless browser; files live in `docs/screenshots/`._
 
 > **To do:** flagged for an update.
 

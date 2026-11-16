@@ -212,7 +212,7 @@ a { color: var(--color-brand-primary); }
   position: relative;              /* required for ::before to position inside */
   display: flex;
   flex-direction: column;          /* stack navbar above hero text */
-  background-image: url(/images/01\ pexels-recal-media-60217.jpg);
+  background-image: url(images/01\ pexels-recal-media-60217.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;    /* parallax */

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQC Activities Hub</title>
+  <meta name="description" content="Every EQC classroom game, activity and Bootstrap clone site in one place. Pick a tile to start.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Bungee&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --stage: #2A1A5E;
+      --stage-deep: #1E1247;
+      --ink: #1B1035;
+      --bulb: #FFD23F;
+      --paper: #FFF8E7;
+
+      --tomato: #FF5A4E;
+      --teal: #12C2A8;
+      --sky: #3FA9F5;
+      --pink: #FF4FA3;
+      --lime: #9BE15D;
+      --orange: #FF9F1C;
+
+      --tile-radius: 28px;
+      --press: 8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; background: var(--stage-deep); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Baloo 2", system-ui, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.45;
+      color: var(--paper);
+      background:
+        radial-gradient(140% 900px at 50% 0%, #3B2780 0%, var(--stage) 55%, var(--stage-deep) 100%) no-repeat,
+        var(--stage-deep);
+    }
+
+    .page {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 56px) clamp(16px, 4vw, 48px) 64px;
+    }
+
+    /* ── Marquee sign: the one bold moment ───────────────────── */
+    .marquee {
+      --band: 26px;
+      position: relative;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto clamp(36px, 5vw, 64px);
+      padding: calc(var(--band) + 18px) calc(var(--band) + clamp(20px, 4vw, 56px));
+      text-align: center;
+      background: var(--tomato);
+      border: 5px solid var(--ink);
+      border-radius: 36px;
+      box-shadow: 0 10px 0 var(--ink);
+    }
+
+    /* Two rings of bulbs, offset by half a step, blink in turn to "chase". */
+    .marquee::before,
+    .marquee::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 30px;
+      padding: var(--band);
+      pointer-events: none;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    }
+    .marquee::before {
+      background: radial-gradient(circle at center, var(--bulb) 0 6.5px, #FFF3C2 7px 7.5px, transparent 8px) 0 0 / 34px 34px;
+      animation: blink 1.1s steps(1) infinite;
+    }
+    .marquee::after {
+      background: radial-gradient(circle at center, var(--bulb) 0 6.5px, #FFF3C2 7px 7.5px, transparent 8px) 17px 17px / 34px 34px;
+      animation: blink 1.1s steps(1) infinite reverse;
+    }
+    @keyframes blink {
+      0%   { opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 210, 63, .9)); }
+      50%  { opacity: .25; filter: none; }
+    }
+
+    .marquee h1 {
+      margin: 0;
+      font-family: "Bungee", "Baloo 2", sans-serif;
+      font-weight: 400;
+      font-size: clamp(2.1rem, 6.2vw, 4.75rem);
+      line-height: 1;
+      letter-spacing: .01em;
+      color: var(--paper);
+      text-shadow: 0 5px 0 var(--ink);
+    }
+    .marquee p {
+      margin: 14px 0 0;
+      font-size: clamp(1.1rem, 2vw, 1.45rem);
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ── Groups ──────────────────────────────────────────────── */
+    .group + .group { margin-top: clamp(40px, 5vw, 64px); }
+
+    .group h2 {
+      display: inline-block;
+      margin: 0 0 20px;
+      padding: 2px 18px 0;
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--ink);
+      background: var(--bulb);
+      border: 4px solid var(--ink);
+      border-radius: 999px;
+      box-shadow: 0 5px 0 var(--ink);
+      transform: rotate(-1.5deg);
+    }
+
+    .tiles {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: clamp(18px, 2.4vw, 28px);
+    }
+
+    /* ── Tiles: chunky game-show buttons ─────────────────────── */
+    .tile {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+      min-height: 240px;
+      padding: 24px 26px 26px;
+      color: var(--ink);
+      text-decoration: none;
+      background: var(--c, var(--sky));
+      border: 4px solid var(--ink);
+      border-radius: var(--tile-radius);
+      box-shadow: 0 var(--press) 0 var(--ink);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .tile:hover { transform: translateY(-3px) rotate(-.6deg); box-shadow: 0 calc(var(--press) + 3px) 0 var(--ink); }
+    .tile:active { transform: translateY(var(--press)); box-shadow: 0 0 0 var(--ink); }
+    .tile:focus-visible {
+      outline: 5px solid var(--bulb);
+      outline-offset: 5px;
+    }
+
+    .tile .emoji {
+      font-size: clamp(3.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: auto;
+      padding-bottom: 18px;
+    }
+    .tile h3 {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.3vw, 1.95rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .tile p {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      max-width: 34ch;
+    }
+    .tile .external {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 1px 12px 0;
+      font-size: .95rem;
+      font-weight: 700;
+      background: var(--paper);
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+    }
+
+    .t-tomato { --c: var(--tomato); }
+    .t-teal   { --c: var(--teal); }
+    .t-sky    { --c: var(--sky); }
+    .t-pink   { --c: var(--pink); }
+    .t-lime   { --c: var(--lime); }
+    .t-orange { --c: var(--orange); }
+    .t-bulb   { --c: var(--bulb); }
+
+    footer {
+      margin-top: 64px;
+      text-align: center;
+      font-size: 1rem;
+      color: rgba(255, 248, 231, .75);
+    }
+    footer a { color: var(--bulb); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee::before, .marquee::after { animation: none; }
+      .tile, .tile:hover, .tile:active { transition: none; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="marquee">
+      <h1>EQC Activities Hub</h1>
+      <p>Pick a tile to start.</p>
+    </header>
+
+    <section class="group" aria-labelledby="g-games">
+      <h2 id="g-games">Games</h2>
+      <ul class="tiles">
+        <li>
+          <a class="tile t-bulb" href="https://www.britannica.com/quiz/guess-the-movie-emoji-quiz" target="_blank" rel="noopener">
+            <span class="external">Opens Britannica</span>
+            <span class="emoji" aria-hidden="true">😀</span>
+            <h3>Emoji Guess</h3>
+            <p>Guess the movie from a row of emojis.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-teal" href="/class-games/prompts.html">
+            <span class="emoji" aria-hidden="true">🤖</span>
+            <h3>AI Prompts Playground</h3>
+            <p>Silly prompts to copy into an AI chat and see what comes back.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-pink" href="/class-games/truths.html">
+            <span class="emoji" aria-hidden="true">🎭</span>
+            <h3>Two Truths &amp; A Lie</h3>
+            <p>Tell three object stories. The class has to spot the bluff.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-activities">
+      <h2 id="g-activities">Class activities</h2>
+      <ul class="tiles">
+        <li>
+          <a class="tile t-orange" href="/hiring-generator/">
+            <span class="emoji" aria-hidden="true">🎬</span>
+            <h3>Bootstrap Hiring Ceremony</h3>
+            <p>Turn handing out Bootstrap projects into a live reveal.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-sky" href="/yearbook-wall-26b/">
+            <span class="emoji" aria-hidden="true">📸</span>
+            <h3>26B Yearbook Wall</h3>
+            <p>Students build a tile and it pops up live on the projector.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-lime" href="/quokka-careers/">
+            <span class="emoji" aria-hidden="true">🦘</span>
+            <h3>Quokka Careers</h3>
+            <p>Apply for ridiculous jobs, then roleplay the interview.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-tomato" href="/flexbox-exercise/flexbox_starter.html">
+            <span class="emoji" aria-hidden="true">📦</span>
+            <h3>Flexbox Practice</h3>
+            <p>Line up the boxes using nothing but flexbox.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="group" aria-labelledby="g-clones">
+      <h2 id="g-clones">Bootstrap clone sites</h2>
+      <ul class="tiles">
+        <li>
+          <a class="tile t-sky" href="/bootstrap-clone-apple/">
+            <span class="emoji" aria-hidden="true">🍏</span>
+            <h3>Apple</h3>
+            <p>A multi-page Bootstrap 5 build, commented line by line.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-teal" href="/bootstrap-clone-nib-health/">
+            <span class="emoji" aria-hidden="true">🩺</span>
+            <h3>nib Health</h3>
+            <p>Three pages of health cover layouts.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-orange" href="/bootstrap-clone-skywings/">
+            <span class="emoji" aria-hidden="true">🏝️</span>
+            <h3>Skywings Resorts</h3>
+            <p>A luxury travel site with destinations, packages and a blog.</p>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-lime" href="/bootstrap-clone-forbidden-forrest/">
+            <span class="emoji" aria-hidden="true">🌲</span>
+            <h3>Forbidden Forest</h3>
+            <p>The night-time forest trail experience, rebuilt in Bootstrap.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      Made by <a href="https://thedalycreative.com" target="_blank" rel="noopener">Tim Daly</a> for EQC classes
+    </footer>
+  </main>
+</body>
+</html>
