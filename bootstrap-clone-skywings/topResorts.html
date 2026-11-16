@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Top 12 Resorts - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item active" aria-current="page" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item"><a href="topResorts.html" class="text-light opacity-75">Resorts</a></li>
+            <li class="breadcrumb-item text-white active">Top 12 Resorts</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Top 12 All-Inclusive Resorts</h2>
+      </div>
+    </header>
+    <!-- End Navbar + Page Header -->
+
+
+    <!-- ======= RESORTS CONTENT ======= -->
+    <!-- Bootstrap: Cards with Badges, row-cols grid, Pagination -->
+
+    <main class="container my-5">
+
+      <p class="lead text-center mb-5">Handpicked by our travel experts. These are the 12 resorts that consistently deliver the most extraordinary guest experiences in the world.</p>
+
+      <!-- ======= RESORT CARDS GRID ======= -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+
+        <!-- Resort 1 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/03 pexels-asad-photo-maldives-1268871.jpg" class="card-img-top" alt="Centara Grand" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <!-- Badge: highlights a special label -->
+              <span class="badge text-bg-warning rounded-pill mb-2">
+                <i class="bi bi-star-fill me-1"></i> #1 Ranked
+              </span>
+              <h5 class="card-title fw-bold">Centara Grand</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Maldives</p>
+              <p class="card-text">Overwater villas with private plunge pools, direct lagoon access, and world-class dining above the ocean.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$850</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 2 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/04 pexels-asad-photo-maldives-3293192.jpg" class="card-img-top" alt="Outrigger Maldives" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-success rounded-pill mb-2">
+                <i class="bi bi-heart-fill me-1"></i> Most Popular
+              </span>
+              <h5 class="card-title fw-bold">Outrigger Maldives</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Maldives</p>
+              <p class="card-text">Intimate island resort with beach and overwater villas, crystal-clear lagoon, and sunset cruises.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$720</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 3 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/02 pexels-abbas-mohammed-3680912.jpg" class="card-img-top" alt="Address Dubai" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-primary rounded-pill mb-2">
+                <i class="bi bi-building me-1"></i> City Escape
+              </span>
+              <h5 class="card-title fw-bold">Address Downtown Dubai</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Dubai, UAE</p>
+              <p class="card-text">Iconic 5-star hotel with views of the Burj Khalifa and Dubai Fountain, steps from The Dubai Mall.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$450</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 4 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/10 Imperial Gold Coast.jpg" class="card-img-top" alt="Imperial Gold Coast" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-info rounded-pill mb-2">
+                <i class="bi bi-sun-fill me-1"></i> Beach Paradise
+              </span>
+              <h5 class="card-title fw-bold">Imperial Gold Coast</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Gold Coast, Australia</p>
+              <p class="card-text">Beachfront elegance on Australia's Gold Coast — world-class dining, spa, and pristine surf beach access.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$380</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 5 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/11 Eden Rock, St. Barths.jpg" class="card-img-top" alt="Eden Rock St Barts" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-danger rounded-pill mb-2">
+                <i class="bi bi-gem me-1"></i> Ultra Luxury
+              </span>
+              <h5 class="card-title fw-bold">Eden Rock</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> St. Barths, Caribbean</p>
+              <p class="card-text">A legendary art-filled Caribbean villa resort built atop a dramatic rocky promontory above the sea.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$1,200</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 6 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/12 Nita-Lake-Lodge.jpg" class="card-img-top" alt="Nita Lake Lodge" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-secondary rounded-pill mb-2">
+                <i class="bi bi-snow me-1"></i> Alpine Retreat
+              </span>
+              <h5 class="card-title fw-bold">Nita Lake Lodge</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Whistler, Canada</p>
+              <p class="card-text">Boutique lakeside lodge with mountain views, ski-in/ski-out access, and an exceptional restaurant.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$620</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 7 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/05 pexels-pixabay-261181.jpg" class="card-img-top" alt="Infinity Pool Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-success rounded-pill mb-2">
+                <i class="bi bi-droplet-fill me-1"></i> Pool Haven
+              </span>
+              <h5 class="card-title fw-bold">Six Senses Yao Noi</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Phang Nga, Thailand</p>
+              <p class="card-text">Dramatic clifftop villas with private infinity pools overlooking the limestone karsts of Phang Nga Bay.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$760</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resort 8 -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/06 pexels-pixabay-237272.jpg" class="card-img-top" alt="Ocean Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-primary rounded-pill mb-2">
+                <i class="bi bi-water me-1"></i> Oceanfront
+              </span>
+              <h5 class="card-title fw-bold">Banyan Tree Vabbinfaru</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Maldives</p>
+              <p class="card-text">Private island eco-resort with lush tropical gardens, coral house reef, and award-winning spa.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$680</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resorts 9–12: Cards without unique images (reuse) -->
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/03 pexels-asad-photo-maldives-1268871.jpg" class="card-img-top" alt="Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-warning rounded-pill mb-2">New</span>
+              <h5 class="card-title fw-bold">Amanjiwo</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Java, Indonesia</p>
+              <p class="card-text">Set beside the ancient Borobudur temple, Amanjiwo offers pavilion suites with panoramic views of the jungle and volcanoes.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$900</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/04 pexels-asad-photo-maldives-3293192.jpg" class="card-img-top" alt="Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-success rounded-pill mb-2">Family Friendly</span>
+              <h5 class="card-title fw-bold">Constance Lemuria</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Seychelles</p>
+              <p class="card-text">One of the Seychelles' finest hotels with three white sand beaches, championship golf, and diving on pristine coral reefs.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$540</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/05 pexels-pixabay-261181.jpg" class="card-img-top" alt="Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-danger rounded-pill mb-2">Couples Only</span>
+              <h5 class="card-title fw-bold">Jade Mountain</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> St. Lucia, Caribbean</p>
+              <p class="card-text">Open-walled sanctuaries with private infinity pools framing a breathtaking view of the Piton mountains.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$1,100</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card h-100 shadow">
+            <img src="/images/06 pexels-pixabay-237272.jpg" class="card-img-top" alt="Resort" style="height: 200px; object-fit: cover;" />
+            <div class="card-body">
+              <span class="badge text-bg-info rounded-pill mb-2">Best Value</span>
+              <h5 class="card-title fw-bold">InterContinental Hayman</h5>
+              <p class="card-text text-muted small"><i class="bi bi-geo-alt-fill me-1"></i> Whitsundays, Australia</p>
+              <p class="card-text">Great Barrier Reef island luxury — private beaches, world-class diving, fine dining and spectacular sunset views.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center p-3">
+              <span class="text-muted small">From <strong>$420</strong>/night</span>
+              <a href="contact.html" class="btn btn-sm btn-outline">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Resort Cards Grid -->
+
+
+      <!-- ======= PAGINATION ======= -->
+      <nav aria-label="Resort pages" class="mt-5">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="404.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="404.html">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="404.html">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+    </main>
+    <!-- End Resorts Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailResorts" class="visually-hidden">Email Address</label>
+                <input id="emailResorts" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Travel Blog - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item text-white active">Blog</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Travel Blog</h2>
+      </div>
+    </header>
+
+
+    <!-- ======= BLOG CONTENT ======= -->
+    <!-- Bootstrap: Article cards, badge categories, sidebar, pagination -->
+
+    <main class="container my-5">
+
+      <div class="row g-5">
+
+        <!-- ======= ARTICLE CARDS ======= -->
+        <div class="col-lg-8">
+
+          <!-- Featured Article -->
+          <div class="card mb-4 border-0 shadow">
+            <img src="/images/04 pexels-asad-photo-maldives-3293192.jpg" class="card-img-top" alt="Maldives" style="height: 320px; object-fit: cover;" />
+            <div class="card-body p-4">
+              <div class="d-flex gap-2 mb-3">
+                <span class="badge rounded-pill" style="background-color: var(--corePink);">Featured</span>
+                <span class="badge text-bg-primary rounded-pill">Destinations</span>
+              </div>
+              <h3 class="card-title fw-bold">The Maldives in 2025: What's Changed and Why It's Still Worth It</h3>
+              <p class="text-muted small mb-3">
+                <i class="bi bi-calendar3 me-1"></i> 12 February 2025 &nbsp;|&nbsp;
+                <i class="bi bi-person-fill me-1"></i> Jane Smith &nbsp;|&nbsp;
+                <i class="bi bi-clock me-1"></i> 8 min read
+              </p>
+              <p class="card-text">After years of explosive growth in the luxury travel market, the Maldives has had to evolve. New over-water villa developments, sustainability-focused resorts, and a wave of boutique operators have transformed what was once a single-note destination into a surprisingly diverse travel option. We sent our senior editor to find out what's really changed — and whether the magic is still there.</p>
+              <a href="404.html" class="btn btn-outline mt-2">Read Article</a>
+            </div>
+          </div>
+
+          <!-- Article Row 1 -->
+          <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/12 Nita-Lake-Lodge.jpg" class="card-img-top" alt="Whistler" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-success rounded-pill mb-2">Travel Tips</span>
+                  <h5 class="card-title fw-bold">10 Reasons to Visit Queenstown in Winter</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 28 Jan 2025 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 5 min
+                  </p>
+                  <p class="card-text small">Snow-capped mountains, world-class ski runs, and cosy lodge fireplaces — New Zealand's adventure capital transforms into something truly magical in winter.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/10 Imperial Gold Coast.jpg" class="card-img-top" alt="Gold Coast" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-warning rounded-pill mb-2">Resorts</span>
+                  <h5 class="card-title fw-bold">Inside the Imperial: Gold Coast's Hidden Gem</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 15 Jan 2025 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 4 min
+                  </p>
+                  <p class="card-text small">We checked in for a long weekend at the Imperial Hotel on Surfers Paradise and came away deeply impressed. Here's our honest review.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Article Row 2 -->
+          <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/02 pexels-abbas-mohammed-3680912.jpg" class="card-img-top" alt="Singapore" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-info rounded-pill mb-2">Food &amp; Culture</span>
+                  <h5 class="card-title fw-bold">Singapore Street Food: The Ultimate Hawker Guide</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 3 Jan 2025 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 7 min
+                  </p>
+                  <p class="card-text small">From UNESCO-recognised hawker centres to hole-in-the-wall Peranakan kitchens — our food editor maps Singapore's best bites across 10 must-visit spots.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/06 pexels-pixabay-237272.jpg" class="card-img-top" alt="Hawaii" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-danger rounded-pill mb-2">Adventure</span>
+                  <h5 class="card-title fw-bold">Road to Hana: Everything You Need to Know</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 20 Dec 2024 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 6 min
+                  </p>
+                  <p class="card-text small">Maui's legendary coastal drive is one of the world's great road trips. We've done it twice — here's how to plan it properly and what not to miss.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Article Row 3 -->
+          <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/11 Eden Rock, St. Barths.jpg" class="card-img-top" alt="St Barths" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-secondary rounded-pill mb-2">Luxury</span>
+                  <h5 class="card-title fw-bold">Eden Rock, St. Barths: A Review Worth Reading</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 8 Dec 2024 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 5 min
+                  </p>
+                  <p class="card-text small">Perched above the Caribbean, Eden Rock is one of the world's most distinctive hotels. Artistic, intimate, and utterly unlike anything else we've reviewed.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/pexels-pixabay-358528.jpg" class="card-img-top" alt="Travel Tips" style="height: 180px; object-fit: cover;" />
+                <div class="card-body p-3">
+                  <span class="badge text-bg-success rounded-pill mb-2">Travel Tips</span>
+                  <h5 class="card-title fw-bold">Packing Light for a 2-Week Luxury Trip</h5>
+                  <p class="text-muted small">
+                    <i class="bi bi-calendar3 me-1"></i> 25 Nov 2024 &nbsp;|&nbsp; <i class="bi bi-clock me-1"></i> 4 min
+                  </p>
+                  <p class="card-text small">Packing for a two-week resort holiday doesn't have to mean a 30kg bag. Our travel editors share their carry-on strategies for even the most formal itineraries.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-3 px-3">
+                  <a href="404.html" class="btn btn-sm btn-outline">Read More</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- ======= PAGINATION ======= -->
+          <!-- Bootstrap: Pagination (pagination, page-item, page-link) -->
+
+          <nav aria-label="Blog pagination">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="404.html">2</a></li>
+              <li class="page-item"><a class="page-link" href="404.html">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="404.html" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
+        <!-- End Article Column -->
+
+
+        <!-- ======= SIDEBAR ======= -->
+        <div class="col-lg-4">
+
+          <!-- Search -->
+          <div class="card border-0 shadow mb-4">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-3">Search Articles</h5>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search the blog..." />
+                <button class="btn btn-outline" type="button"><i class="bi bi-search"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories -->
+          <div class="card border-0 shadow mb-4">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-3">Categories</h5>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="404.html" class="badge text-bg-primary text-decoration-none fs-6 fw-normal">Destinations</a>
+                <a href="404.html" class="badge text-bg-success text-decoration-none fs-6 fw-normal">Travel Tips</a>
+                <a href="404.html" class="badge text-bg-warning text-decoration-none fs-6 fw-normal">Resorts</a>
+                <a href="404.html" class="badge text-bg-danger text-decoration-none fs-6 fw-normal">Adventure</a>
+                <a href="404.html" class="badge text-bg-info text-decoration-none fs-6 fw-normal">Food &amp; Culture</a>
+                <a href="404.html" class="badge text-bg-secondary text-decoration-none fs-6 fw-normal">Luxury</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Posts -->
+          <div class="card border-0 shadow mb-4">
+            <div class="card-body p-4">
+              <h5 class="fw-bold mb-3">Recent Posts</h5>
+              <ul class="list-unstyled">
+                <li class="d-flex gap-3 mb-3">
+                  <img src="/images/04 pexels-asad-photo-maldives-3293192.jpg" class="rounded" width="60" height="60" style="object-fit: cover;" alt="Maldives" />
+                  <div>
+                    <a href="404.html" class="text-dark text-decoration-none small fw-bold">The Maldives in 2025: What's Changed</a>
+                    <p class="text-muted small mb-0">12 Feb 2025</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 mb-3">
+                  <img src="/images/12 Nita-Lake-Lodge.jpg" class="rounded" width="60" height="60" style="object-fit: cover;" alt="Queenstown" />
+                  <div>
+                    <a href="404.html" class="text-dark text-decoration-none small fw-bold">10 Reasons to Visit Queenstown in Winter</a>
+                    <p class="text-muted small mb-0">28 Jan 2025</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 mb-3">
+                  <img src="/images/10 Imperial Gold Coast.jpg" class="rounded" width="60" height="60" style="object-fit: cover;" alt="Gold Coast" />
+                  <div>
+                    <a href="404.html" class="text-dark text-decoration-none small fw-bold">Inside the Imperial: Gold Coast's Hidden Gem</a>
+                    <p class="text-muted small mb-0">15 Jan 2025</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="card border-0 shadow text-center p-4" style="background-color: var(--corePinkSoft);">
+            <i class="bi bi-envelope-heart-fill fs-1 mb-3" style="color: var(--corePink);"></i>
+            <h5 class="fw-bold">Never Miss a Post</h5>
+            <p class="small text-muted">Get the latest travel inspiration delivered to your inbox every fortnight.</p>
+            <input type="email" class="form-control mb-2" placeholder="Your email address" />
+            <button class="btn btn-outline w-100">Subscribe</button>
+          </div>
+
+        </div>
+        <!-- End Sidebar -->
+
+      </div>
+      <!-- End Main Row -->
+
+    </main>
+    <!-- End Blog Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailBlog" class="visually-hidden">Email Address</label>
+                <input id="emailBlog" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FAQ - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item active" aria-current="page" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <!-- Breadcrumb + Page Title -->
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item text-white active">FAQ</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Frequently Asked Questions</h2>
+      </div>
+    </header>
+    <!-- End Navbar + Page Header -->
+
+
+    <!-- ======= FAQ CONTENT ======= -->
+    <!-- Bootstrap: Alert (dismissible), Accordion, Grid, Buttons -->
+
+    <main class="container my-5">
+
+      <!-- Info alert -->
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        Can't find the answer you're looking for? <a href="contact.html" class="alert-link">Contact our team</a> — we're happy to help.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="row mt-4">
+
+        <!-- FAQ Accordion column -->
+        <div class="col-lg-8">
+
+          <h3 class="mb-4">Booking & Reservations</h3>
+
+          <!-- ======= ACCORDION ======= -->
+          <div class="accordion mb-5" id="faqBooking">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+                  How do I make a booking?
+                </button>
+              </h2>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqBooking">
+                <div class="accordion-body">
+                  Browse our <a href="topResorts.html">Top Resorts</a> or <a href="packages.html">Packages</a> pages, select your preferred option, and click <strong>View Packages</strong>. Our team will follow up within 24 hours to confirm your dates and arrange payment.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+                  What is included in an all-inclusive package?
+                </button>
+              </h2>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqBooking">
+                <div class="accordion-body">
+                  All-inclusive packages typically include accommodation, all meals and beverages, non-motorised water sports, entertainment, and kids' club activities. Exact inclusions vary by resort — check the individual package page for details.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+                  Can I modify or cancel my booking?
+                </button>
+              </h2>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqBooking">
+                <div class="accordion-body">
+                  Yes. Modifications are free up to 30 days before arrival. Cancellations made 14 or more days before check-in receive a full refund. Cancellations within 14 days may incur a fee. Contact us via the <a href="contact.html">Contact page</a> to make changes.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+                  Do you offer group or corporate rates?
+                </button>
+              </h2>
+              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqBooking">
+                <div class="accordion-body">
+                  Absolutely. We specialise in corporate retreats, team incentives, and group travel. Groups of 10 or more receive preferential pricing and dedicated event planning support. See our <a href="events.html">Events page</a> for more details.
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Booking Accordion -->
+
+
+          <h3 class="mb-4">Travel & Destinations</h3>
+
+          <div class="accordion mb-5" id="faqTravel">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="true">
+                  What destinations do you cover?
+                </button>
+              </h2>
+              <div id="faq5" class="accordion-collapse collapse show" data-bs-parent="#faqTravel">
+                <div class="accordion-body">
+                  We currently cover Australia, New Zealand, Hawaii, Singapore, the Maldives, Dubai, and the Caribbean. We're always expanding — subscribe to our blog to hear about new destinations first.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false">
+                  Do I need travel insurance?
+                </button>
+              </h2>
+              <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqTravel">
+                <div class="accordion-body">
+                  We strongly recommend comprehensive travel insurance for all bookings. While we do everything to ensure a smooth trip, unexpected events can happen. We can connect you with our preferred insurance partners upon request.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7" aria-expanded="false">
+                  Are flights included in packages?
+                </button>
+              </h2>
+              <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqTravel">
+                <div class="accordion-body">
+                  Some packages include return flights, particularly our Platinum tier. Others are land-only. Each package listing clearly states whether flights are included. We can also arrange flights as an add-on through our partner airlines.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8" aria-expanded="false">
+                  Are your resorts family-friendly?
+                </button>
+              </h2>
+              <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqTravel">
+                <div class="accordion-body">
+                  Most of our resorts cater to families with kids' clubs, shallow pools, and family suites. Some properties are adults-only. You can filter by family-friendly options on our <a href="topResorts.html">Top Resorts page</a> or ask our team.
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- End Travel Accordion -->
+
+        </div>
+        <!-- End FAQ column -->
+
+
+        <!-- Sidebar: Quick links -->
+        <div class="col-lg-4">
+          <div class="card shadow">
+            <div class="card-body">
+              <h5 class="card-title cardheading">
+                <i class="bi bi-question-circle-fill me-2"></i> Still have questions?
+              </h5>
+              <p class="card-text">Our travel experts are available 7 days a week to help you plan the perfect trip.</p>
+              <a href="contact.html" class="btn btn-outline w-100 mb-2">
+                <i class="bi bi-envelope-fill me-2"></i> Email Us
+              </a>
+              <a href="packages.html" class="btn btn-outline-secondary w-100">
+                <i class="bi bi-suitcase-fill me-2"></i> View Packages
+              </a>
+            </div>
+          </div>
+
+          <div class="card shadow mt-4">
+            <div class="card-body">
+              <h5 class="card-title cardheading">Popular Pages</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="topResorts.html"><i class="bi bi-star-fill me-2 text-warning"></i> Top 12 Resorts</a></li>
+                <li class="list-group-item"><a href="packages.html"><i class="bi bi-tag-fill me-2 text-success"></i> Packages & Pricing</a></li>
+                <li class="list-group-item"><a href="events.html"><i class="bi bi-calendar-event-fill me-2 text-primary"></i> Events</a></li>
+                <li class="list-group-item"><a href="blog.html"><i class="bi bi-journal-text me-2 text-info"></i> Travel Blog</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <!-- End Sidebar -->
+
+      </div>
+
+    </main>
+    <!-- End FAQ Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailFaq" class="visually-hidden">Email Address</label>
+                <input id="emailFaq" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

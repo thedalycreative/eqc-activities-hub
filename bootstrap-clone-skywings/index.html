@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>SKYWINGS - Your Ultimate Resort</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+		/>
+		<link rel="stylesheet" href="/styles.css" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	</head>
+	<body>
+		<!-- ======= NAVBAR + HERO ======= -->
+
+		<!-- container-fluid: stretches the background image to full screen width -->
+		<div class="container-fluid navImage">
+			<nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+			<!-- HERO TEXT: .hero-content (CSS) vertically centres this in remaining height -->
+			<div class="hero-content">
+				<h1 class="text-white">Your Ultimate Resort Awaits</h1>
+				<p class="hero-subtitle text-white">
+					Curated luxury &mdash; handpicked resorts &mdash; extraordinary experiences
+				</p>
+				<!-- btn-brand = Type 1: primary filled button with lift+glow hover -->
+				<a href="packages.html" class="btn btn-brand btn-lg">View Packages</a>
+			</div>
+		</div>
+		<!-- End Navbar + Hero -->
+
+		<!-- ======= FEATURE BANNER: Dubai ======= -->
+
+		<!-- container-fluid: blush background stretches to full screen edges -->
+		<div class="container-fluid cardpink py-5">
+			<!-- container: centres the two-column content at a readable max-width -->
+			<div class="container py-4">
+				<div class="row align-items-center g-5">
+					<div class="col-lg-6">
+						<img
+							src="/images/02 pexels-abbas-mohammed-3680912.jpg"
+							class="img-fluid rounded-4 shadow-lg"
+							alt="Dubai skyline at night"
+						/>
+					</div>
+
+					<div class="col-lg-6">
+						<h2 class="cardheading">Experience Dubai</h2>
+						<p class="lead">
+							A city where the extraordinary is ordinary. Towering glass skyscrapers,
+							private beach clubs, and world-class dining — Dubai redefines what luxury
+							travel looks like.
+						</p>
+						<p>
+							Our resort partners offer exclusive packages for every traveller — from
+							romantic escapes to family adventures. Let us start planning your
+							itinerary.
+						</p>
+						<div class="d-flex gap-3 mt-4">
+							<!-- btn-brand on blush background — primary action -->
+							<a href="packages.html" class="btn btn-brand">See This Deal</a>
+							<!-- btn-ghost-brand on light background — secondary action -->
+							<a href="topResorts.html" class="btn btn-ghost-brand"
+								>Itinerary Details</a
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Feature Banner -->
+
+		<!-- ======= CAROUSEL: Events & Experiences ======= -->
+		<!-- No container here — carousel spans full screen width by design -->
+		<!-- data-bs-interval: sets slide timing in milliseconds (7000 = 7 seconds) -->
+
+		<div
+			id="homeCarousel"
+			class="carousel slide"
+			data-bs-ride="carousel"
+			data-bs-interval="7000"
+		>
+			<!-- Dot indicators: clickable, show which slide is active -->
+			<div class="carousel-indicators">
+				<button
+					type="button"
+					data-bs-target="#homeCarousel"
+					data-bs-slide-to="0"
+					class="active"
+					aria-current="true"
+					aria-label="Slide 1"
+				></button>
+				<button
+					type="button"
+					data-bs-target="#homeCarousel"
+					data-bs-slide-to="1"
+					aria-label="Slide 2"
+				></button>
+				<button
+					type="button"
+					data-bs-target="#homeCarousel"
+					data-bs-slide-to="2"
+					aria-label="Slide 3"
+				></button>
+			</div>
+
+			<div class="carousel-inner">
+				<!-- Slide 1 -->
+				<div class="carousel-item active">
+					<img
+						src="/images/07caro pexels-bri-schneiter-346529.jpg"
+						class="d-block w-100"
+						alt="Destination Weddings"
+					/>
+					<div class="carousel-caption">
+						<h2>Your Dream Wedding</h2>
+						<p>
+							From overwater ceremonies in the Maldives to clifftop receptions in St.
+							Barths — we make the extraordinary happen.
+						</p>
+						<!-- btn-ghost on dark image = white outline secondary button -->
+						<a href="events.html" class="btn btn-ghost">Plan Your Wedding</a>
+					</div>
+				</div>
+
+				<!-- Slide 2 -->
+				<div class="carousel-item">
+					<img
+						src="/images/08caro diverse-business-people-interacting.jpg"
+						class="d-block w-100"
+						alt="Corporate Events"
+					/>
+					<div class="carousel-caption">
+						<h2>Corporate Excellence</h2>
+						<p>
+							Inspire your team with award-winning conference venues and incentive
+							travel programmes across Asia-Pacific.
+						</p>
+						<a href="packages.html" class="btn btn-ghost">Corporate Packages</a>
+					</div>
+				</div>
+
+				<!-- Slide 3 -->
+				<div class="carousel-item">
+					<img
+						src="/images/09caro pexels-sebastian-ervi-1763075.jpg"
+						class="d-block w-100"
+						alt="Curated Experiences"
+					/>
+					<div class="carousel-caption">
+						<h2>Curated Experiences</h2>
+						<p>
+							Sunrise volcano hikes, private island dining, stargazing safaris — we
+							turn bucket lists into memories.
+						</p>
+						<a href="packages.html" class="btn btn-ghost">See All Experiences</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Prev / Next: CSS (.carousel-control-prev-icon) adds circular brand backgrounds -->
+			<button
+				class="carousel-control-prev"
+				type="button"
+				data-bs-target="#homeCarousel"
+				data-bs-slide="prev"
+			>
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button
+				class="carousel-control-next"
+				type="button"
+				data-bs-target="#homeCarousel"
+				data-bs-slide="next"
+			>
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<!-- End Carousel -->
+
+		<!-- ======= RESORT CARDS: 4 Stunning Resorts ======= -->
+
+		<!-- container: centres the card grid at a readable max-width -->
+		<div class="container my-5">
+			<h2 class="text-center cardheading mb-1">
+				4 Stunning All-Inclusive Resorts
+			</h2>
+			<p class="text-center text-muted mb-4">
+				Handpicked for excellence — each resort curated by our travel specialists
+			</p>
+			<hr />
+
+			<!-- row-cols-md-4: 4 per row on medium+ screens, stacked on mobile -->
+			<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+				<!-- Card 1 -->
+				<div class="col">
+					<!-- resort-card: CSS adds lift + glow + border on hover -->
+					<div class="card h-100 shadow resort-card">
+						<!-- resort-card-img: CSS fixes all images to the same height -->
+						<img
+							src="/images/03 pexels-asad-photo-maldives-1268871.jpg"
+							class="card-img-top resort-card-img"
+							alt="Grand Island Resort, Maldives"
+						/>
+						<div class="card-body">
+							<h5 class="card-title fw-bold">Grand Island Resort</h5>
+							<p class="card-text">
+								Overwater villas with private plunge pools and steps into a sparkling
+								coral reef. A once-in-a-lifetime Maldives experience.
+							</p>
+						</div>
+						<!-- resort-card-footer: CSS adds off-white background behind the button -->
+						<div class="card-footer resort-card-footer">
+							<!-- btn-arrow = Type 3: text + animated arrow, no background/border -->
+							<a href="topResorts.html" class="btn btn-arrow"
+								>Explore Resort <i class="bi bi-arrow-right"></i
+							></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 2 -->
+				<div class="col">
+					<div class="card h-100 shadow resort-card">
+						<img
+							src="/images/04 pexels-asad-photo-maldives-3293192.jpg"
+							class="card-img-top resort-card-img"
+							alt="Outrigger Maldives"
+						/>
+						<div class="card-body">
+							<h5 class="card-title fw-bold">Outrigger Maldives</h5>
+							<p class="card-text">
+								Spacious Beach Villas with rainfall showers and Over Water Villas built
+								right over the lagoon at Maafushivaru.
+							</p>
+						</div>
+						<div class="card-footer resort-card-footer">
+							<a href="topResorts.html" class="btn btn-arrow"
+								>Explore Resort <i class="bi bi-arrow-right"></i
+							></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 3 -->
+				<div class="col">
+					<div class="card h-100 shadow resort-card">
+						<img
+							src="/images/11 Eden Rock, St. Barths.jpg"
+							class="card-img-top resort-card-img"
+							alt="Eden Rock, St. Barths"
+						/>
+						<div class="card-body">
+							<h5 class="card-title fw-bold">Eden Rock, St. Barths</h5>
+							<p class="card-text">
+								Clifftop villas with glass-bottomed sundecks hovering over the
+								Caribbean. Champagne on arrival, total seclusion.
+							</p>
+						</div>
+						<div class="card-footer resort-card-footer">
+							<a href="topResorts.html" class="btn btn-arrow"
+								>Explore Resort <i class="bi bi-arrow-right"></i
+							></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Card 4 -->
+				<div class="col">
+					<div class="card h-100 shadow resort-card">
+						<img
+							src="/images/12 Nita-Lake-Lodge.jpg"
+							class="card-img-top resort-card-img"
+							alt="Nita Lake Lodge, Whistler"
+						/>
+						<div class="card-body">
+							<h5 class="card-title fw-bold">Nita Lake Lodge</h5>
+							<p class="card-text">
+								A boutique lakeside lodge in Whistler with world-class ski access and
+								intimate fine dining in a breathtaking alpine setting.
+							</p>
+						</div>
+						<div class="card-footer resort-card-footer">
+							<a href="topResorts.html" class="btn btn-arrow"
+								>Explore Resort <i class="bi bi-arrow-right"></i
+							></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Resort Cards -->
+
+		<!-- ======= FOOTER ======= -->
+
+		<!-- container-fluid: dark background spans the full screen width -->
+		<footer class="container-fluid bg-dark">
+			<!-- container: keeps footer content centred at a readable max-width -->
+			<div class="container py-5">
+				<div class="row g-4">
+					<!-- Column 1: Logo + tagline + social icons -->
+					<div class="col-12 col-md-3">
+						<a href="index.html">
+							<img
+								src="/images/Skywing Logo white sm.png"
+								alt="Skywings Logo"
+								width="140"
+								class="mb-3"
+							/>
+						</a>
+						<p class="text-white-50 small">
+							Curated luxury travel across the Asia-Pacific. Handpicked resorts,
+							bespoke packages, extraordinary service.
+						</p>
+						<div class="d-flex gap-3 mt-3">
+							<a href="404.html"><i class="bi bi-facebook text-white-50 fs-5"></i></a>
+							<a href="404.html"><i class="bi bi-instagram text-white-50 fs-5"></i></a>
+							<a href="404.html"><i class="bi bi-twitter text-white-50 fs-5"></i></a>
+							<a href="404.html"><i class="bi bi-youtube text-white-50 fs-5"></i></a>
+							<a href="404.html"><i class="bi bi-pinterest text-white-50 fs-5"></i></a>
+						</div>
+					</div>
+
+					<!-- Column 2: Explore -->
+					<div class="col-6 col-md-2">
+						<a href="index.html" class="footer-heading-link d-block mb-3">Explore</a>
+						<ul class="nav flex-column">
+							<li class="nav-item mb-2">
+								<a href="index.html" class="nav-link p-0 footerlinksCol">Home</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="about.html" class="nav-link p-0 footerlinksCol">About Us</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="team.html" class="nav-link p-0 footerlinksCol">Our Team</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="gallery.html" class="nav-link p-0 footerlinksCol">Gallery</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="blog.html" class="nav-link p-0 footerlinksCol">Blog</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="faq.html" class="nav-link p-0 footerlinksCol">FAQ</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Column 3: Destinations -->
+					<div class="col-6 col-md-2">
+						<a href="topResorts.html" class="footer-heading-link d-block mb-3"
+							>Destinations</a
+						>
+						<ul class="nav flex-column">
+							<li class="nav-item mb-2">
+								<a href="topResorts.html" class="nav-link p-0 footerlinksCol"
+									>Top 12 Resorts</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="australia.html" class="nav-link p-0 footerlinksCol"
+									>Australia</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="newzealand.html" class="nav-link p-0 footerlinksCol"
+									>New Zealand</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="hawaii.html" class="nav-link p-0 footerlinksCol">Hawaii</a>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="singapore.html" class="nav-link p-0 footerlinksCol"
+									>Singapore</a
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Column 4: Services -->
+					<div class="col-6 col-md-2">
+						<a href="packages.html" class="footer-heading-link d-block mb-3"
+							>Services</a
+						>
+						<ul class="nav flex-column">
+							<li class="nav-item mb-2">
+								<a href="packages.html" class="nav-link p-0 footerlinksCol"
+									>Travel Packages</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="events.html" class="nav-link p-0 footerlinksCol"
+									>Weddings &amp; Events</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="packages.html" class="nav-link p-0 footerlinksCol"
+									>Business Travel</a
+								>
+							</li>
+							<li class="nav-item mb-2">
+								<a href="packages.html" class="nav-link p-0 footerlinksCol"
+									>Trade Partners</a
+								>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Column 5: Newsletter signup -->
+					<div class="col-12 col-md-3">
+						<h6 class="h4-footer mb-2">Stay Inspired</h6>
+						<p class="footerlinksCol small mb-3">
+							Resort reviews, destination guides, and exclusive offers — delivered
+							fortnightly.
+						</p>
+						<form action="subscribe" method="post">
+							<label for="emailSignup" class="visually-hidden">Email Address</label>
+							<!-- input-group: places the input and button side-by-side as one unit -->
+							<div class="input-group">
+								<input
+									id="emailSignup"
+									type="email"
+									class="form-control"
+									placeholder="Your email address"
+								/>
+								<!-- btn-ghost on dark footer = white outline, transparent background -->
+								<button
+									class="btn btn-ghost"
+									type="submit"
+								>
+									Subscribe <i class="bi bi-send"></i>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+
+				<hr class="border-secondary mt-4" />
+
+				<!-- Bottom bar: copyright + legal links -->
+				<div
+					class="d-flex justify-content-between align-items-center flex-wrap gap-2 py-2"
+				>
+					<p class="text-white-50 small mb-0">
+						Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.
+					</p>
+					<div>
+						<a href="404.html" class="footer-legal-link me-3">Terms of Service</a>
+						<a href="404.html" class="footer-legal-link me-3">Privacy Policy</a>
+						<a href="404.html" class="footer-legal-link">Sitemap</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- End Footer -->
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

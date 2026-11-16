@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Events - SKYWINGS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+
+
+    <!-- ======= NAVBAR + PAGE HEADER ======= -->
+    <header class="container-fluid pageHeader">
+      <nav class="navbar navbar-expand-lg">
+    <!-- container-fluid: Bootstrap's inner wrapper for full-width navbar content -->
+    <div class="container-fluid px-4">
+        <a href="index.html">
+            <img src="/images/Skywing Logo white sm.png" alt="Skywings Logo" width="175" />
+        </a>
+
+        <!-- Hamburger: visible on mobile, collapses nav links -->
+        <button
+            class="navbar-toggler bg-light"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMain"
+            aria-controls="navbarMain"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav links: collapses on mobile, row on lg+ screens -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- HOME -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="index.html">Home</a>
+                </li>
+
+                <!-- DESTINATIONS dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="topResorts.html">Top 12 Resorts</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                        <li><a class="dropdown-item" href="newzealand.html">New Zealand</a></li>
+                        <li><a class="dropdown-item" href="hawaii.html">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="singapore.html">Singapore</a></li>
+                    </ul>
+                </li>
+
+                <!-- PACKAGES -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="packages.html">Packages</a>
+                </li>
+
+                <!-- EVENTS -->
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="events.html">Events</a>
+                </li>
+
+                <!-- BLOG -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="blog.html">Blog</a>
+                </li>
+
+                <!-- ABOUT dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="about.html">About Us</a></li>
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="gallery.html">Gallery</a></li>
+                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
+                    </ul>
+                </li>
+
+                <!-- CONTACT -->
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="contact.html">Contact</a>
+                </li>
+
+            </ul>
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+      <div class="container py-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html" class="text-light opacity-75">Home</a></li>
+            <li class="breadcrumb-item text-white active">Events</li>
+          </ol>
+        </nav>
+        <h2 class="text-white pb-2">Events &amp; Venues</h2>
+      </div>
+    </header>
+
+
+    <!-- ======= EVENTS CONTENT ======= -->
+    <!-- Bootstrap: Tabs, cards inside tab panels, accordion for FAQs -->
+
+    <main class="container my-5">
+
+      <!-- Intro -->
+      <div class="text-center mb-5">
+        <h2 class="cardheading">Extraordinary Events, Unforgettable Venues</h2>
+        <p class="lead text-muted">Whether you're planning a destination wedding, a corporate conference, or a milestone celebration — SKYWINGS partners with the world's finest venues to make it happen.</p>
+      </div>
+
+
+      <!-- ======= EVENT TYPE TABS ======= -->
+      <!-- Bootstrap: nav-tabs, tab-content, tab-pane -->
+
+      <ul class="nav nav-tabs" id="eventTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="weddings-tab" data-bs-toggle="tab" data-bs-target="#weddings" type="button" role="tab" aria-controls="weddings" aria-selected="true">
+            <i class="bi bi-heart-fill me-1 text-danger"></i> Weddings
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="corporate-tab" data-bs-toggle="tab" data-bs-target="#corporate" type="button" role="tab" aria-controls="corporate" aria-selected="false">
+            <i class="bi bi-briefcase-fill me-1 text-primary"></i> Corporate
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
+            <i class="bi bi-stars me-1 text-warning"></i> Social &amp; Milestones
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-4 mb-5" id="eventTabsContent">
+
+        <!-- WEDDINGS TAB -->
+        <div class="tab-pane fade show active" id="weddings" role="tabpanel" aria-labelledby="weddings-tab">
+          <div class="row align-items-center g-5 mb-4">
+            <div class="col-md-6">
+              <img src="/images/01 pexels-recal-media-60217.jpg" class="img-fluid rounded-3 shadow" alt="Destination Wedding" />
+            </div>
+            <div class="col-md-6">
+              <h3 class="cardheading">Destination Weddings</h3>
+              <p>Say "I do" in paradise. SKYWINGS specialises in destination weddings across the Asia-Pacific region, from overwater bungalows in the Maldives to clifftop ceremonies on the Amalfi Coast.</p>
+              <p>Our dedicated wedding planners coordinate every detail — venue, catering, flowers, photography, and honeymoon travel — leaving you free to simply enjoy your special day.</p>
+              <ul class="list-unstyled mt-3">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Dedicated wedding coordinator</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Guest accommodation blocks</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Ceremony &amp; reception venue sourcing</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Honeymoon package included</li>
+              </ul>
+              <a href="contact.html" class="btn btn-outline mt-3">Start Planning Your Wedding</a>
+            </div>
+          </div>
+
+          <h4 class="cardheading text-center mb-4">Popular Wedding Venues</h4>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/11 Eden Rock, St. Barths.jpg" class="card-img-top" alt="Eden Rock" style="height: 180px; object-fit: cover;" />
+                <div class="card-body">
+                  <span class="badge text-bg-danger mb-2">Caribbean</span>
+                  <h5 class="card-title fw-bold">Eden Rock, St. Barths</h5>
+                  <p class="card-text small text-muted">Intimate clifftop ceremonies with panoramic ocean views. Max 80 guests.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/03 pexels-asad-photo-maldives-1268871.jpg" class="card-img-top" alt="Maldives" style="height: 180px; object-fit: cover;" />
+                <div class="card-body">
+                  <span class="badge text-bg-primary mb-2">Indian Ocean</span>
+                  <h5 class="card-title fw-bold">Maldives Overwater</h5>
+                  <p class="card-text small text-muted">Say your vows above the crystal-clear lagoon at sunset. Max 40 guests.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-0 shadow">
+                <img src="/images/05 pexels-pixabay-261181.jpg" class="card-img-top" alt="Tropical Wedding" style="height: 180px; object-fit: cover;" />
+                <div class="card-body">
+                  <span class="badge text-bg-success mb-2">Pacific</span>
+                  <h5 class="card-title fw-bold">Tropical Garden, Hawaii</h5>
+                  <p class="card-text small text-muted">Lush garden settings with ocean backdrops on Maui's coast. Max 150 guests.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CORPORATE TAB -->
+        <div class="tab-pane fade" id="corporate" role="tabpanel" aria-labelledby="corporate-tab">
+          <div class="row align-items-center g-5 mb-4">
+            <div class="col-md-6">
+              <img src="/images/08caro diverse-business-people-interacting.jpg" class="img-fluid rounded-3 shadow" alt="Corporate Event" />
+            </div>
+            <div class="col-md-6">
+              <h3 class="cardheading">Corporate Events &amp; Conferences</h3>
+              <p>From intimate executive retreats to large-scale international conferences, SKYWINGS manages every aspect of your corporate event. We work with a network of premium venues across the Asia-Pacific with state-of-the-art AV, catering, and accommodation blocks.</p>
+              <ul class="list-unstyled mt-3">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Venue selection &amp; negotiation</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> AV &amp; technical production</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Delegate travel coordination</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Incentive programme design</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Post-event reporting</li>
+              </ul>
+              <a href="contact.html" class="btn btn-outline mt-3">Request a Corporate Proposal</a>
+            </div>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card h-100 border-0 shadow text-center p-4">
+                <i class="bi bi-people-fill fs-1 mb-3 text-primary"></i>
+                <h5 class="fw-bold">Team Retreats</h5>
+                <p class="text-muted small">Reward your team with a curated retreat that blends productivity with relaxation.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-0 shadow text-center p-4">
+                <i class="bi bi-easel2-fill fs-1 mb-3" style="color: var(--corePink);"></i>
+                <h5 class="fw-bold">Conferences</h5>
+                <p class="text-muted small">Full-service conference management for 20 to 2,000 delegates.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100 border-0 shadow text-center p-4">
+                <i class="bi bi-trophy-fill fs-1 mb-3 text-warning"></i>
+                <h5 class="fw-bold">Incentive Travel</h5>
+                <p class="text-muted small">Motivate your top performers with extraordinary incentive travel experiences.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOCIAL & MILESTONES TAB -->
+        <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+          <div class="row align-items-center g-5 mb-4">
+            <div class="col-md-6">
+              <img src="/images/09caro pexels-sebastian-ervi-1763075.jpg" class="img-fluid rounded-3 shadow" alt="Celebration" />
+            </div>
+            <div class="col-md-6">
+              <h3 class="cardheading">Celebrations &amp; Milestones</h3>
+              <p>Mark life's biggest moments in style. Whether it's a landmark birthday, an anniversary, a graduation, or a family reunion — SKYWINGS creates bespoke celebration experiences that go far beyond ordinary.</p>
+              <ul class="list-unstyled mt-3">
+                <li class="mb-2"><i class="bi bi-balloon-fill text-danger me-2"></i> Milestone birthday celebrations</li>
+                <li class="mb-2"><i class="bi bi-diamond-fill text-warning me-2"></i> Anniversary retreats</li>
+                <li class="mb-2"><i class="bi bi-mortarboard-fill text-primary me-2"></i> Graduation trips</li>
+                <li class="mb-2"><i class="bi bi-house-heart-fill text-success me-2"></i> Family reunion packages</li>
+                <li class="mb-2"><i class="bi bi-music-note-beamed me-2" style="color: var(--corePink);"></i> Private concert &amp; event access</li>
+              </ul>
+              <a href="contact.html" class="btn btn-outline mt-3">Plan Your Celebration</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Event Tabs -->
+
+
+      <!-- ======= PLANNING FAQ ACCORDION ======= -->
+      <!-- Bootstrap: Accordion -->
+
+      <h3 class="cardheading text-center mb-4">Event Planning FAQs</h3>
+      <div class="accordion mb-5" id="eventFAQ">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+              How far in advance should I book a destination event?
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#eventFAQ">
+            <div class="accordion-body">
+              We recommend booking at least 12–18 months in advance for weddings and large corporate events. Popular venues book out quickly, especially for peak season dates. For smaller events or social celebrations, 6 months is typically sufficient.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+              Can SKYWINGS coordinate travel for all my guests?
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#eventFAQ">
+            <div class="accordion-body">
+              Yes — guest travel coordination is one of our specialties. We set up dedicated booking portals, negotiate group airfare, and block accommodation so your guests can book easily. We provide regular updates on bookings and handle all special requests.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+              What is the minimum group size for an event package?
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#eventFAQ">
+            <div class="accordion-body">
+              There is no minimum group size — we plan intimate events for as few as 10 guests and large conferences for over 1,000. Our packages are fully customisable to your budget and headcount.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+              Do you provide on-site event management?
+            </button>
+          </h2>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#eventFAQ">
+            <div class="accordion-body">
+              Our Premium and Elite packages include an on-site SKYWINGS event coordinator for the duration of your event. For Escape packages, we provide remote support and a detailed run sheet to ensure everything goes smoothly.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End FAQ Accordion -->
+
+
+      <!-- ======= CTA ======= -->
+      <div class="text-center py-3">
+        <a href="contact.html" class="btn btn-outline btn-lg px-5">
+          <i class="bi bi-envelope-fill me-2"></i> Submit an Event Enquiry
+        </a>
+      </div>
+
+    </main>
+    <!-- End Events Content -->
+
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="container-fluid bg-dark">
+      <div class="container text-light py-5">
+        <div class="row">
+          <div class="col-6 col-md mb-3">
+            <h4 class="h4-footer">Skywings &trade;</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="index.html" class="nav-link p-0 footerlinksCol">Home</a></li>
+              <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 footerlinksCol">About</a></li>
+              <li class="nav-item mb-2"><a href="topResorts.html" class="nav-link p-0 footerlinksCol">Top Resorts</a></li>
+              <li class="nav-item mb-2"><a href="contact.html" class="nav-link p-0 footerlinksCol">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Pro Solutions</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Business Travel</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Meetings Venue</a></li>
+              <li class="nav-item mb-2"><a href="events.html" class="nav-link p-0 footerlinksCol">Events</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Travel Professionals</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md mb-3">
+            <h5 class="h5-footer">Company</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="team.html" class="nav-link p-0 footerlinksCol">Management</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Programmes</a></li>
+              <li class="nav-item mb-2"><a href="packages.html" class="nav-link p-0 footerlinksCol">Our Services</a></li>
+              <li class="nav-item mb-2"><a href="404.html" class="nav-link p-0 footerlinksCol">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h4 class="h4-footer">Subscribe to our blog</h4>
+              <p>Read about our latest news and packages</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="emailEvents" class="visually-hidden">Email Address</label>
+                <input id="emailEvents" type="email" class="form-control" placeholder="Email Address" />
+                <button class="btn btn-outline" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center pb-3">
+          <a href="404.html"><i class="bi bi-facebook text-primary fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-instagram text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-twitter text-info fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-youtube text-danger fs-3 m-3"></i></a>
+          <a href="404.html"><i class="bi bi-pinterest text-danger fs-3 m-3"></i></a>
+        </div>
+        <div class="text-center py-2">
+          <p class="fw-light">Copyright &copy; 2025 SKYWINGS Resorts Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
