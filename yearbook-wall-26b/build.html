@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>26B · Build your tile</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&family=Major+Mono+Display&family=DM+Serif+Display&family=Rubik+Mono+One&family=Caveat:wght@400;700&family=Archivo+Black&family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rozha+One&family=Monoton&family=Shrikhand&family=Work+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111;
+      --bg: #ffffff;
+      --surface: #f7f7f5;
+      --line: #1a1a1a;
+      --line-soft: #e5e5e3;
+      --green: #1f7a3e;
+      --green-bright: #2da555;
+      --green-pale: #e7f4ea;
+      --muted: #5a5a58;
+      --faint: #9a9a96;
+      --accent: #c84a2e;
+      --lie: #b83a24;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      font-feature-settings: "ss01", "ss02"
+    }
+
+    body {
+      padding: 40px 24px 80px;
+      line-height: 1.5
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 36px
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 16px
+    }
+
+    .meta-row .issue {
+      color: var(--green);
+      font-weight: 500
+    }
+
+    h1 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.03em
+    }
+
+    .kicker {
+      font-size: 17px;
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 600px;
+      line-height: 1.5
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: start
+    }
+
+    @media (max-width:980px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .form-col {
+      min-width: 0
+    }
+
+    .section {
+      margin-bottom: 36px
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line-soft)
+    }
+
+    .section-title .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      background: var(--green-pale);
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+      font-weight: 500
+    }
+
+    .section-title h2 {
+      font-weight: 600;
+      font-size: 19px;
+      letter-spacing: -0.01em
+    }
+
+    .field {
+      margin-bottom: 18px
+    }
+
+    .field:last-child {
+      margin-bottom: 0
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 7px;
+      font-weight: 500
+    }
+
+    label .req {
+      color: var(--accent);
+      margin-left: 2px
+    }
+
+    label .optional {
+      color: var(--faint);
+      font-weight: 400;
+      margin-left: 6px;
+      font-size: 12px
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 11px 13px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      color: var(--ink);
+      transition: all 0.15s
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px var(--green-pale)
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.5
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      padding-right: 34px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23111' d='M1 3l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center
+    }
+
+    .twin {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .photo-block {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 4px
+    }
+
+    .photo-preview {
+      width: 140px;
+      height: 140px;
+      border-radius: 4px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .photo-side {
+      flex: 1;
+      min-width: 0
+    }
+
+    .photo-side h3 {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 6px
+    }
+
+    .photo-side p {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 14px;
+      line-height: 1.5
+    }
+
+    .file-btn {
+      font-size: 13px;
+      padding: 9px 14px;
+      font-weight: 500;
+      border: 1.5px solid var(--line);
+      background: var(--bg);
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--ink);
+      transition: all 0.15s
+    }
+
+    .file-btn:hover {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    #photoFile {
+      display: none
+    }
+
+    .color-input {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .color-input input[type="color"] {
+      width: 44px;
+      height: 42px;
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      background: var(--bg);
+      cursor: pointer;
+      padding: 3px
+    }
+
+    .color-input input[type="text"] {
+      font-family: 'JetBrains Mono';
+      font-size: 13px;
+      flex: 1;
+      max-width: 110px;
+      text-transform: uppercase
+    }
+
+    .color-swatches {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px
+    }
+
+    .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: 1.5px solid var(--line);
+      cursor: pointer;
+      transition: transform 0.1s
+    }
+
+    .swatch:hover {
+      transform: scale(1.12)
+    }
+
+    .swatch.active {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px
+    }
+
+    .font-select-wrap {
+      position: relative
+    }
+
+    .font-select-display {
+      width: 100%;
+      padding: 13px 40px 13px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      transition: all 0.15s;
+      position: relative
+    }
+
+    .font-select-display:hover {
+      background: var(--surface)
+    }
+
+    .font-select-display .preview {
+      font-size: 20px;
+      line-height: 1;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    .font-select-display .font-name {
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      flex-shrink: 0
+    }
+
+    .font-select-display::after {
+      content: "▾";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: var(--ink)
+    }
+
+    .font-options {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      max-height: 360px;
+      overflow-y: auto;
+      display: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12)
+    }
+
+    .font-options.open {
+      display: block
+    }
+
+    .font-option {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      border-bottom: 1px solid var(--line-soft);
+      background: transparent;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      width: 100%;
+      text-align: left
+    }
+
+    .font-option:last-child {
+      border-bottom: 0
+    }
+
+    .font-option:hover,
+    .font-option.active {
+      background: var(--green-pale)
+    }
+
+    .font-option .preview {
+      font-size: 22px;
+      line-height: 1;
+      flex: 1;
+      color: var(--ink)
+    }
+
+    .font-option .font-name {
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      flex-shrink: 0
+    }
+
+    .format-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      align-items: center
+    }
+
+    .fmt-btn {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--line);
+      background: var(--bg);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      color: var(--ink)
+    }
+
+    .fmt-btn:hover {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    .fmt-btn .b {
+      font-weight: 700
+    }
+
+    .fmt-btn .i {
+      font-style: italic
+    }
+
+    .fmt-btn .u {
+      text-decoration: underline
+    }
+
+    .size-btn {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border: 1.5px solid var(--line);
+      background: var(--bg);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: all 0.15s;
+    }
+
+    .size-btn:hover {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    .size-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff
+    }
+
+    .tag-input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 8px
+    }
+
+    .tag-input-row input[type="text"] {
+      font-size: 14px
+    }
+
+    .tag-input-row select {
+      font-size: 13px;
+      padding: 11px 32px 11px 12px
+    }
+
+    .tag-add-btn {
+      font-size: 12px;
+      padding: 0 16px;
+      font-weight: 500;
+      border: 1.5px solid var(--line);
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap
+    }
+
+    .tag-add-btn:hover {
+      background: var(--green);
+      border-color: var(--green)
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 14px;
+      background: var(--surface);
+      border: 1.5px dashed var(--line-soft);
+      border-radius: 4px;
+      min-height: 60px;
+      align-items: flex-start;
+      align-content: flex-start
+    }
+
+    .tags-container.empty {
+      justify-content: center;
+      align-items: center
+    }
+
+    .tags-empty-msg {
+      color: var(--faint);
+      font-size: 14px;
+      align-self: center
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px 5px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      animation: tagIn 0.3s ease;
+      border: 1.5px solid
+    }
+
+    @keyframes tagIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7)
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1)
+      }
+    }
+
+    .badge .remove {
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      opacity: 0.5;
+      font-size: 15px;
+      padding: 0 2px;
+      margin-left: 2px;
+      font-family: inherit;
+      line-height: 1
+    }
+
+    .badge .remove:hover {
+      opacity: 1
+    }
+
+    .tag-count {
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .fact-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 10px
+    }
+
+    .fact-row input[type="text"] {
+      flex: 1
+    }
+
+    .truth-toggle {
+      display: flex;
+      flex-direction: column;
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .truth-toggle button {
+      font-family: 'JetBrains Mono';
+      font-size: 9px;
+      padding: 6px 14px;
+      border: 0;
+      background: var(--bg);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      min-width: 62px;
+      transition: all 0.15s;
+      color: var(--ink);
+      font-weight: 500
+    }
+
+    .truth-toggle button:hover {
+      background: var(--surface)
+    }
+
+    .truth-toggle button.active[data-val="true"] {
+      background: var(--green);
+      color: var(--bg)
+    }
+
+    .truth-toggle button.active[data-val="false"] {
+      background: var(--lie);
+      color: var(--bg)
+    }
+
+    .truth-toggle button:first-child {
+      border-bottom: 1.5px solid var(--line)
+    }
+
+    .facts-hint {
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .facts-hint .ok {
+      color: var(--green)
+    }
+
+    .facts-hint .warn {
+      color: var(--accent)
+    }
+
+    .preview-col {
+      position: sticky;
+      top: 24px
+    }
+
+    @media (max-width:980px) {
+      .preview-col {
+        position: static
+      }
+    }
+
+    .preview-title {
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px
+    }
+
+    .preview-tile {
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      padding: 28px;
+      margin-bottom: 24px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1)
+    }
+
+    .preview-head {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 16px
+    }
+
+    .preview-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1.5px solid rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .preview-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .preview-name {
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      font-weight: 600;
+      margin-bottom: 6px;
+      word-break: break-word
+    }
+
+    .preview-bio {
+      font-size: 15px;
+      line-height: 1.5;
+      opacity: 0.9
+    }
+
+    .preview-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px
+    }
+
+    .preview-facts {
+      display: flex;
+      flex-direction: column;
+      gap: 9px
+    }
+
+    .preview-fact {
+      padding: 11px 13px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.1);
+      font-size: 14.5px;
+      line-height: 1.4
+    }
+
+    .submit-box {
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      padding: 22px;
+      background: var(--bg)
+    }
+
+    .submit-box h3 {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 4px
+    }
+
+    .submit-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 14px;
+      line-height: 1.5
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--ink);
+      color: var(--bg);
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: var(--green)
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed
+    }
+
+    .submit-btn.submitted {
+      background: var(--green)
+    }
+
+    .submit-status {
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      margin-top: 12px;
+      text-align: center;
+      color: var(--muted)
+    }
+
+    .submit-status.success {
+      color: var(--green)
+    }
+
+    .submit-status.error {
+      color: var(--accent)
+    }
+
+    .reset-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      background: var(--bg);
+      border: 1.5px solid var(--line);
+      color: var(--muted);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px
+    }
+
+    .reset-btn:hover {
+      background: var(--surface);
+      color: var(--ink);
+      border-color: var(--ink)
+    }
+
+    .code-panel {
+      background: #1a1a1a;
+      border-radius: 4px;
+      padding: 0;
+      margin-top: 20px;
+      overflow: hidden;
+      display: none
+    }
+
+    .code-panel.visible {
+      display: block;
+      animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .code-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid #333;
+      background: #222
+    }
+
+    .code-head-title {
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      color: #ccc;
+      font-weight: 500
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 6px
+    }
+
+    .code-btn {
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      padding: 6px 10px;
+      border: 1px solid #444;
+      background: transparent;
+      color: #ccc;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: 500
+    }
+
+    .code-btn:hover {
+      background: #333
+    }
+
+    .code-btn.primary {
+      background: var(--green-bright);
+      border-color: var(--green-bright);
+      color: #000;
+      font-weight: 600
+    }
+
+    .code-btn.primary:hover {
+      background: #fff;
+      border-color: #fff
+    }
+
+    .code-body {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #d9d0ad;
+      padding: 16px;
+      width: 100%;
+      min-height: 220px;
+      max-height: 380px;
+      background: #1a1a1a;
+      border: 0;
+      resize: vertical;
+      display: block;
+      white-space: pre;
+      overflow: auto
+    }
+
+    .code-body:focus {
+      outline: none;
+      background: #111
+    }
+
+    .code-body::-webkit-scrollbar {
+      width: 8px;
+      height: 8px
+    }
+
+    .code-body::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    .code-body::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px
+    }
+
+    .code-help {
+      padding: 10px 16px;
+      background: #111;
+      border-top: 1px solid #333;
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      color: #888;
+      line-height: 1.6
+    }
+
+    .code-help strong {
+      color: #ccc;
+      font-weight: 500
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      z-index: 200;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2)
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .toast.error {
+      background: var(--accent)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="shell">
+
+    <header>
+      <div class="meta-row">
+        <span>EQC · Intake 26B</span>
+        <span class="issue">Issue № 01</span>
+        <span id="liveDate">—</span>
+      </div>
+      <h1>Build your tile.</h1>
+      <p class="kicker">A little bit of you — in HTML. Pick your colours, your fonts, drop your three facts. We put it
+        on the wall.</p>
+    </header>
+
+    <div class="grid">
+
+      <div class="form-col">
+
+        <div class="section">
+          <div class="section-title">
+            <span class="num">01</span>
+            <h2>Who are you?</h2>
+          </div>
+
+          <div class="field">
+            <label>Your name <span class="req">*</span></label>
+            <input type="text" id="f_name" placeholder="Whatever you want to be called" maxlength="40">
+          </div>
+
+          <div class="field">
+            <label>Photo <span class="optional">(optional but nice)</span></label>
+            <div class="photo-block">
+              <div class="photo-preview" id="photoPreview">📷</div>
+              <div class="photo-side">
+                <h3>A face for the wall.</h3>
+                <p>Use a selfie from your phone, a laptop-camera snap, or grab a picture from online — whatever
+                  represents you. Square works best but we'll crop it either way.</p>
+                <button type="button" class="file-btn" id="uploadBtn">Choose photo</button>
+                <input type="file" id="photoFile" accept="image/*">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>About you <span class="optional">(one or two sentences)</span></label>
+            <textarea id="f_bio" placeholder="What's your deal? Where are you from? What are you into?"
+              maxlength="320"></textarea>
+            <div style="margin-top:10px">
+              <label style="margin-bottom:6px">Formatting</label>
+              <div class="format-row">
+                <button type="button" class="fmt-btn" id="fmt-b" title="Bold (wraps selection in <b>)"><span
+                    class="b">B</span></button>
+                <button type="button" class="fmt-btn" id="fmt-i" title="Italic (wraps selection in <i>)"><span
+                    class="i">I</span></button>
+                <button type="button" class="fmt-btn" id="fmt-u" title="Underline (wraps selection in <u>)"><span
+                    class="u">U</span></button>
+                <button type="button" class="fmt-btn" id="fmt-br" title="Insert line break">↵</button>
+                <span style="width:1px;height:22px;background:var(--line);margin:0 4px"></span>
+                <span
+                  style="font-family:'JetBrains Mono';font-size:10px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-right:4px">Size</span>
+                <button type="button" class="size-btn" data-size="s" title="Small">S</button>
+                <button type="button" class="size-btn active" data-size="m" title="Medium (default)">M</button>
+                <button type="button" class="size-btn" data-size="l" title="Large">L</button>
+                <button type="button" class="size-btn" data-size="xl" title="Extra large">XL</button>
+              </div>
+              <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4">Select some text, then click
+                <strong>B</strong>, <strong>I</strong>, or <strong>U</strong>. <strong>↵</strong> inserts a line break
+                at the cursor. Size changes the whole bio.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            <span class="num">02</span>
+            <h2>Your vibe.</h2>
+          </div>
+
+          <div class="field">
+            <label>Tile background colour</label>
+            <div class="color-input">
+              <input type="color" id="f_bg" value="#f4d35e">
+              <input type="text" id="f_bg_hex" value="#f4d35e" maxlength="7">
+            </div>
+            <div class="color-swatches" id="bgSwatches"></div>
+          </div>
+
+          <div class="field">
+            <label>Title font</label>
+            <div class="font-select-wrap">
+              <button type="button" class="font-select-display" id="titleFontBtn">
+                <span class="preview" id="titleFontPreview" style="font-family:'Inter',sans-serif">Your Name Here</span>
+                <span class="font-name" id="titleFontName">INTER</span>
+              </button>
+              <div class="font-options" id="titleFontOptions"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Body font</label>
+            <div class="font-select-wrap">
+              <button type="button" class="font-select-display" id="bodyFontBtn">
+                <span class="preview" id="bodyFontPreview" style="font-family:'Inter',sans-serif">The quick brown fox
+                  jumps</span>
+                <span class="font-name" id="bodyFontName">INTER</span>
+              </button>
+              <div class="font-options" id="bodyFontOptions"></div>
+            </div>
+          </div>
+
+          <div class="twin">
+            <div class="field">
+              <label>Header text colour</label>
+              <div class="color-input">
+                <input type="color" id="f_header_color" value="#111111">
+                <input type="text" id="f_header_hex" value="#111111" maxlength="7">
+              </div>
+            </div>
+            <div class="field">
+              <label>Body text colour</label>
+              <div class="color-input">
+                <input type="color" id="f_body_color" value="#1a1a1a">
+                <input type="text" id="f_body_hex" value="#1a1a1a" maxlength="7">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            <span class="num">03</span>
+            <h2>Tags &amp; badges.</h2>
+          </div>
+
+          <div class="field">
+            <p style="font-size:14px;color:var(--muted);margin-bottom:14px;line-height:1.5">Type a tag, pick a category,
+              press enter. Up to 12 — 3 to 5 is the sweet spot.</p>
+
+            <div class="tag-input-row">
+              <input type="text" id="tagInput" placeholder="e.g. JavaScript, freelancer, noticeboard…" maxlength="40">
+              <select id="tagCategory"></select>
+              <button class="tag-add-btn" id="tagAddBtn" type="button">Add ↵</button>
+            </div>
+
+            <div class="tags-container empty" id="tagsContainer">
+              <span class="tags-empty-msg">No tags yet — go ahead and add some.</span>
+            </div>
+
+            <div class="tag-count">
+              <span id="tagCountText">0 of 12 tags · 3–5 recommended</span>
+              <span id="tagCatCount"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            <span class="num">04</span>
+            <h2>Two truths, one lie.</h2>
+          </div>
+
+          <div class="field" style="margin-bottom:8px">
+            <label>Fact 1</label>
+            <div class="fact-row">
+              <input type="text" id="f_fact1" placeholder="Something about you" maxlength="140">
+              <div class="truth-toggle" data-fact="1">
+                <button class="t-btn" data-val="true" type="button">Truth</button>
+                <button class="t-btn" data-val="false" type="button">Lie</button>
+              </div>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:8px">
+            <label>Fact 2</label>
+            <div class="fact-row">
+              <input type="text" id="f_fact2" placeholder="Something about you" maxlength="140">
+              <div class="truth-toggle" data-fact="2">
+                <button class="t-btn" data-val="true" type="button">Truth</button>
+                <button class="t-btn" data-val="false" type="button">Lie</button>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Fact 3</label>
+            <div class="fact-row">
+              <input type="text" id="f_fact3" placeholder="Something about you" maxlength="140">
+              <div class="truth-toggle" data-fact="3">
+                <button class="t-btn" data-val="true" type="button">Truth</button>
+                <button class="t-btn" data-val="false" type="button">Lie</button>
+              </div>
+            </div>
+            <div class="facts-hint">
+              <span>Two truths, one lie. Don't tell anyone which.</span>
+              <span id="factsHint">—</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="preview-col">
+
+        <p class="preview-title">// live preview</p>
+
+        <div class="preview-tile" id="previewTile" style="background:#f4d35e;color:#1a1a1a">
+          <div class="preview-head">
+            <div class="preview-avatar" id="prevAvatar">👋</div>
+            <div style="min-width:0;flex:1">
+              <div class="preview-name" id="prevName"
+                style="font-family:'Inter',sans-serif;font-size:28px;color:#111111">Your Name</div>
+              <div class="preview-bio" id="prevBio" style="font-family:'Inter',sans-serif">Your about-me appears here as
+                you type.</div>
+            </div>
+          </div>
+          <div class="preview-badges" id="prevBadges"></div>
+          <div class="preview-facts" id="prevFacts">
+            <div class="preview-fact" style="font-family:'Inter',sans-serif">Fact one will appear here…</div>
+            <div class="preview-fact" style="font-family:'Inter',sans-serif">Fact two will appear here…</div>
+            <div class="preview-fact" style="font-family:'Inter',sans-serif">Fact three will appear here…</div>
+          </div>
+        </div>
+
+        <div class="submit-box">
+          <h3>Ready to send it?</h3>
+          <p>Hit submit — your tile appears on the wall on the projector. You'll see your code after.</p>
+          <button class="submit-btn" id="submitBtn" type="button">Submit to the wall</button>
+          <button class="reset-btn" id="resetBtn" type="button"><span>↺</span> Start fresh / New tile</button>
+          <div class="submit-status" id="submitStatus"></div>
+
+          <div class="code-panel" id="codePanel">
+            <div class="code-head">
+              <span class="code-head-title">your_tile.html</span>
+              <div class="code-actions">
+                <button class="code-btn" id="copyBtn" type="button">Copy</button>
+                <button class="code-btn primary" id="resubmitBtn" type="button">Update wall</button>
+              </div>
+            </div>
+            <textarea class="code-body" id="codeBody" spellcheck="false"></textarea>
+            <div class="code-help">
+              <strong>Edit freely:</strong> change anything in the code above and click "Update wall" to push it. Or
+              email / text the code to <strong>tim@equinimcollege.com</strong> · <strong>0414 265 050</strong>.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbnnEv2VI0ApqviiqrSB2QYmj0lkDtQ2w",
+      authDomain: "eqc-26b-yearbook.firebaseapp.com",
+      databaseURL: "https://eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "eqc-26b-yearbook",
+      storageBucket: "eqc-26b-yearbook.firebasestorage.app",
+      messagingSenderId: "456073643885",
+      appId: "1:456073643885:web:8cee09be079d4b1e0ebc64"
+    };
+
+    // Initialize ONCE — re-init throws and silently breaks subsequent submits
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.__firebase = { db, ref, set, onValue, remove, config: firebaseConfig };
+    window.__firebaseReady = true;
+    window.dispatchEvent(new Event('firebase-ready'));
+  </script>
+
+  <script>
+    (() => {
+      const TILE_PATH_ROOT = 'yearbook26b/tiles';
+      const LOCAL_KEY = 'yearbook26b:my-tile';
+
+      const FONTS = [
+        { family: 'Inter', label: 'INTER', stack: "'Inter',sans-serif", sample: 'Your Name Here' },
+        { family: 'Work Sans', label: 'WORK SANS', stack: "'Work Sans',sans-serif", sample: 'Your Name Here' },
+        { family: 'Libre Baskerville', label: 'BASKERVILLE', stack: "'Libre Baskerville',serif", sample: 'Your Name Here' },
+        { family: 'Merriweather', label: 'MERRIWEATHER', stack: "'Merriweather',serif", sample: 'Your Name Here' },
+        { family: 'Source Serif 4', label: 'SOURCE SERIF', stack: "'Source Serif 4',serif", sample: 'Your Name Here' },
+        { family: 'Playfair Display', label: 'PLAYFAIR', stack: "'Playfair Display',serif", sample: 'Your Name Here' },
+        { family: 'DM Serif Display', label: 'DM SERIF', stack: "'DM Serif Display',serif", sample: 'Your Name Here' },
+        { family: 'Rozha One', label: 'ROZHA', stack: "'Rozha One',serif", sample: 'Your Name Here' },
+        { family: 'Bebas Neue', label: 'BEBAS NEUE', stack: "'Bebas Neue',sans-serif", sample: 'YOUR NAME HERE' },
+        { family: 'Anton', label: 'ANTON', stack: "'Anton',sans-serif", sample: 'YOUR NAME HERE' },
+        { family: 'Archivo Black', label: 'ARCHIVO BLACK', stack: "'Archivo Black',sans-serif", sample: 'Your Name Here' },
+        { family: 'Rubik Mono One', label: 'RUBIK MONO', stack: "'Rubik Mono One',sans-serif", sample: 'YOUR NAME' },
+        { family: 'Major Mono Display', label: 'MAJOR MONO', stack: "'Major Mono Display',monospace", sample: 'Your Name Here' },
+        { family: 'Caveat', label: 'CAVEAT', stack: "'Caveat',cursive", sample: 'Your Name Here' },
+        { family: 'Shrikhand', label: 'SHRIKHAND', stack: "'Shrikhand',sans-serif", sample: 'Your Name Here' },
+        { family: 'Monoton', label: 'MONOTON', stack: "'Monoton',sans-serif", sample: 'YOUR NAME' },
+        { family: 'JetBrains Mono', label: 'JETBRAINS MONO', stack: "'JetBrains Mono',monospace", sample: 'Your Name Here' },
+      ];
+
+      const TAG_CATEGORIES = [
+        { id: 'learn', label: 'I want to learn', prefix: '📚', bg: '#e3efd9', border: '#4a9956', text: '#1e4a28' },
+        { id: 'know', label: 'I already know', prefix: '✓', bg: '#d1e7ff', border: '#2b6cb0', text: '#1a3a5e' },
+        { id: 'dream-job', label: 'Dream job', prefix: '★', bg: '#ffe4b5', border: '#c97c2e', text: '#6b3d0d' },
+        { id: 'working-on', label: "I'm working on", prefix: '●', bg: '#ffd6d6', border: '#c44040', text: '#6e1b1b' },
+        { id: 'class-hub', label: 'For the class hub', prefix: '#', bg: '#e8dcff', border: '#7040c4', text: '#3a1e6b' },
+        { id: 'learn-style', label: 'How I learn', prefix: '⌁', bg: '#d0f0ee', border: '#1f8074', text: '#0d3a34' },
+        { id: 'tool', label: 'Tool I love', prefix: '◈', bg: '#ffe8f0', border: '#b84778', text: '#5e1a38' },
+        { id: 'interests', label: 'Outside of tech', prefix: '♡', bg: '#f0e4d0', border: '#8b5e2b', text: '#3e2a13' },
+        { id: 'vibe', label: 'My vibe', prefix: '◉', bg: '#fff3a3', border: '#a08420', text: '#40360a' },
+        { id: 'goal', label: 'End of course goal', prefix: '→', bg: '#d8f0ff', border: '#2e7db8', text: '#124361' },
+      ];
+
+      const BG_PRESETS = ['#f4d35e', '#ffadad', '#bdb2ff', '#a0c4ff', '#caffbf', '#ffd6a5', '#fdffb6', '#ffc6ff', '#9bf6ff', '#e5e5e5', '#ffffff', '#111111', '#1f7a3e', '#c84a2e', '#4a5859'];
+
+      const state = {
+        id: 'tile-' + Math.random().toString(36).slice(2, 10),
+        name: '', photo: null, bio: '', bioSize: 'm',
+        bg: '#f4d35e', fontTitle: 'Inter', fontBody: 'Inter',
+        headerColor: '#111111', bodyColor: '#1a1a1a',
+        tags: [],
+        facts: [{ text: '', isTruth: null }, { text: '', isTruth: null }, { text: '', isTruth: null }],
+        submitted: false,
+      };
+
+      const $ = id => document.getElementById(id);
+
+      $('liveDate').textContent = new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }).toUpperCase();
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(LOCAL_KEY));
+        if (saved && saved.id) { Object.assign(state, saved); }
+      } catch (e) { }
+
+      function escapeHTML(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+      function renderBioHtml(raw) {
+        let s = escapeHTML(raw);
+        // Allow a safe subset: <b> <i> <u> and <br>
+        s = s.replace(/&lt;(\/?)(b|i|u)&gt;/g, '<$1$2>');
+        s = s.replace(/&lt;br\s*\/?&gt;/g, '<br>');
+        return s;
+      }
+      function getSlug(name) { return (name || 'student').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30) || 'student'; }
+
+      const bgSwatches = $('bgSwatches');
+      BG_PRESETS.forEach(c => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'swatch'; b.style.background = c; b.dataset.color = c;
+        b.addEventListener('click', () => {
+          state.bg = c; $('f_bg').value = c; $('f_bg_hex').value = c;
+          updateSwatchActive(); update();
+        });
+        bgSwatches.appendChild(b);
+      });
+      function updateSwatchActive() {
+        document.querySelectorAll('.swatch').forEach(s => {
+          s.classList.toggle('active', s.dataset.color.toLowerCase() === state.bg.toLowerCase());
+        });
+      }
+
+      function linkColor(pickerId, hexId, stateKey) {
+        const p = $(pickerId), h = $(hexId);
+        p.addEventListener('input', e => { h.value = e.target.value; state[stateKey] = e.target.value; if (stateKey === 'bg') updateSwatchActive(); update(); });
+        h.addEventListener('input', e => {
+          const v = e.target.value.trim();
+          if (/^#[0-9a-fA-F]{6}$/.test(v)) {
+            p.value = v; state[stateKey] = v; if (stateKey === 'bg') updateSwatchActive(); update();
+          }
+        });
+      }
+      linkColor('f_bg', 'f_bg_hex', 'bg');
+      linkColor('f_header_color', 'f_header_hex', 'headerColor');
+      linkColor('f_body_color', 'f_body_hex', 'bodyColor');
+
+      $('f_name').addEventListener('input', e => { state.name = e.target.value; update(); });
+      $('f_bio').addEventListener('input', e => { state.bio = e.target.value; update(); });
+
+      ['b', 'i', 'u'].forEach(tag => {
+        $('fmt-' + tag).addEventListener('click', () => {
+          const ta = $('f_bio');
+          const start = ta.selectionStart, end = ta.selectionEnd;
+          if (start === end) { showToast('Select some text first', true); return; }
+          const before = ta.value.slice(0, start);
+          const selected = ta.value.slice(start, end);
+          const after = ta.value.slice(end);
+          const wrapped = `<${tag}>${selected}</${tag}>`;
+          ta.value = before + wrapped + after;
+          state.bio = ta.value;
+          update();
+          ta.focus();
+          ta.setSelectionRange(before.length + wrapped.length, before.length + wrapped.length);
+        });
+      });
+
+      // Line break: insert <br> at cursor
+      $('fmt-br').addEventListener('click', () => {
+        const ta = $('f_bio');
+        const pos = ta.selectionStart;
+        const before = ta.value.slice(0, pos);
+        const after = ta.value.slice(pos);
+        const insert = '<br>';
+        ta.value = before + insert + after;
+        state.bio = ta.value;
+        update();
+        ta.focus();
+        ta.setSelectionRange(pos + insert.length, pos + insert.length);
+      });
+
+      // Size picker: set state.bioSize, update active button, repaint preview
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.bioSize = btn.dataset.size;
+          document.querySelectorAll('.size-btn').forEach(b => b.classList.toggle('active', b === btn));
+          update();
+        });
+      });
+
+      function buildFontDropdown(btnId, optionsId, previewId, nameId, key) {
+        const btn = $(btnId), options = $(optionsId), preview = $(previewId), name = $(nameId);
+        FONTS.forEach(f => {
+          const opt = document.createElement('button');
+          opt.type = 'button';
+          opt.className = 'font-option' + (state[key] === f.family ? ' active' : '');
+          opt.dataset.family = f.family;
+          opt.innerHTML = `<span class="preview" style="font-family:${f.stack}">${f.sample}</span><span class="font-name">${f.label}</span>`;
+          opt.addEventListener('click', () => {
+            state[key] = f.family;
+            preview.textContent = f.sample;
+            preview.style.fontFamily = f.stack;
+            name.textContent = f.label;
+            options.classList.remove('open');
+            options.querySelectorAll('.font-option').forEach(o => o.classList.toggle('active', o.dataset.family === f.family));
+            update();
+          });
+          options.appendChild(opt);
+        });
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.font-options').forEach(o => { if (o !== options) o.classList.remove('open'); });
+          options.classList.toggle('open');
+        });
+        const initial = FONTS.find(f => f.family === state[key]);
+        if (initial) {
+          preview.textContent = initial.sample;
+          preview.style.fontFamily = initial.stack;
+          name.textContent = initial.label;
+        }
+      }
+      buildFontDropdown('titleFontBtn', 'titleFontOptions', 'titleFontPreview', 'titleFontName', 'fontTitle');
+      buildFontDropdown('bodyFontBtn', 'bodyFontOptions', 'bodyFontPreview', 'bodyFontName', 'fontBody');
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.font-options').forEach(o => o.classList.remove('open'));
+      });
+
+      const catSel = $('tagCategory');
+      TAG_CATEGORIES.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.id; o.textContent = c.label;
+        catSel.appendChild(o);
+      });
+
+      const tagInput = $('tagInput');
+      function addTag() {
+        const text = tagInput.value.trim();
+        if (!text) return;
+        if (state.tags.length >= 12) { showToast('Max 12 tags', true); return; }
+        const cat = TAG_CATEGORIES.find(c => c.id === catSel.value);
+        state.tags.push({ text, category: cat.id, prefix: cat.prefix, bg: cat.bg, border: cat.border, color: cat.text });
+        tagInput.value = '';
+        renderTags(); update();
+        tagInput.focus();
+      }
+      $('tagAddBtn').addEventListener('click', addTag);
+      tagInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addTag(); } });
+
+      function renderTags() {
+        const container = $('tagsContainer');
+        container.innerHTML = '';
+        if (state.tags.length === 0) {
+          container.classList.add('empty');
+          container.innerHTML = '<span class="tags-empty-msg">No tags yet — go ahead and add some.</span>';
+        } else {
+          container.classList.remove('empty');
+          state.tags.forEach((t, i) => {
+            const b = document.createElement('span');
+            b.className = 'badge';
+            b.style.background = t.bg;
+            b.style.borderColor = t.border;
+            b.style.color = t.color;
+            b.innerHTML = `${escapeHTML(t.prefix)} ${escapeHTML(t.text)}<button class="remove" data-i="${i}" type="button">×</button>`;
+            container.appendChild(b);
+          });
+          container.querySelectorAll('.remove').forEach(btn => {
+            btn.addEventListener('click', () => {
+              state.tags.splice(parseInt(btn.dataset.i), 1);
+              renderTags(); update();
+            });
+          });
+        }
+        const c = state.tags.length;
+        $('tagCountText').textContent = `${c} of 12 tags · 3–5 recommended`;
+        const cats = Array.from(new Set(state.tags.map(t => t.category)));
+        $('tagCatCount').textContent = cats.length > 0 ? `${cats.length} categor${cats.length === 1 ? 'y' : 'ies'}` : '';
+      }
+
+      [1, 2, 3].forEach(i => {
+        $('f_fact' + i).addEventListener('input', e => { state.facts[i - 1].text = e.target.value; update(); });
+      });
+      document.querySelectorAll('.truth-toggle').forEach(toggle => {
+        const i = parseInt(toggle.dataset.fact) - 1;
+        toggle.querySelectorAll('.t-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const isTruth = btn.dataset.val === 'true';
+            state.facts[i].isTruth = isTruth;
+            toggle.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            update();
+          });
+        });
+      });
+
+      $('uploadBtn').addEventListener('click', () => $('photoFile').click());
+      $('photoFile').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const size = 320;
+            canvas.width = size; canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            const s = Math.min(img.width, img.height);
+            const sx = (img.width - s) / 2, sy = (img.height - s) / 2;
+            ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+            state.photo = canvas.toDataURL('image/jpeg', 0.78);
+            update();
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      function restoreForm() {
+        $('f_name').value = state.name || '';
+        $('f_bio').value = state.bio || '';
+        $('f_bg').value = state.bg; $('f_bg_hex').value = state.bg;
+        $('f_header_color').value = state.headerColor; $('f_header_hex').value = state.headerColor;
+        $('f_body_color').value = state.bodyColor; $('f_body_hex').value = state.bodyColor;
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.toggle('active', b.dataset.size === (state.bioSize || 'm')));
+        [1, 2, 3].forEach(i => {
+          $('f_fact' + i).value = state.facts[i - 1].text || '';
+          const toggle = document.querySelector(`.truth-toggle[data-fact="${i}"]`);
+          if (state.facts[i - 1].isTruth !== null) {
+            toggle.querySelector(`[data-val="${state.facts[i - 1].isTruth}"]`).classList.add('active');
+          }
+        });
+      }
+
+      function update() {
+        const ft = FONTS.find(f => f.family === state.fontTitle) || FONTS[0];
+        const fb = FONTS.find(f => f.family === state.fontBody) || FONTS[0];
+
+        const tile = $('previewTile');
+        tile.style.background = state.bg;
+        tile.style.color = state.bodyColor;
+
+        const avatar = $('prevAvatar');
+        avatar.innerHTML = state.photo ? `<img src="${state.photo}" alt="">` : '👋';
+
+        const nameEl = $('prevName');
+        nameEl.textContent = state.name || 'Your Name';
+        nameEl.style.fontFamily = ft.stack;
+        nameEl.style.color = state.headerColor;
+
+        const bioEl = $('prevBio');
+        bioEl.innerHTML = state.bio ? renderBioHtml(state.bio) : '<span style="opacity:0.5">Your about-me appears here as you type.</span>';
+        bioEl.style.fontFamily = fb.stack;
+        bioEl.style.color = state.bodyColor;
+        const sizeMap = { s: '13px', m: '15px', l: '18px', xl: '22px' };
+        bioEl.style.fontSize = sizeMap[state.bioSize] || '15px';
+        bioEl.style.lineHeight = '1.5';
+
+        const badgesEl = $('prevBadges');
+        badgesEl.innerHTML = '';
+        state.tags.forEach(t => {
+          const b = document.createElement('span');
+          b.style.cssText = `display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:500;font-family:'Inter',sans-serif;background:${t.bg};border:1.5px solid ${t.border};color:${t.color}`;
+          b.innerHTML = `${escapeHTML(t.prefix)} ${escapeHTML(t.text)}`;
+          badgesEl.appendChild(b);
+        });
+
+        const factsEl = $('prevFacts');
+        factsEl.innerHTML = '';
+        state.facts.forEach((f, i) => {
+          const el = document.createElement('div');
+          el.className = 'preview-fact';
+          el.style.fontFamily = fb.stack;
+          el.style.color = state.bodyColor;
+          el.textContent = f.text || `Fact ${['one', 'two', 'three'][i]} will appear here…`;
+          factsEl.appendChild(el);
+        });
+
+        const lies = state.facts.filter(f => f.isTruth === false).length;
+        const truths = state.facts.filter(f => f.isTruth === true).length;
+        const hint = $('factsHint');
+        hint.classList.remove('ok', 'warn');
+        if (lies === 1 && truths === 2) {
+          hint.textContent = 'two truths, one lie ✓'; hint.classList.add('ok');
+        } else {
+          hint.textContent = `${truths}T · ${lies}L · need 2T 1L`; hint.classList.add('warn');
+        }
+
+        $('submitBtn').disabled = !isValid();
+        if (state.submitted) renderCodeIntoTextarea();
+        try { localStorage.setItem(LOCAL_KEY, JSON.stringify(state)); } catch (e) { }
+      }
+
+      function isValid() {
+        const lies = state.facts.filter(f => f.isTruth === false).length;
+        const truths = state.facts.filter(f => f.isTruth === true).length;
+        return state.name.trim().length > 0
+          && state.facts.every(f => f.text.trim().length > 0)
+          && lies === 1 && truths === 2;
+      }
+
+      function buildCodeString() {
+        const slug = getSlug(state.name);
+        const safeName = escapeHTML(state.name);
+        const bioRaw = state.bio || '';
+        const bioAttr = escapeHTML(bioRaw);
+
+        const tagsStr = state.tags.map(t =>
+          `    <span class="tag" data-category="${escapeHTML(t.category)}" data-bg="${escapeHTML(t.bg)}" data-border="${escapeHTML(t.border)}" data-color="${escapeHTML(t.color)}">${escapeHTML(t.prefix)} ${escapeHTML(t.text)}</span>`
+        ).join('\n');
+
+        const factsStr = state.facts.map(f => {
+          const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
+          return `    <div class="fact" data-truth="${truth}">${escapeHTML(f.text)}</div>`;
+        }).join('\n');
+
+        const photoAttr = state.photo ? ` data-photo="${state.photo}"` : '';
+
+        return `<!-- 26B tile: ${safeName} -->
+<div class="tile" data-name="${safeName}" data-slug="${slug}"${photoAttr}
+     data-bg="${state.bg}" data-font-title="${state.fontTitle}" data-font-body="${state.fontBody}"
+     data-header-color="${state.headerColor}" data-body-color="${state.bodyColor}"
+     data-bio-size="${state.bioSize || 'm'}"
+     data-bio="${bioAttr}">
+  <h3 class="tile-name">${safeName}</h3>
+  <p class="tile-bio">${renderBioHtml(bioRaw)}</p>
+  <div class="tile-tags">
+${tagsStr}
+  </div>
+  <div class="tile-facts">
+${factsStr}
+  </div>
+</div>`;
+      }
+
+      function renderCodeIntoTextarea() {
+        const ta = $('codeBody');
+        if (document.activeElement === ta) return;
+        ta.value = buildCodeString();
+      }
+
+      function parseEditedCode(raw) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = raw.trim();
+        const el = wrapper.querySelector('.tile');
+        if (!el) return null;
+        const name = el.getAttribute('data-name') || state.name;
+        const slug = el.getAttribute('data-slug') || getSlug(name);
+        const photo = el.getAttribute('data-photo') || null;
+        const bg = el.getAttribute('data-bg') || state.bg;
+        const fontTitle = el.getAttribute('data-font-title') || state.fontTitle;
+        const fontBody = el.getAttribute('data-font-body') || state.fontBody;
+        const headerColor = el.getAttribute('data-header-color') || state.headerColor;
+        const bodyColor = el.getAttribute('data-body-color') || state.bodyColor;
+        const bio = el.getAttribute('data-bio') || '';
+        const tags = [];
+        el.querySelectorAll('.tag').forEach(t => {
+          const text = t.textContent.trim();
+          tags.push({
+            text: text.replace(/^\S+\s+/, ''),
+            prefix: (text.match(/^\S+/) || [''])[0],
+            category: t.getAttribute('data-category') || 'learn',
+            bg: t.getAttribute('data-bg') || '#e3efd9',
+            border: t.getAttribute('data-border') || '#4a9956',
+            color: t.getAttribute('data-color') || '#1e4a28',
+          });
+        });
+        const facts = [];
+        el.querySelectorAll('.fact').forEach(f => {
+          const truth = f.getAttribute('data-truth');
+          facts.push({
+            text: f.textContent.trim(),
+            isTruth: truth === 'true' ? true : truth === 'false' ? false : null,
+          });
+        });
+        return { name, slug, photo, bg, fontTitle, fontBody, headerColor, bodyColor, bio, tags, facts };
+      }
+
+      async function submitTile() {
+        const codeTextarea = $('codeBody');
+        if (state.submitted && codeTextarea.value.trim()) {
+          const parsed = parseEditedCode(codeTextarea.value);
+          if (parsed) { Object.assign(state, parsed); }
+        }
+
+        if (!isValid()) { showToast('Fill everything in first', true); return; }
+
+        const tileData = {
+          id: state.id, name: state.name, photo: state.photo, bio: state.bio, bioSize: state.bioSize || 'm',
+          bg: state.bg, fontTitle: state.fontTitle, fontBody: state.fontBody,
+          headerColor: state.headerColor, bodyColor: state.bodyColor,
+          tags: state.tags, facts: state.facts,
+          submittedAt: Date.now(),
+        };
+
+        const status = $('submitStatus');
+        status.className = 'submit-status';
+        status.textContent = 'Sending to the wall…';
+
+        try {
+          if (window.__firebaseReady) {
+            const { db, ref, set } = window.__firebase;
+            await set(ref(db, `${TILE_PATH_ROOT}/${state.id}`), tileData);
+            status.textContent = 'On the wall ✓';
+            status.classList.add('success');
+          } else {
+            const all = JSON.parse(localStorage.getItem('yearbook26b:wall') || '{}');
+            all[state.id] = tileData;
+            localStorage.setItem('yearbook26b:wall', JSON.stringify(all));
+            status.textContent = 'Saved locally · set up Firebase for cross-device sync';
+            status.classList.add('success');
+          }
+
+          state.submitted = true;
+          $('submitBtn').classList.add('submitted');
+          $('submitBtn').textContent = 'Submitted ✓';
+          $('codePanel').classList.add('visible');
+          renderCodeIntoTextarea();
+          update();
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(state));
+          showToast('Tile sent to the wall');
+          setTimeout(() => { $('submitBtn').textContent = 'Re-submit'; $('submitBtn').classList.remove('submitted'); }, 2500);
+        } catch (err) {
+          console.error(err);
+          status.textContent = 'Error — try again, or copy the code and text Tim';
+          status.classList.add('error');
+        }
+      }
+
+      $('submitBtn').addEventListener('click', submitTile);
+
+      $('copyBtn').addEventListener('click', async () => {
+        const raw = $('codeBody').value || '';
+        try {
+          await navigator.clipboard.writeText(raw);
+          showToast('Code copied');
+        } catch (e) {
+          $('codeBody').select();
+          document.execCommand('copy');
+          showToast('Code copied');
+        }
+      });
+
+      $('resubmitBtn').addEventListener('click', submitTile);
+
+      $('resetBtn').addEventListener('click', () => {
+        if (confirm('Clear everything and start a new tile? This will reset your local draft.')) {
+          localStorage.removeItem('yearbook26b:my-tile');
+          location.reload();
+        }
+      });
+
+      let toastTm;
+      function showToast(msg, isError) {
+        const t = $('toast');
+        t.textContent = msg;
+        t.classList.toggle('error', !!isError);
+        t.classList.add('show');
+        clearTimeout(toastTm);
+        toastTm = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      restoreForm();
+      renderTags();
+      updateSwatchActive();
+      update();
+      if (state.submitted) {
+        $('codePanel').classList.add('visible');
+        $('submitBtn').textContent = 'Re-submit';
+        renderCodeIntoTextarea();
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
