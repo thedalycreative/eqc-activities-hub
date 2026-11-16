@@ -1293,8 +1293,8 @@
 
   <script>
     (() => {
-      const TILE_PATH_ROOT = 'yearbook26b/tiles';
-      const LOCAL_KEY = 'yearbook26b:my-tile';
+      const TILE_PATH_ROOT = 'eqcActivities/yearbook/tiles';
+      const LOCAL_KEY = 'eqcActivities:yearbook:my-tile';
 
       const FONTS = [
         { family: 'Inter', label: 'INTER', stack: "'Inter',sans-serif", sample: 'Your Name Here' },
@@ -1748,9 +1748,9 @@ ${factsStr}
             status.textContent = 'On the wall ✓';
             status.classList.add('success');
           } else {
-            const all = JSON.parse(localStorage.getItem('yearbook26b:wall') || '{}');
+            const all = JSON.parse(localStorage.getItem('eqcActivities:yearbook:wall') || '{}');
             all[state.id] = tileData;
-            localStorage.setItem('yearbook26b:wall', JSON.stringify(all));
+            localStorage.setItem('eqcActivities:yearbook:wall', JSON.stringify(all));
             status.textContent = 'Saved locally · set up Firebase for cross-device sync';
             status.classList.add('success');
           }
@@ -1789,7 +1789,7 @@ ${factsStr}
 
       $('resetBtn').addEventListener('click', () => {
         if (confirm('Clear everything and start a new tile? This will reset your local draft.')) {
-          localStorage.removeItem('yearbook26b:my-tile');
+            localStorage.removeItem('eqcActivities:yearbook:my-tile');
           location.reload();
         }
       });

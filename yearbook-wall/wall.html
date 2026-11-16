@@ -735,6 +735,7 @@
         <span><strong id="revealedCount">0</strong> revealed</span>
       </div>
       <div class="actions">
+        <a class="btn primary" href="build.html">✏️ Build your tile</a>
         <button class="btn" id="hideAllBtn" type="button" title="Toggle visibility">👁️ Hide all</button>
         <button class="btn" id="addManualBtn" type="button" title="Paste HTML code">📋 Paste</button>
         <button class="btn danger" id="clearBtn" type="button" title="Clear wall">🗑️ Clear</button>
@@ -824,9 +825,9 @@
 
   <script>
     (() => {
-      const TILE_PATH_ROOT = 'yearbook26b/tiles';
-      const LOCAL_KEY = 'yearbook26b:wall';
-      const REVEAL_KEY = 'yearbook26b:revealed';
+      const TILE_PATH_ROOT = 'eqcActivities/yearbook/tiles';
+      const LOCAL_KEY = 'eqcActivities:yearbook:wall';
+      const REVEAL_KEY = 'eqcActivities:yearbook:revealed';
 
       const TAG_CATEGORIES = [
         { id: 'learn', label: 'I want to learn', prefix: '📚', bg: '#e3efd9', border: '#4a9956', text: '#1e4a28' },

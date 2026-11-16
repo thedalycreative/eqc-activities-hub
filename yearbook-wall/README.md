@@ -23,7 +23,7 @@ Open the `.html` files in a browser. Firebase works over `file://`.
 
 ## Firebase configuration
 
-The Firebase project was first set up for intake 26B, so its internal names (the project ID and the `yearbook26b/tiles` data path) still say 26B. Students never see these.
+The Firebase project is shared with the EQC activities hub. Yearbook tiles are stored under the neutral `eqcActivities/yearbook/tiles` path.
 
 ```javascript
 const firebaseConfig = {
