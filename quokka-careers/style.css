@@ -78,7 +78,7 @@ a {
 /* Grain Effect */
 .grain-overlay {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .grain-overlay::before {

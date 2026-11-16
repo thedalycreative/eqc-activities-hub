@@ -1240,8 +1240,8 @@
 
         <div class="submit-box">
           <h3>Ready to send it?</h3>
-          <p>Hit submit — your tile appears on the wall on the projector. You'll see your code after.</p>
-          <button class="submit-btn" id="submitBtn" type="button">Submit to the wall</button>
+          <p>Your choices generate the HTML below live. Edit the code directly if you want, then submit it to the wall.</p>
+          <button class="submit-btn" id="submitBtn" type="button">Generate HTML &amp; submit</button>
           <button class="reset-btn" id="resetBtn" type="button"><span>↺</span> Start fresh / New tile</button>
           <div class="submit-status" id="submitStatus"></div>
 
@@ -1269,24 +1269,8 @@
   <div class="toast" id="toast"></div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbnnEv2VI0ApqviiqrSB2QYmj0lkDtQ2w",
-      authDomain: "eqc-26b-yearbook.firebaseapp.com",
-      databaseURL: "https://eqc-26b-yearbook-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "eqc-26b-yearbook",
-      storageBucket: "eqc-26b-yearbook.firebasestorage.app",
-      messagingSenderId: "456073643885",
-      appId: "1:456073643885:web:8cee09be079d4b1e0ebc64"
-    };
-
-    // Initialize ONCE — re-init throws and silently breaks subsequent submits
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    window.__firebase = { db, ref, set, onValue, remove, config: firebaseConfig };
+    import { yearbookBackend } from "../yearbook-backend.js";
+    window.__firebase = yearbookBackend;
     window.__firebaseReady = true;
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
@@ -1631,7 +1615,8 @@
         }
 
         $('submitBtn').disabled = !isValid();
-        if (state.submitted) renderCodeIntoTextarea();
+        $('codePanel').classList.add('visible');
+        renderCodeIntoTextarea();
         try { localStorage.setItem(LOCAL_KEY, JSON.stringify(state)); } catch (e) { }
       }
 
