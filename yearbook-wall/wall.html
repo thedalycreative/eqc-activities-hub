@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>26B · The Yearbook Wall</title>
+  <title>EQC · The Yearbook Wall</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -720,7 +720,7 @@
 
     <header>
       <div class="meta-row">
-        <span>EQC · Intake 26B</span>
+        <span>EQC · Web Development</span>
         <span class="issue">Issue № 01</span>
         <span><span class="live-indicator"><span class="dot"></span>LIVE · <span id="liveDate">—</span></span></span>
       </div>
@@ -774,7 +774,7 @@
     <div class="modal">
       <h2>Paste tile code</h2>
       <p class="hint">Drop the HTML block a student sent you. You can paste multiple tiles at once.</p>
-      <textarea id="pasteArea" placeholder="<!-- 26B tile: ... -->
+      <textarea id="pasteArea" placeholder="<!-- EQC tile: ... -->
 <div class='tile' data-name='...'>
   ...
 </div>"></textarea>
@@ -1167,7 +1167,7 @@
           return `    <div class="fact" data-truth="${truth}">${escapeHTML(f.text)}</div>`;
         }).join('\n');
         const photoAttr = t.photo ? ` data-photo="${t.photo}"` : '';
-        return `<!-- 26B tile: ${escapeHTML(t.name)} -->
+        return `<!-- EQC tile: ${escapeHTML(t.name)} -->
 <div class="tile" data-name="${escapeHTML(t.name)}" data-slug="${escapeHTML(t.slug || '')}"${photoAttr}
      data-bg="${t.bg}" data-font-title="${t.fontTitle}" data-font-body="${t.fontBody}"
      data-header-color="${t.headerColor}" data-body-color="${t.bodyColor}"

@@ -12,7 +12,8 @@ Each project lives in its own folder and is served from the matching path. Each 
 |---|---|---|
 | `class-games/` | Emoji Guess, AI Prompts Playground, Two Truths & A Lie (and a class scoreboard) | `/class-games/` |
 | `hiring-generator/` | Bootstrap Hiring Ceremony | `/hiring-generator/` |
-| `yearbook-wall-26b/` | 26B Yearbook Wall (Firebase live sync) | `/yearbook-wall-26b/` |
+| `yearbook-wall/` | Yearbook Wall icebreaker (Firebase live sync) | `/yearbook-wall/` |
+| `slot-pick/` | Slot Pick, a slot machine that picks between choices | `/slot-pick/` |
 | `quokka-careers/` | Quokka Careers roleplay job portal | `/quokka-careers/` |
 | `flexbox-exercise/` | Flexbox practice starter | `/flexbox-exercise/` |
 | `bootstrap-clone-apple/` | Apple Bootstrap teaching clone | `/bootstrap-clone-apple/` |
@@ -37,4 +38,4 @@ npx serve .
 
 ## Deployment
 
-Static site, no build step. The Vercel project **eqc-activities-hub** deploys `main`. `vercel.json` turns on trailing slashes so every folder's relative links resolve, and keeps the short `/yearbook-wall-26b/wall` and `/build` addresses working.
+Static site, no build step. The Vercel project **eqc-activities-hub** deploys `main`. `vercel.json` turns on trailing slashes so every folder's relative links resolve, and keeps the short `/yearbook-wall/wall` and `/yearbook-wall/build` addresses working.
