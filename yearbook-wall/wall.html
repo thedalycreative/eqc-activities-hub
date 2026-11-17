@@ -13,6 +13,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&family=Major+Mono+Display&family=DM+Serif+Display&family=Rubik+Mono+One&family=Caveat:wght@400;700&family=Archivo+Black&family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rozha+One&family=Monoton&family=Shrikhand&family=Work+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="../assets/hub-nav.css">
   <style>
     :root {
       --ink: #111;
@@ -634,6 +635,7 @@
       width: 100%;
       min-height: 320px;
       font-family: 'JetBrains Mono';
+      font-variant-ligatures: none;
       font-size: 13px;
       line-height: 1.6;
       padding: 16px;
@@ -716,6 +718,15 @@
 
 <body>
 
+  <nav class="hub-nav" aria-label="EQC Activities Hub" style="--hub-nav-top: 40px; --hub-nav-x: 28px;">
+    <a class="hub-nav-btn hub-nav-back" href="../">← Activities Hub</a>
+    <span class="hub-nav-title">📸 Yearbook Wall</span>
+    <div class="hub-nav-links">
+      <a class="hub-nav-btn" href="wall.html" aria-current="page">🧱 The wall</a>
+      <a class="hub-nav-btn" href="build.html">✏️ Build your tile</a>
+    </div>
+  </nav>
+
   <div class="shell">
 
     <header>
@@ -775,8 +786,9 @@
     <div class="modal">
       <h2>Paste tile code</h2>
       <p class="hint">Drop the HTML block a student sent you. You can paste multiple tiles at once.</p>
-      <textarea id="pasteArea" placeholder="<!-- EQC tile: ... -->
-<div class='tile' data-name='...'>
+      <textarea id="pasteArea" placeholder="<!-- My yearbook tile: ... -->
+<div class=&quot;tile&quot; style=&quot;background-color: #f4d35e;&quot;>
+  <h3>Your name</h3>
   ...
 </div>"></textarea>
       <div class="modal-actions">
@@ -807,6 +819,7 @@
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
 
+  <script src="tile-code.js"></script>
   <script>
     (() => {
       const TILE_PATH_ROOT = 'eqcActivities/yearbook/tiles';
@@ -916,47 +929,13 @@
         ].join('::');
       }
 
-      function parsePaste(raw) {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = raw.trim();
-        const parsed = [];
-        wrapper.querySelectorAll('.tile').forEach(el => {
-          const name = el.getAttribute('data-name') || 'Unknown';
-          const slug = el.getAttribute('data-slug') || name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-          const photo = el.getAttribute('data-photo') || null;
-          const bg = el.getAttribute('data-bg') || '#f4d35e';
-          const fontTitle = el.getAttribute('data-font-title') || 'Inter';
-          const fontBody = el.getAttribute('data-font-body') || 'Inter';
-          const headerColor = el.getAttribute('data-header-color') || '#111111';
-          const bodyColor = el.getAttribute('data-body-color') || '#1a1a1a';
-          const bio = el.getAttribute('data-bio') || '';
-          const tags = [];
-          el.querySelectorAll('.tag').forEach(t => {
-            const text = t.textContent.trim();
-            tags.push({
-              text: text.replace(/^\S+\s+/, ''),
-              prefix: (text.match(/^\S+/) || [''])[0],
-              category: t.getAttribute('data-category') || 'learn',
-              bg: t.getAttribute('data-bg') || '#e3efd9',
-              border: t.getAttribute('data-border') || '#4a9956',
-              color: t.getAttribute('data-color') || '#1e4a28',
-            });
-          });
-          const facts = [];
-          el.querySelectorAll('.fact').forEach(f => {
-            const truth = f.getAttribute('data-truth');
-            facts.push({
-              text: f.textContent.trim(),
-              isTruth: truth === 'true' ? true : truth === 'false' ? false : null,
-            });
-          });
-          parsed.push({
-            id: slug + '-' + Date.now() + Math.random().toString(36).slice(2, 5),
-            name, slug, photo, bg, fontTitle, fontBody, headerColor, bodyColor, bio, tags, facts,
-            submittedAt: Date.now(),
-          });
-        });
-        return parsed;
+      // Reads pasted tile code (see tile-code.js). opts.currentPhoto keeps a photo when the code says src="my-photo.jpg".
+      function parsePaste(raw, opts = {}) {
+        return TileCode.codeToTiles(raw, opts).map(t => ({
+          ...t,
+          id: t.slug + '-' + Date.now() + Math.random().toString(36).slice(2, 5),
+          submittedAt: Date.now(),
+        }));
       }
 
       async function saveTile(tile) {
@@ -1016,16 +995,16 @@
         el.style.borderColor = 'var(--ink)';
         el.style.color = t.bodyColor;
 
-        const avatarHTML = t.photo ? `<div class="tile-avatar"><img src="${t.photo}" alt=""></div>` : `<div class="tile-avatar">👋</div>`;
+        const avatarHTML = t.photo ? `<div class="tile-avatar"><img src="${escapeHTML(t.photo)}" alt=""></div>` : `<div class="tile-avatar">👋</div>`;
 
         const tagsHTML = (t.tags || []).map(tag =>
-          `<span class="tile-tag" style="background:${tag.bg};border-color:${tag.border};color:${tag.color}">${escapeHTML(tag.prefix || '')} ${escapeHTML(tag.text || '')}</span>`
+          `<span class="tile-tag" style="background:${escapeHTML(tag.bg)};border-color:${escapeHTML(tag.border)};color:${escapeHTML(tag.color)}">${escapeHTML(tag.prefix || '')} ${escapeHTML(tag.text || '')}</span>`
         ).join('');
 
         const factsHTML = (t.facts || []).map(f => {
           const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
           const label = f.isTruth === true ? 'TRUTH' : 'LIE';
-          return `<div class="fact" data-truth="${truth}" style="font-family:'${t.fontBody}',sans-serif">
+          return `<div class="fact" data-truth="${truth}" style="font-family:'${escapeHTML(t.fontBody)}',sans-serif">
         ${escapeHTML(f.text)}
         <span class="fact-label">${label}</span>
       </div>`;
@@ -1039,8 +1018,8 @@
       <div class="tile-head">
         ${avatarHTML}
         <div class="tile-head-text">
-          <h3 class="tile-name" style="font-family:'${t.fontTitle}',serif;color:${t.headerColor}">${escapeHTML(t.name)}</h3>
-          ${t.bio ? `<p class="tile-bio" style="font-family:'${t.fontBody}',sans-serif;font-size:${({ s: '14px', m: '15.5px', l: '18.5px', xl: '22px' })[t.bioSize || 'm']};line-height:1.5">${renderBioHtml(t.bio)}</p>` : ''}
+          <h3 class="tile-name" style="font-family:'${escapeHTML(t.fontTitle)}',serif;color:${escapeHTML(t.headerColor)}">${escapeHTML(t.name)}</h3>
+          ${t.bio ? `<p class="tile-bio" style="font-family:'${escapeHTML(t.fontBody)}',sans-serif;font-size:${({ s: '14px', m: '15.5px', l: '18.5px', xl: '22px' })[t.bioSize || 'm'] || (/^\d{2}px$/.test(t.bioSize) ? t.bioSize : '15.5px')};line-height:1.5">${renderBioHtml(t.bio)}</p>` : ''}
         </div>
       </div>
       ${tagsHTML ? `<div class="tile-tags">${tagsHTML}</div>` : ''}
@@ -1143,30 +1122,7 @@
         });
       }
 
-      function tileToCode(t) {
-        const tagsStr = (t.tags || []).map(tag =>
-          `    <span class="tag" data-category="${escapeHTML(tag.category)}" data-bg="${escapeHTML(tag.bg)}" data-border="${escapeHTML(tag.border)}" data-color="${escapeHTML(tag.color)}">${escapeHTML(tag.prefix || '')} ${escapeHTML(tag.text || '')}</span>`
-        ).join('\n');
-        const factsStr = (t.facts || []).map(f => {
-          const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
-          return `    <div class="fact" data-truth="${truth}">${escapeHTML(f.text)}</div>`;
-        }).join('\n');
-        const photoAttr = t.photo ? ` data-photo="${t.photo}"` : '';
-        return `<!-- EQC tile: ${escapeHTML(t.name)} -->
-<div class="tile" data-name="${escapeHTML(t.name)}" data-slug="${escapeHTML(t.slug || '')}"${photoAttr}
-     data-bg="${t.bg}" data-font-title="${t.fontTitle}" data-font-body="${t.fontBody}"
-     data-header-color="${t.headerColor}" data-body-color="${t.bodyColor}"
-     data-bio="${escapeHTML(t.bio || '')}">
-  <h3 class="tile-name">${escapeHTML(t.name)}</h3>
-  <p class="tile-bio">${renderBioHtml(t.bio || '')}</p>
-  <div class="tile-tags">
-${tagsStr}
-  </div>
-  <div class="tile-facts">
-${factsStr}
-  </div>
-</div>`;
-      }
+      const tileToCode = t => TileCode.tileToCode(t);
 
       $('addManualBtn').addEventListener('click', () => {
         $('pasteArea').value = '';
@@ -1187,7 +1143,7 @@ ${factsStr}
       $('editCancelBtn').addEventListener('click', () => { $('editModal').classList.remove('open'); editingId = null; });
       $('editSaveBtn').addEventListener('click', async () => {
         const raw = $('editArea').value.trim();
-        const parsed = parsePaste(raw);
+        const parsed = parsePaste(raw, { currentPhoto: tiles[editingId]?.photo });
         if (parsed.length === 0) { showToast('Invalid tile code', true); return; }
         const fresh = parsed[0];
         fresh.id = editingId;

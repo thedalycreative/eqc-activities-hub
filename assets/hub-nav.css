@@ -1,0 +1,69 @@
+/* A hub-style nav bar for pages that keep their own look (like the Yearbook Wall).
+   Everything is scoped to .hub-nav and uses its own --hn-… colours, so the rest of the page is untouched.
+
+   Usage (set the page's body padding so the bar sits flush with the top and sides):
+   <nav class="hub-nav" style="--hub-nav-top: 40px; --hub-nav-x: 24px;"> … </nav>            */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Bungee&display=swap");
+
+.hub-nav {
+  --hn-ink: #1B1035;
+  --hn-stage: #2A1A5E;
+  --hn-deep: #1E1247;
+  --hn-bulb: #FFD23F;
+  --hn-paper: #FFF8E7;
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: calc(-1 * var(--hub-nav-top, 0px)) calc(-1 * var(--hub-nav-x, 0px)) var(--hub-nav-gap, 28px);
+  padding: 12px clamp(14px, 3vw, 28px);
+  font: 800 16px/1.2 "Baloo 2", system-ui, sans-serif;
+  color: var(--hn-paper);
+  background: radial-gradient(120% 260% at 50% 0%, #3B2780 0%, var(--hn-stage) 60%, var(--hn-deep) 100%);
+  border-bottom: 4px solid var(--hn-ink);
+}
+.hub-nav *, .hub-nav *::before, .hub-nav *::after { box-sizing: border-box; }
+
+.hub-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin: 0;
+  padding: 6px 16px 4px;
+  font: inherit;
+  color: var(--hn-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  background: var(--hn-paper);
+  border: 3px solid var(--hn-ink);
+  border-radius: 14px;
+  box-shadow: 0 4px 0 var(--hn-ink);
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+.hub-nav-btn:hover { transform: translateY(-1px); }
+.hub-nav-btn:active { transform: translateY(4px); box-shadow: 0 0 0 var(--hn-ink); }
+.hub-nav-btn:focus-visible { outline: 4px solid var(--hn-bulb); outline-offset: 3px; }
+.hub-nav-back { color: var(--hn-paper); background: transparent; border-color: var(--hn-paper); box-shadow: none; }
+.hub-nav-back:hover { background: rgba(255, 248, 231, .12); }
+
+.hub-nav-title {
+  margin: 0;
+  font: 400 clamp(1.1rem, 2.4vw, 1.5rem)/1 "Bungee", "Baloo 2", sans-serif;
+  letter-spacing: .02em;
+  color: var(--hn-paper);
+  text-shadow: 0 3px 0 var(--hn-ink);
+}
+.hub-nav-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.hub-nav-links [aria-current="page"] { background: var(--hn-bulb); }
+
+@media (max-width: 700px) {
+  .hub-nav { justify-content: center; }
+  .hub-nav-title { order: -1; width: 100%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-nav-btn, .hub-nav-btn:hover, .hub-nav-btn:active { transition: none; transform: none; }
+}

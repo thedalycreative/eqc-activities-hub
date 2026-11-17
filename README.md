@@ -248,7 +248,7 @@ code bootstrap-clone-forbidden-forrest
 | Folder | What it is | Path |
 |---|---|---|
 | `hiring-generator/` | Bootstrap Hiring Ceremony: hand out Bootstrap projects as a live reveal | [/hiring-generator/](https://eqc-activities-hub.vercel.app/hiring-generator/) |
-| `yearbook-wall/` | Yearbook Wall icebreaker: students build a tile that pops up on the projector | [/yearbook-wall/build.html](https://eqc-activities-hub.vercel.app/yearbook-wall/build.html) |
+| `yearbook-wall/` | Yearbook Wall icebreaker: students build a tile (and see it as plain HTML) that pops up on the projector | [/yearbook-wall/wall.html](https://eqc-activities-hub.vercel.app/yearbook-wall/wall.html) |
 | `quokka-careers/` | Quokka Careers: apply for ridiculous jobs, then roleplay the interview | [/quokka-careers/](https://eqc-activities-hub.vercel.app/quokka-careers/) |
 | `flexbox-exercise/` | Flexbox Practice: live-typing exercises, a playground that writes the CSS, and the 🚗 Park the cars game (10 levels) | [/flexbox-exercise/](https://eqc-activities-hub.vercel.app/flexbox-exercise/) |
 | `readme-builder/` | README Builder: tick a checklist, copy an AI prompt that writes a README like the Apple clone's, plus what goes in a great README | [/readme-builder/](https://eqc-activities-hub.vercel.app/readme-builder/) |
