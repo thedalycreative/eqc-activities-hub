@@ -91,7 +91,7 @@ def page(context):
 
 def unlock(context):
     """Pretend the trainer already entered the PIN on this computer."""
-    context.add_init_script(f"localStorage.setItem('eqc-trainer', '{PIN_HASH}')")
+    context.add_init_script(f"try {{ localStorage.setItem('eqc-trainer', '{PIN_HASH}') }} catch (e) {{}}")
 
 
 def seed(page, activity, items):

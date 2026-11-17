@@ -3,6 +3,7 @@ import { isTrainer, lockTrainer, requireTrainer, toast } from './hub.js';
 import { muteButton } from './sound.js';
 import { mountNoticeboard, showJoinQr } from './noticeboard.js';
 import { mountPicker } from './picker.js';
+import { openBattle, hasSavedBattle } from './battle-stage.js';
 
 const toolbar = document.getElementById('toolbar');
 const chip = document.createElement('button');
@@ -26,8 +27,11 @@ document.getElementById('games').addEventListener('click', e => {
   const game = tile.dataset.game;
   if (game === 'emoji' || game === 'truths') showJoinQr(game);
   else if (game === 'picker') document.getElementById('picker').scrollIntoView({ behavior: 'smooth' });
-  else if (game === 'battle') toast('Prompt Battle is coming soon.');
+  else if (game === 'battle') openBattle();
 });
 
 mountNoticeboard(document.getElementById('noticeboard'));
 mountPicker(document.getElementById('picker-root'));
+
+// If a Prompt Battle was running when this page was closed or refreshed, bring it back.
+if (hasSavedBattle()) openBattle({ resumeOnly: true });
