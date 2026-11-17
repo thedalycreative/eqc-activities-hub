@@ -25,7 +25,8 @@ const LIE_SYSTEM = [
 const BATTLE_SYSTEM = [
   'You are the AI in "Prompt Battle", a prompt-writing game in an adult classroom shown on a projector.',
   'The trainer sets a challenge; a student writes a prompt to get the best result from you.',
-  'Do what the student\'s prompt asks, in the spirit of the challenge, in at most 60 words.',
+  'Do what the student\'s prompt asks, in the spirit of the challenge.',
+  'Keep it SHORT: at most 60 words, even if the prompt asks for more. It must fit on a card on a projector.',
   'Be fun and creative, and keep it classroom-appropriate: no swearing, no adult content, nothing hurtful.',
   'If the prompt asks for anything inappropriate, reply with a light-hearted one-line refusal instead.',
   'Reply with the answer only, no preamble.'
@@ -64,7 +65,7 @@ export function buildMessages(task, input) {
   ];
 }
 
-export function cleanReply(task, raw) {
+export function cleanReply(task, raw, { truncated = false } = {}) {
   let out = String(raw ?? '').trim();
   if (task === 'lie') {
     out = out.split(/\r?\n/).map(s => s.trim()).find(Boolean) || '';
@@ -76,7 +77,13 @@ export function cleanReply(task, raw) {
     out = strip(strip(out));
     return out.slice(0, 200);
   }
-  return out.slice(0, 600);
+  out = out.slice(0, 600);
+  if (truncated) {
+    // The AI ran out of room mid-sentence: end at the last full sentence, or add "…".
+    const end = Math.max(...['.', '!', '?', '…'].map(c => out.lastIndexOf(c)));
+    out = end > 0 ? out.slice(0, end + 1) : out.replace(/[\s,;:–-]+$/, '') + '…';
+  }
+  return out;
 }
 
 export function gatewayToken(request, env) {
@@ -101,7 +108,7 @@ export default {
         body: JSON.stringify({
           model: process.env.AI_MODEL || MODEL,
           messages: buildMessages(check.task, check.input),
-          max_tokens: 150,
+          max_tokens: check.task === 'lie' ? 150 : 240,
           temperature: check.task === 'lie' ? 0.9 : 0.8
         }),
         signal: AbortSignal.timeout(10000)
@@ -112,7 +119,8 @@ export default {
         return reply(502, { error: `AI Gateway said ${res.status}`, detail });
       }
       const data = await res.json();
-      const out = cleanReply(check.task, data?.choices?.[0]?.message?.content);
+      const choice = data?.choices?.[0];
+      const out = cleanReply(check.task, choice?.message?.content, { truncated: choice?.finish_reason === 'length' });
       if (!out) return reply(502, { error: 'The AI gave an empty answer.' });
       return reply(200, { text: out });
     } catch (err) {

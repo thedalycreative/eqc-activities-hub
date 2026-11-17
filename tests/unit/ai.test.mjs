@@ -106,3 +106,19 @@ test('handler rejects other methods, bad input and missing setup', async () => {
   assert.equal(res.status, 500);
   assert.equal((await res.json()).error, 'AI not configured');
 });
+
+test('a battle reply cut off by the token limit ends at its last full sentence', async () => {
+  let sent;
+  globalThis.fetch = async (url, init) => {
+    sent = JSON.parse(init.body);
+    return Response.json({ choices: [{ finish_reason: 'length', message: { content: 'No air at all. The view was grey! Two stars only for the Ear' } }] });
+  };
+  const res = await handler.fetch(post({ task: 'battle', challenge: 'Moon review', prompt: 'grumpy tourist' }, { 'x-vercel-oidc-token': 't' }));
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { text: 'No air at all. The view was grey!' });
+  assert.ok(sent.max_tokens >= 200, 'battle replies get room to finish');
+});
+
+test('a cut-off reply with no full sentence gets an ellipsis instead', () => {
+  assert.equal(cleanReply('battle', 'one long run on thought that never', { truncated: true }), 'one long run on thought that never…');
+});
