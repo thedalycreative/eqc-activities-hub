@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README Builder · EQC Activities Hub</title>
+  <meta name="description" content="Tick a few boxes, copy a prompt, and let your AI helper write a great README.md for your finished project. Plus: what goes in a good README.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/hub.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar rb-toolbar">
+      <a class="btn btn-ghost" href="../">← Activities Hub</a>
+    </div>
+
+    <header class="marquee">
+      <h1>📝 README Builder</h1>
+      <p>Give your finished project the front door it deserves.</p>
+    </header>
+
+    <nav class="rb-jump" aria-label="On this page">
+      <a class="pill" href="#build" style="--c: var(--lime)">① Build your prompt</a>
+      <a class="pill" href="#anatomy" style="--c: var(--sky)">② What’s in a great README</a>
+      <a class="pill" href="#examples" style="--c: var(--pink)">③ Reference READMEs</a>
+    </nav>
+
+    <!-- ① The prompt builder ─────────────────────────────────── -->
+    <section class="group" id="build" aria-labelledby="g-build">
+      <h2 id="g-build">① Build your AI prompt</h2>
+      <p class="rb-lede">Project finished? 🎉 Tick a few boxes, copy the prompt, and your AI helper will write a README just like our <a href="https://github.com/thedalycreative/eqc-activities-hub/blob/main/bootstrap-clone-apple/README.MD" target="_blank" rel="noopener">Apple clone’s</a>.</p>
+
+      <div class="rb-builder">
+        <form class="card rb-form" id="rb-form" novalidate>
+          <fieldset class="rb-step">
+            <legend><span class="rb-num">1</span> Where’s your AI helper?</legend>
+            <div class="rb-choices">
+              <label class="rb-choice">
+                <input type="radio" name="where" value="agent" checked>
+                <span class="rb-choice-emoji" aria-hidden="true">🧑‍💻</span>
+                <strong>VS Code agent</strong>
+                <small>Copilot, Claude, Gemini or Codex in agent mode, with your project open</small>
+              </label>
+              <label class="rb-choice">
+                <input type="radio" name="where" value="chat">
+                <span class="rb-choice-emoji" aria-hidden="true">💬</span>
+                <strong>AI chat website</strong>
+                <small>ChatGPT, Claude or Gemini in your browser</small>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="rb-step">
+            <legend><span class="rb-num">2</span> About your project</legend>
+            <div class="rb-fields">
+              <label class="field"><span>Project name</span>
+                <input name="name" maxlength="80" autocomplete="off" placeholder="Skywings Resorts">
+              </label>
+              <label class="field"><span>Your name</span>
+                <input name="author" maxlength="60" autocomplete="name" placeholder="Alex">
+              </label>
+              <label class="field rb-wide"><span>What is it? <em>(one sentence, optional)</em></span>
+                <input name="about" maxlength="200" autocomplete="off" placeholder="A Bootstrap clone of a luxury travel website">
+              </label>
+              <label class="field"><span>Live link <em>(optional)</em></span>
+                <input name="live" type="url" maxlength="300" autocomplete="off" placeholder="https://my-site.vercel.app">
+              </label>
+              <label class="field"><span>GitHub link <em>(optional)</em></span>
+                <input name="github" type="url" maxlength="300" autocomplete="off" placeholder="https://github.com/you/your-project">
+              </label>
+            </div>
+            <p class="rb-tip" data-where="chat" hidden>💡 Using a chat website? Paste your GitHub link so the AI can read your code. No link? Leave it blank and attach your files in the chat instead.</p>
+          </fieldset>
+
+          <fieldset class="rb-step">
+            <legend><span class="rb-num">3</span> What should it include?</legend>
+            <div class="row rb-quick">
+              <button type="button" class="btn btn-sky" id="rb-all">✨ Everything</button>
+              <button type="button" class="btn" id="rb-essentials">🎯 Just the must-haves</button>
+            </div>
+            <div class="rb-checks" id="rb-checks"></div>
+          </fieldset>
+
+          <fieldset class="rb-step">
+            <legend><span class="rb-num">4</span> Pick a vibe</legend>
+            <div class="rb-choices">
+              <label class="rb-choice">
+                <input type="radio" name="vibe" value="fun" checked>
+                <span class="rb-choice-emoji" aria-hidden="true">🎉</span>
+                <strong>Fun &amp; emoji-packed</strong>
+                <small>Like our <a href="https://github.com/thedalycreative/eqc-activities-hub/blob/main/bootstrap-clone-apple/README.MD" target="_blank" rel="noopener">Apple clone README</a></small>
+              </label>
+              <label class="rb-choice">
+                <input type="radio" name="vibe" value="clean">
+                <span class="rb-choice-emoji" aria-hidden="true">🧼</span>
+                <strong>Clean &amp; simple</strong>
+                <small>Like the <a href="https://github.com/thedalycreative/eqc-activities-hub/blob/main/README.md" target="_blank" rel="noopener">Activities Hub README</a></small>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+
+        <aside class="card rb-output" aria-labelledby="rb-out-title">
+          <div class="row spread">
+            <h3 id="rb-out-title">Your prompt</h3>
+            <span class="pill" id="rb-count" aria-live="polite"></span>
+          </div>
+          <pre class="rb-prompt" id="rb-prompt" tabindex="0" aria-label="Your AI prompt"></pre>
+          <button type="button" class="btn btn-big btn-lime btn-block" id="rb-copy">📋 Copy prompt</button>
+
+          <h4 class="rb-next-title">Then…</h4>
+          <ol class="rb-next" data-where="agent">
+            <li>Open your <strong>finished</strong> project folder in VS Code.</li>
+            <li>Open the AI chat and switch it to <strong>Agent</strong> mode.</li>
+            <li>Paste the prompt and press <kbd>Enter</kbd>. Say yes when it asks to create <code>README.md</code>.</li>
+            <li>Read it through. Fix every <code>TODO</code> and add your screenshots.</li>
+            <li>Commit and push. Open your repo on GitHub and admire it! 🤩</li>
+          </ol>
+          <ol class="rb-next" data-where="chat" hidden>
+            <li>Open ChatGPT, Claude or Gemini.</li>
+            <li>Paste the prompt. No GitHub link? Attach your project files too.</li>
+            <li>Copy the README it gives you into a new file called <code>README.md</code> in your project’s main folder.</li>
+            <li>Read it through. Fix every <code>TODO</code> and add your screenshots.</li>
+            <li>Commit and push. Open your repo on GitHub and admire it! 🤩</li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ② Anatomy cards ──────────────────────────────────────── -->
+    <section class="group" id="anatomy" aria-labelledby="g-anatomy">
+      <h2 id="g-anatomy">② What’s in a great README</h2>
+      <p class="rb-lede">A <code>README.md</code> is your project’s front door: the first thing anyone sees on GitHub. The <strong>.md</strong> means <strong>Markdown</strong>, a simple way to format text. Each card below is one part of a README, with a tiny Markdown example. <strong>“See it ↗”</strong> jumps to that exact part of our Apple clone README, so it works as an annotated example too.</p>
+
+      <h3 class="rb-tier"><span aria-hidden="true">⭐</span> Must-haves <small>every README needs these</small></h3>
+      <div class="rb-cards" id="rb-must"></div>
+
+      <h3 class="rb-tier"><span aria-hidden="true">🚀</span> Level-ups <small>add these to really stand out</small></h3>
+      <div class="rb-cards" id="rb-level"></div>
+    </section>
+
+    <!-- ③ Example READMEs and tools ──────────────────────────── -->
+    <section class="group" id="examples" aria-labelledby="g-examples">
+      <h2 id="g-examples">③ Great reference READMEs</h2>
+      <p class="rb-lede">Our two favourites, plus the best guides and examples on the web. Click one, steal the ideas you like. 😎</p>
+      <ul class="tiles rb-examples">
+        <li>
+          <a class="tile t-bulb" href="https://github.com/thedalycreative/eqc-activities-hub/blob/main/bootstrap-clone-apple/README.MD" target="_blank" rel="noopener">
+            <span class="external">Our pick ↗</span>
+            <span class="emoji" aria-hidden="true">🍏</span>
+            <h3>Apple Clone README</h3>
+            <p>The class gold standard: badges, GIFs, tables, a folder map and fold-out fixes.</p>
+            <span class="rb-url">github.com/…/bootstrap-clone-apple</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-sky" href="https://github.com/thedalycreative/eqc-activities-hub/blob/main/README.md" target="_blank" rel="noopener">
+            <span class="external">Ours ↗</span>
+            <span class="emoji" aria-hidden="true">🎪</span>
+            <h3>Activities Hub README</h3>
+            <p>Clean and simple: screenshots do the talking, with numbered how-to steps.</p>
+            <span class="rb-url">github.com/thedalycreative/eqc-activities-hub</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-lime" href="https://github.com/mhucka/readmine" target="_blank" rel="noopener">
+            <span class="external">Annotated ↗</span>
+            <span class="emoji" aria-hidden="true">📝</span>
+            <h3>READMINE</h3>
+            <p>An annotated example: every section explains what belongs in it. Read it like a model answer.</p>
+            <span class="rb-url">github.com/mhucka/readmine</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-orange" href="https://github.com/othneildrew/Best-README-Template" target="_blank" rel="noopener">
+            <span class="external">Template ↗</span>
+            <span class="emoji" aria-hidden="true">🏆</span>
+            <h3>Best-README-Template</h3>
+            <p>One of the most-copied templates on GitHub. Click <strong>Raw</strong> to see the comments labelling each part.</p>
+            <span class="rb-url">github.com/othneildrew/Best-README-Template</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-pink" href="https://github.com/matiassingers/awesome-readme" target="_blank" rel="noopener">
+            <span class="external">List ↗</span>
+            <span class="emoji" aria-hidden="true">🌟</span>
+            <h3>Awesome README</h3>
+            <p>A huge list of great READMEs, each with a note on what makes it good.</p>
+            <span class="rb-url">github.com/matiassingers/awesome-readme</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-teal" href="https://www.makeareadme.com/" target="_blank" rel="noopener">
+            <span class="external">Guide ↗</span>
+            <span class="emoji" aria-hidden="true">🛠️</span>
+            <h3>Make a README</h3>
+            <p>A plain-English guide, plus a template you can edit and preview live.</p>
+            <span class="rb-url">makeareadme.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-tomato" href="https://readme.so/" target="_blank" rel="noopener">
+            <span class="external">Editor ↗</span>
+            <span class="emoji" aria-hidden="true">🧱</span>
+            <h3>readme.so</h3>
+            <p>Click sections to add them, drag to reorder, then download your README.md.</p>
+            <span class="rb-url">readme.so</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-sky" href="https://github.com/hackergrrl/art-of-readme" target="_blank" rel="noopener">
+            <span class="external">Read ↗</span>
+            <span class="emoji" aria-hidden="true">💌</span>
+            <h3>Art of README</h3>
+            <p>Why READMEs matter, and what the best ones have in common.</p>
+            <span class="rb-url">github.com/hackergrrl/art-of-readme</span>
+          </a>
+        </li>
+      </ul>
+
+      <h3 class="rb-tier"><span aria-hidden="true">🧰</span> Handy tools</h3>
+      <ul class="rb-tools">
+        <li><a class="btn" href="https://shields.io/" target="_blank" rel="noopener">🛡️ Shields.io badges</a></li>
+        <li><a class="btn" href="https://simpleicons.org/" target="_blank" rel="noopener">🔣 Simple Icons (badge logos)</a></li>
+        <li><a class="btn" href="https://giphy.com/" target="_blank" rel="noopener">🎞️ GIPHY</a></li>
+        <li><a class="btn" href="https://www.screentogif.com/" target="_blank" rel="noopener">🎥 ScreenToGif (Windows)</a></li>
+        <li><a class="btn" href="https://getkap.co/" target="_blank" rel="noopener">🎥 Kap (Mac)</a></li>
+        <li><a class="btn" href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener">📄 Markdown cheat sheet</a></li>
+        <li><a class="btn" href="https://www.markdowntutorial.com/" target="_blank" rel="noopener">🎓 10-minute Markdown tutorial</a></li>
+        <li><a class="btn" href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes" target="_blank" rel="noopener">📘 GitHub’s README guide</a></li>
+      </ul>
+    </section>
+
+    <footer class="rb-footer">
+      <a href="../">← Back to the Activities Hub</a> · Made by <a href="https://thedalycreative.com" target="_blank" rel="noopener">Tim Daly</a> for EQC classes
+    </footer>
+  </main>
+  <script type="module" src="readme-page.js"></script>
+</body>
+</html>

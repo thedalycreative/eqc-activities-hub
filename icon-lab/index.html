@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Lab · EQC Activities Hub</title>
+  <meta name="description" content="Learn how to use icons on the web, make them accessible to everyone, and play “What’s this icon for?”.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Icon fonts from a CDN: Bootstrap Icons (UI icons) and Devicon (dev logos) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css"
+    integrity="sha384-nWN3KqaaVcbEsCjLSV+2jMjh62Iny/+mN3srM8TZeM8N6aj7eDl5wwYggjAJ4/sJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicon@2.18.0/devicon.min.css"
+    integrity="sha384-IFjxIKlvgyAc/5tXXd/XhJ3PLi4dLuAR1AfVgwcTAQzexIouhxg2ebx3Nh1Zi/59" crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/hub.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <div class="toolbar il-toolbar" id="il-toolbar">
+      <a class="btn btn-ghost" href="../">← Activities Hub</a>
+    </div>
+
+    <header class="marquee">
+      <h1>🔣 Icon Lab</h1>
+      <p>Tiny pictures. Big jobs. Everyone included.</p>
+    </header>
+
+    <nav class="il-jump" aria-label="On this page">
+      <a class="pill" href="#basics" style="--c: var(--bulb)">① Icons 101</a>
+      <a class="pill" href="#access" style="--c: var(--lime)">② Make them accessible</a>
+      <a class="pill" href="#game" style="--c: var(--sky)">③ What’s this icon for?</a>
+      <a class="pill" href="#libraries" style="--c: var(--pink)">④ Icon libraries</a>
+    </nav>
+
+    <!-- ① Icons 101 ──────────────────────────────────────────── -->
+    <section class="group" id="basics" aria-labelledby="g-basics">
+      <h2 id="g-basics">① Icons 101</h2>
+      <p class="il-lede">Icons are tiny pictures that do a job: <i class="bi bi-search" aria-hidden="true"></i> search, <i class="bi bi-cart3" aria-hidden="true"></i> cart, <i class="bi bi-gear" aria-hidden="true"></i> settings. They save space and people spot them fast, <strong>but only if everyone can tell what they mean.</strong> Here are three ways to put one on a page:</p>
+
+      <div class="il-ways">
+        <article class="card il-way">
+          <h3><span aria-hidden="true">🔤</span> 1. Icon font + CDN</h3>
+          <p>Add one line to your <code>&lt;head&gt;</code>, then use an <code>&lt;i&gt;</code> tag with the icon’s class. It works like text, so <code>font-size</code> and <code>color</code> style it. <strong>This page uses Bootstrap Icons.</strong></p>
+          <pre class="il-code"><code>&lt;link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css"&gt;
+
+&lt;i class="bi bi-heart"&gt;&lt;/i&gt;</code></pre>
+        </article>
+        <article class="card il-way">
+          <h3><span aria-hidden="true">✏️</span> 2. Inline SVG</h3>
+          <p>Paste the icon’s SVG code straight into your HTML. Super sharp at any size. Use <code>fill="currentColor"</code> so it takes the text colour.</p>
+          <pre class="il-code"><code>&lt;svg width="24" height="24"
+     viewBox="0 0 16 16"
+     fill="currentColor"
+     aria-hidden="true"&gt;
+  &lt;path d="…"/&gt;
+&lt;/svg&gt;</code></pre>
+        </article>
+        <article class="card il-way">
+          <h3><span aria-hidden="true">🖼️</span> 3. Image file</h3>
+          <p>Save the icon as an <code>.svg</code> or <code>.png</code> and use an <code>&lt;img&gt;</code>. Easy, but you can’t change its colour with CSS.</p>
+          <pre class="il-code"><code>&lt;img src="images/heart.svg" alt="Like"
+     width="24" height="24"&gt;</code></pre>
+        </article>
+      </div>
+
+      <h3 class="il-sub"><span aria-hidden="true">🎛️</span> Icon tinkerer</h3>
+      <p class="il-lede">Pick an icon, change its size and colour, then check: <strong>is it big enough to tap, and can people see it?</strong></p>
+      <div class="tk">
+        <div class="card tk-controls">
+          <div class="tk-field">
+            <span class="tk-label">Icon</span>
+            <div class="chips" id="tk-icons" role="group" aria-label="Pick an icon"></div>
+          </div>
+          <label class="tk-field"><span class="tk-label">Size <output id="tk-size-out">32px</output></span>
+            <input type="range" id="tk-size" min="12" max="96" step="2" value="32">
+          </label>
+          <div class="tk-field">
+            <span class="tk-label">Colour</span>
+            <div class="tk-swatches" id="tk-colours" role="group" aria-label="Pick a colour"></div>
+          </div>
+          <label class="tk-switch">
+            <input type="checkbox" id="tk-label">
+            <span>Show a text label next to the icon</span>
+          </label>
+        </div>
+
+        <div class="card tk-preview">
+          <div class="tk-stage">
+            <button type="button" class="tk-button" id="tk-button"></button>
+          </div>
+          <ul class="tk-checks">
+            <li id="tk-target"></li>
+            <li id="tk-contrast"></li>
+            <li id="tk-sr"></li>
+          </ul>
+          <pre class="il-code" id="tk-code"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② Accessibility ──────────────────────────────────────── -->
+    <section class="group" id="access" aria-labelledby="g-access">
+      <h2 id="g-access">② Make them accessible</h2>
+      <p class="il-lede">Some people use a <strong>screen reader</strong>: software that reads the page out loud. It can’t see your icon, so <strong>you</strong> have to tell it what the icon means. Here are the rules:</p>
+
+      <div class="il-rules">
+        <article class="il-rule">
+          <h3><span aria-hidden="true">🙈</span> Decoration? Hide it.</h3>
+          <p>If there’s text right next to the icon, the icon is just decoration. Hide it from screen readers with <code>aria-hidden="true"</code> so it isn’t read twice.</p>
+          <pre class="il-code"><code>&lt;button&gt;
+  &lt;i class="bi bi-trash"
+     aria-hidden="true"&gt;&lt;/i&gt;
+  Delete
+&lt;/button&gt;</code></pre>
+        </article>
+        <article class="il-rule">
+          <h3><span aria-hidden="true">🏷️</span> Icon-only button? Label it.</h3>
+          <p>No visible text? Put <code>aria-label</code> on the <strong>button</strong>. Describe the <strong>action</strong> (“Close”), not the picture (“X icon”).</p>
+          <pre class="il-code"><code>&lt;button aria-label="Close"&gt;
+  &lt;i class="bi bi-x-lg"
+     aria-hidden="true"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+        </article>
+        <article class="il-rule">
+          <h3><span aria-hidden="true">🫥</span> Or use hidden text</h3>
+          <p>Bootstrap’s <code>visually-hidden</code> class hides text from eyes but not from screen readers. Same result as <code>aria-label</code>.</p>
+          <pre class="il-code"><code>&lt;button&gt;
+  &lt;i class="bi bi-search"
+     aria-hidden="true"&gt;&lt;/i&gt;
+  &lt;span class="visually-hidden"&gt;
+    Search
+  &lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </article>
+        <article class="il-rule">
+          <h3><span aria-hidden="true">🖼️</span> Icon on its own means something?</h3>
+          <p>Like a warning sign in a message. Give it <code>role="img"</code> and an <code>aria-label</code>.</p>
+          <pre class="il-code"><code>&lt;i class="bi bi-exclamation-triangle"
+   role="img" aria-label="Warning"&gt;&lt;/i&gt;</code></pre>
+        </article>
+        <article class="il-rule">
+          <h3><span aria-hidden="true">👆</span> Big enough to tap</h3>
+          <p>WCAG 2.2 says tap targets must be at least <strong>24×24px</strong>. <strong>44×44px</strong> is even better for fingers. Add <code>padding</code> to small icon buttons.</p>
+        </article>
+        <article class="il-rule">
+          <h3><span aria-hidden="true">🌗</span> Easy to see</h3>
+          <p>Icons that carry meaning need a contrast of at least <strong>3:1</strong> against the background. Try it in the tinkerer above! And remember: a hover-only <code>title</code> tooltip is <strong>not</strong> a label.</p>
+        </article>
+      </div>
+
+      <h3 class="il-sub"><span aria-hidden="true">🔊</span> What does a screen reader hear?</h3>
+      <p class="il-lede">Same-looking button, five different codes. Press <strong>🔊 Hear it</strong> to hear roughly what a screen reader would say.</p>
+      <div class="sr-list" id="sr-list"></div>
+    </section>
+
+    <!-- ③ The game ───────────────────────────────────────────── -->
+    <section class="group" id="game" aria-labelledby="g-game">
+      <h2 id="g-game">③ What’s this icon for?</h2>
+      <p class="il-lede">10 icons, 4 answers each. Pick your difficulty! After each answer you’ll see the accessible code for that icon. 🧠</p>
+
+      <div class="card game" id="game-card">
+        <div id="game-start">
+          <h3 class="game-title">Choose your difficulty</h3>
+          <div class="game-levels" id="game-levels"></div>
+        </div>
+
+        <div id="game-play" hidden>
+          <div class="game-bar">
+            <span class="pill" id="game-diff"></span>
+            <span class="game-round" id="game-round"></span>
+            <span class="pill" style="--c: var(--lime)">⭐ <span id="game-score">0</span></span>
+            <span class="pill" style="--c: var(--orange)">🔥 <span id="game-streak">0</span></span>
+          </div>
+          <div class="game-progress" aria-hidden="true"><span id="game-progress"></span></div>
+          <div class="game-icon" id="game-icon" aria-hidden="true"></div>
+          <h3 class="game-q">What’s this icon for?</h3>
+          <p class="visually-hidden">This game is visual: the icon is hidden from screen readers on purpose, otherwise it would read out the answer!</p>
+          <div class="game-options" id="game-options"></div>
+          <div class="game-feedback" id="game-feedback" aria-live="polite"></div>
+        </div>
+
+        <div id="game-end" hidden>
+          <div class="game-stars" id="game-stars" aria-hidden="true"></div>
+          <h3 class="game-title" id="game-final"></h3>
+          <p class="game-msg" id="game-msg"></p>
+          <div class="row game-end-buttons">
+            <button type="button" class="btn btn-big btn-lime" id="game-again">↺ Play again</button>
+            <button type="button" class="btn btn-big" id="game-change">Change difficulty</button>
+          </div>
+          <div class="game-missed" id="game-missed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ Libraries & resources ──────────────────────────────── -->
+    <section class="group" id="libraries" aria-labelledby="g-libs">
+      <h2 id="g-libs">④ Icon libraries</h2>
+      <p class="il-lede">Free icon sets used by real developers. Search, copy, done.</p>
+      <ul class="tiles il-tiles">
+        <li>
+          <a class="tile t-sky" href="https://react-icons.github.io/react-icons/icons/di/" target="_blank" rel="noopener">
+            <span class="external">Browse ↗</span>
+            <span class="emoji" aria-hidden="true">⚛️</span>
+            <h3>React Icons</h3>
+            <p>Dozens of icon sets in one search, like these Devicons. Made for React projects, but brilliant for browsing.</p>
+            <span class="il-url">react-icons.github.io</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-pink" href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">
+            <span class="external">Our pick ↗</span>
+            <span class="emoji" aria-hidden="true">🅱️</span>
+            <h3>Bootstrap Icons</h3>
+            <p>2,000+ free icons that match Bootstrap. One CDN line and you’re in. This page uses them!</p>
+            <span class="il-url">icons.getbootstrap.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-lime" href="https://devicon.dev/" target="_blank" rel="noopener">
+            <span class="external">Dev logos ↗</span>
+            <span class="emoji" aria-hidden="true">🧑‍💻</span>
+            <h3>Devicon</h3>
+            <p>Logos for languages and dev tools, the ones in Medium and Hard mode. Great for a “Skills” section.</p>
+            <span class="il-url">devicon.dev</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-orange" href="https://fontawesome.com/icons" target="_blank" rel="noopener">
+            <span class="external">Huge set ↗</span>
+            <span class="emoji" aria-hidden="true">🚩</span>
+            <h3>Font Awesome</h3>
+            <p>The most famous icon library on the web. Thousands of free icons.</p>
+            <span class="il-url">fontawesome.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-teal" href="https://fonts.google.com/icons" target="_blank" rel="noopener">
+            <span class="external">Google ↗</span>
+            <span class="emoji" aria-hidden="true">🔷</span>
+            <h3>Material Symbols</h3>
+            <p>Google’s icons. Tweak the weight, fill and size before you copy.</p>
+            <span class="il-url">fonts.google.com/icons</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-tomato" href="https://lucide.dev/" target="_blank" rel="noopener">
+            <span class="external">Clean ↗</span>
+            <span class="emoji" aria-hidden="true">✨</span>
+            <h3>Lucide</h3>
+            <p>Simple, tidy line icons, with a great accessibility guide in its docs.</p>
+            <span class="il-url">lucide.dev</span>
+          </a>
+        </li>
+      </ul>
+
+      <h3 class="il-sub"><span aria-hidden="true">♿</span> Accessibility reading</h3>
+      <ul class="il-tools">
+        <li><a class="btn" href="https://www.sarasoueidan.com/blog/accessible-icon-buttons/" target="_blank" rel="noopener">🏷️ Accessible Icon Buttons (Sara Soueidan)</a></li>
+        <li><a class="btn" href="https://docs.fontawesome.com/web/dig-deeper/accessibility" target="_blank" rel="noopener">🚩 Font Awesome accessibility guide</a></li>
+        <li><a class="btn" href="https://getbootstrap.com/docs/5.3/helpers/visually-hidden/" target="_blank" rel="noopener">🫥 Bootstrap visually-hidden</a></li>
+        <li><a class="btn" href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">👆 WCAG: Target Size (Minimum)</a></li>
+        <li><a class="btn" href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast" target="_blank" rel="noopener">🌗 WCAG: Non-text Contrast</a></li>
+        <li><a class="btn" href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener">🎨 WebAIM contrast checker</a></li>
+      </ul>
+    </section>
+
+    <footer class="il-footer">
+      <a href="../">← Back to the Activities Hub</a> · Made by <a href="https://thedalycreative.com" target="_blank" rel="noopener">Tim Daly</a> for EQC classes
+    </footer>
+  </main>
+  <script type="module" src="icon-page.js"></script>
+</body>
+</html>

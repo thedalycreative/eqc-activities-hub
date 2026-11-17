@@ -1,41 +1,33 @@
 <!DOCTYPE html>
 <!--
-  FLEXBOX STARTER FILE — open this in VS Code and run it with Live Server
+  FLEXBOX PRACTICE — open this in VS Code and run it with Live Server
   (or just double-click it to open in a browser and refresh after saving).
 
-  Nothing here uses Flexbox yet. That's the point — students see the
-  "broken" default layout first, then you type the flex properties into
-  the empty rule blocks below, live, one line at a time.
+  ① TYPE ALONG: the <style> block below holds ONLY the three exercises.
+     Exercises 1 and 2 start with NO flexbox. That's the point: students see
+     the "broken" default layout first, then you type the flex properties into
+     the empty rule blocks (look for 👇 type here), live, one line at a time.
 
-  Follow flexbox_typing_script.md for exactly what to type and when.
+  ② PLAYGROUND, ③ PARK THE CARS and ④ RESOURCES are driven by flexbox-lab.js.
+     The page's look comes from ../assets/hub.css and flexbox-lab.css,
+     so you never have to scroll past them while live-coding.
 -->
-<html lang="en">
+<html lang="en-AU">
 
 <head>
   <meta charset="UTF-8">
-  <title>Flexbox Practice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Practice · EQC Activities Hub</title>
+  <meta name="description" content="Live-code flexbox, play with every property in the playground, then park the cars using only flexbox.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../assets/hub.css">
+  <link rel="stylesheet" href="flexbox-lab.css">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 60px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    section {
-      margin-bottom: 70px;
-    }
-
-    h2 {
-      border-bottom: 2px solid #333;
-      padding-bottom: 8px;
-    }
-
-
     /* ============================================
      1. CENTER A DIV
      ============================================ */
@@ -43,11 +35,7 @@
     .ex1-container {
       height: 400px;
       border: 2px dashed #999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-
+      /* 👇 type here */
 
     }
 
@@ -68,10 +56,6 @@
       color: white;
       padding: 16px 24px;
       border-radius: 8px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: 60px;
       /* 👇 type here */
 
     }
@@ -103,22 +87,7 @@
       gap: 15px;
     }
 
-    .practice-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: end;
-      padding: 18px;
-      margin-bottom: 18px;
-      background: #eef4ff;
-      border: 1px solid #c7d7f5;
-      border-radius: 10px;
-    }
-
-    .practice-controls label { display: grid; gap: 5px; font-weight: bold; }
-    .practice-controls select { padding: 8px; font: inherit; }
-
-    .card {
+    .flex-card {
       background: #3A86FF;
       color: white;
       padding: 24px;
@@ -132,65 +101,214 @@
 </head>
 
 <body>
-
-  <h1>Flexbox Practice</h1>
-
-  <section>
-    <h2>1. Center a Div</h2>
-    <div class="ex1-container">
-      <div class="ex1-box"></div>
+  <main class="page">
+    <div class="toolbar fl-toolbar" id="fl-toolbar">
+      <a class="btn btn-ghost" href="../">← Activities Hub</a>
     </div>
-  </section>
 
-  <section>
-    <h2>2. Navbar</h2>
-    <div class="navbar">
-      <div class="logo">MyLogo</div>
-      <div class="links">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+    <header class="marquee">
+      <h1>📦 Flexbox Practice</h1>
+      <p>Line it up. Centre it. Space it out.</p>
+    </header>
+
+    <nav class="fl-jump" aria-label="On this page">
+      <a class="pill" href="#type-along" style="--c: var(--bulb)">① Type along</a>
+      <a class="pill" href="#playground" style="--c: var(--lime)">② Playground</a>
+      <a class="pill" href="#parking" style="--c: var(--sky)">③ Park the cars</a>
+      <a class="pill" href="#resources" style="--c: var(--pink)">④ Keep practising</a>
+    </nav>
+
+    <!-- ① Live-typing exercises ──────────────────────────────── -->
+    <section class="group" id="type-along" aria-labelledby="g-type">
+      <h2 id="g-type">① Type along</h2>
+      <p class="fl-lede">Your trainer types the flex rules live. Watch each layout snap into place! 🫰 Flexbox always starts with <code>display: flex;</code> on the <strong>parent</strong>.</p>
+
+      <div class="fl-exercises">
+        <section class="fl-ex">
+          <h3>1. Center a Div</h3>
+          <div class="ex1-container">
+            <div class="ex1-box"></div>
+          </div>
+        </section>
+
+        <section class="fl-ex">
+          <h3>2. Navbar</h3>
+          <div class="navbar">
+            <div class="logo">MyLogo</div>
+            <div class="links">
+              <a href="#">Home</a>
+              <a href="#">About</a>
+              <a href="#">Contact</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="fl-ex">
+          <h3>3. Responsive Card Row</h3>
+          <div class="practice-controls">
+            <label>Direction
+              <select id="direction"><option>row</option><option>column</option></select>
+            </label>
+            <label>Justify content
+              <select id="justify"><option>flex-start</option><option>center</option><option>space-between</option><option>space-around</option></select>
+            </label>
+            <label>Align items
+              <select id="align"><option>stretch</option><option>center</option><option>flex-start</option><option>flex-end</option></select>
+            </label>
+            <button id="resetFlex" class="btn" type="button">Reset</button>
+          </div>
+          <div class="cards">
+            <div class="flex-card">1</div>
+            <div class="flex-card">2</div>
+            <div class="flex-card">3</div>
+            <div class="flex-card">4</div>
+            <div class="flex-card">5</div>
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <h2>3. Responsive Card Row</h2>
-    <div class="practice-controls">
-      <label>Direction
-        <select id="direction"><option>row</option><option>column</option></select>
-      </label>
-      <label>Justify content
-        <select id="justify"><option>flex-start</option><option>center</option><option>space-between</option><option>space-around</option></select>
-      </label>
-      <label>Align items
-        <select id="align"><option>stretch</option><option>center</option><option>flex-start</option><option>flex-end</option></select>
-      </label>
-      <button id="resetFlex" type="button">Reset</button>
-    </div>
-    <div class="cards">
-      <div class="card">1</div>
-      <div class="card">2</div>
-      <div class="card">3</div>
-      <div class="card">4</div>
-      <div class="card">5</div>
-    </div>
-  </section>
+    <!-- ② Playground ─────────────────────────────────────────── -->
+    <section class="group" id="playground" aria-labelledby="g-play">
+      <h2 id="g-play">② Flexbox playground</h2>
+      <p class="fl-lede">Click any value and watch the boxes move. The CSS on the right writes itself, so you can copy it straight into your project.</p>
 
-  <script>
-    const cards = document.querySelector('.cards');
-    const controls = ['direction', 'justify', 'align'].map(id => document.getElementById(id));
-    controls.forEach(control => control.addEventListener('change', () => {
-      cards.style.flexDirection = direction.value;
-      cards.style.justifyContent = justify.value;
-      cards.style.alignItems = align.value;
-    }));
-    resetFlex.addEventListener('click', () => {
-      direction.value = 'row'; justify.value = 'flex-start'; align.value = 'stretch';
-      cards.style.flexDirection = 'row'; cards.style.justifyContent = 'flex-start'; cards.style.alignItems = 'stretch';
-    });
-  </script>
+      <div class="pg">
+        <div class="card pg-controls">
+          <div id="pg-props"></div>
+          <div class="pg-row">
+            <label class="pg-gap"><code>gap</code> <span id="pg-gap-out">12px</span>
+              <input type="range" id="pg-gap" min="0" max="40" step="4" value="12">
+            </label>
+            <div class="pg-count">
+              <span>Boxes</span>
+              <button type="button" class="btn btn-round" id="pg-less" aria-label="One less box">−</button>
+              <strong id="pg-count-out">5</strong>
+              <button type="button" class="btn btn-round" id="pg-more" aria-label="One more box">＋</button>
+            </div>
+            <button type="button" class="btn btn-tomato" id="pg-reset">↺ Reset</button>
+          </div>
+        </div>
 
+        <div class="pg-stage">
+          <div class="pg-axis pg-axis-x" id="pg-axis-x" aria-hidden="true"></div>
+          <div class="pg-axis pg-axis-y" id="pg-axis-y" aria-hidden="true"></div>
+          <div class="pg-container" id="pg-container" aria-label="Flexbox playground boxes"></div>
+        </div>
+
+        <div class="card pg-code-card">
+          <div class="row spread">
+            <h3>The CSS</h3>
+            <button type="button" class="btn btn-lime" id="pg-copy">📋 Copy</button>
+          </div>
+          <pre class="pg-code" id="pg-code"></pre>
+          <p class="pg-explain" id="pg-explain" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ③ Park the cars ──────────────────────────────────────── -->
+    <section class="group" id="parking" aria-labelledby="g-park">
+      <h2 id="g-park">③ 🚗 Park the cars</h2>
+      <p class="fl-lede">Each car has a numbered bay. Pick the flexbox values that park every car in its own bay. 10 levels, and the last one is a boss! 🏆</p>
+
+      <div class="park">
+        <div class="park-levels" id="park-levels" role="group" aria-label="Choose a level"></div>
+
+        <div class="park-grid">
+          <div class="card park-panel">
+            <h3 id="park-title"></h3>
+            <p class="park-task" id="park-task"></p>
+            <pre class="park-code" id="park-code"></pre>
+            <div id="park-props"></div>
+            <details class="park-tip">
+              <summary>💡 Hint</summary>
+              <p id="park-tip"></p>
+            </details>
+          </div>
+
+          <div class="park-lot-wrap">
+            <div class="park-lot" id="park-lot">
+              <div class="park-layer park-bays" id="park-bays" aria-hidden="true"></div>
+              <div class="park-layer park-cars" id="park-cars"></div>
+            </div>
+            <div class="park-win" id="park-win" hidden>
+              <p>🎉 <strong>Parked!</strong> <span id="park-win-text"></span></p>
+              <button type="button" class="btn btn-big btn-lime" id="park-next">Next level ➜</button>
+            </div>
+            <p class="park-status" id="park-status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ④ Resources ──────────────────────────────────────────── -->
+    <section class="group" id="resources" aria-labelledby="g-res">
+      <h2 id="g-res">④ Keep practising</h2>
+      <ul class="tiles fl-tiles">
+        <li>
+          <a class="tile t-lime" href="https://flexboxfroggy.com/" target="_blank" rel="noopener">
+            <span class="external">Game ↗</span>
+            <span class="emoji" aria-hidden="true">🐸</span>
+            <h3>Flexbox Froggy</h3>
+            <p>The classic: write CSS to get every frog onto its lily pad. 24 levels.</p>
+            <span class="fl-url">flexboxfroggy.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-bulb" href="https://flexbox.malven.co/" target="_blank" rel="noopener">
+            <span class="external">Cheatsheet ↗</span>
+            <span class="emoji" aria-hidden="true">🗺️</span>
+            <h3>FLEX by Malven</h3>
+            <p>Every flexbox property as a tiny picture. Click one to copy the code.</p>
+            <span class="fl-url">flexbox.malven.co</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-sky" href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" rel="noopener">
+            <span class="external">Guide ↗</span>
+            <span class="emoji" aria-hidden="true">📖</span>
+            <h3>A Complete Guide to Flexbox</h3>
+            <p>CSS-Tricks’ famous guide, with a diagram for every property.</p>
+            <span class="fl-url">css-tricks.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-tomato" href="http://www.flexboxdefense.com/" target="_blank" rel="noopener">
+            <span class="external">Game ↗</span>
+            <span class="emoji" aria-hidden="true">🏰</span>
+            <h3>Flexbox Defense</h3>
+            <p>Tower defence where you place the towers with flexbox. 12 levels.</p>
+            <span class="fl-url">flexboxdefense.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-orange" href="https://knightsoftheflexboxtable.com/" target="_blank" rel="noopener">
+            <span class="external">Game ↗</span>
+            <span class="emoji" aria-hidden="true">🛡️</span>
+            <h3>Knights of the Flexbox Table</h3>
+            <p>Flexbox with Tailwind classes. Perfect for when we get to Tailwind!</p>
+            <span class="fl-url">knightsoftheflexboxtable.com</span>
+          </a>
+        </li>
+        <li>
+          <a class="tile t-teal" href="https://cssgridgarden.com/" target="_blank" rel="noopener">
+            <span class="external">Next up ↗</span>
+            <span class="emoji" aria-hidden="true">🥕</span>
+            <h3>Grid Garden</h3>
+            <p>From the Flexbox Froggy team: water your carrots with CSS Grid.</p>
+            <span class="fl-url">cssgridgarden.com</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="fl-footer">
+      <a href="../">← Back to the Activities Hub</a> · Made by <a href="https://thedalycreative.com" target="_blank" rel="noopener">Tim Daly</a> for EQC classes
+    </footer>
+  </main>
+
+  <script type="module" src="flexbox-lab.js"></script>
 </body>
 
 </html>

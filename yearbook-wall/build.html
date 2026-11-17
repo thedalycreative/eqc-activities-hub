@@ -13,6 +13,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Bebas+Neue&family=Major+Mono+Display&family=DM+Serif+Display&family=Rubik+Mono+One&family=Caveat:wght@400;700&family=Archivo+Black&family=Anton&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Rozha+One&family=Monoton&family=Shrikhand&family=Work+Sans:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="../assets/hub-nav.css">
   <style>
     :root {
       --ink: #111;
@@ -937,6 +938,8 @@
 
     .code-body {
       font-family: 'JetBrains Mono', monospace;
+      font-variant-ligatures: none;
+      /* show <!-- and --> as typed, not as arrows */
       font-size: 12.5px;
       line-height: 1.7;
       color: #d9d0ad;
@@ -948,7 +951,8 @@
       border: 0;
       resize: vertical;
       display: block;
-      white-space: pre;
+      white-space: pre-wrap;
+      /* wrap long lines so every style="…" is visible without scrolling sideways */
       overflow: auto
     }
 
@@ -1016,6 +1020,15 @@
 </head>
 
 <body>
+
+  <nav class="hub-nav" aria-label="EQC Activities Hub" style="--hub-nav-top: 40px; --hub-nav-x: 24px;">
+    <a class="hub-nav-btn hub-nav-back" href="../">← Activities Hub</a>
+    <span class="hub-nav-title">📸 Yearbook Wall</span>
+    <div class="hub-nav-links">
+      <a class="hub-nav-btn" href="wall.html">🧱 The wall</a>
+      <a class="hub-nav-btn" href="build.html" aria-current="page">✏️ Build your tile</a>
+    </div>
+  </nav>
 
   <div class="shell">
 
@@ -1255,8 +1268,9 @@
             </div>
             <textarea class="code-body" id="codeBody" spellcheck="false"></textarea>
             <div class="code-help">
-              <strong>Edit freely:</strong> change anything in the code above and click "Update wall" to push it. Or
-              email / text the code to <strong>tim@equinimcollege.com</strong> · <strong>0414 265 050</strong>.
+              <strong>It's just HTML!</strong> Change a colour or a font inside a <code>style="…"</code>, or a fact's
+              <code>class="truth"</code> / <code>class="lie"</code>, and the preview updates as you type. Click "Update wall"
+              to push it. Or email / text the code to <strong>tim@equinimcollege.com</strong> · <strong>0414 265 050</strong>.
             </div>
           </div>
         </div>
@@ -1275,6 +1289,7 @@
     window.dispatchEvent(new Event('firebase-ready'));
   </script>
 
+  <script src="tile-code.js"></script>
   <script>
     (() => {
       const TILE_PATH_ROOT = 'eqcActivities/yearbook/tiles';
@@ -1342,6 +1357,8 @@
         s = s.replace(/&lt;br\s*\/?&gt;/g, '<br>');
         return s;
       }
+      // A font from the list, or any font name typed into the code (e.g. Arial)
+      const fontStack = family => (FONTS.find(f => f.family === family) || { stack: TileCode.fontCss(family) }).stack;
       function getSlug(name) { return (name || 'student').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30) || 'student'; }
 
       const bgSwatches = $('bgSwatches');
@@ -1561,8 +1578,8 @@
       }
 
       function update() {
-        const ft = FONTS.find(f => f.family === state.fontTitle) || FONTS[0];
-        const fb = FONTS.find(f => f.family === state.fontBody) || FONTS[0];
+        const ft = { stack: fontStack(state.fontTitle) };
+        const fb = { stack: fontStack(state.fontBody) };
 
         const tile = $('previewTile');
         tile.style.background = state.bg;
@@ -1580,8 +1597,7 @@
         bioEl.innerHTML = state.bio ? renderBioHtml(state.bio) : '<span style="opacity:0.5">Your about-me appears here as you type.</span>';
         bioEl.style.fontFamily = fb.stack;
         bioEl.style.color = state.bodyColor;
-        const sizeMap = { s: '13px', m: '15px', l: '18px', xl: '22px' };
-        bioEl.style.fontSize = sizeMap[state.bioSize] || '15px';
+        bioEl.style.fontSize = TileCode.sizePx(state.bioSize || 'm');
         bioEl.style.lineHeight = '1.5';
 
         const badgesEl = $('prevBadges');
@@ -1628,38 +1644,9 @@
           && lies === 1 && truths === 2;
       }
 
+      // The code panel shows plain HTML with style="…" (see tile-code.js).
       function buildCodeString() {
-        const slug = getSlug(state.name);
-        const safeName = escapeHTML(state.name);
-        const bioRaw = state.bio || '';
-        const bioAttr = escapeHTML(bioRaw);
-
-        const tagsStr = state.tags.map(t =>
-          `    <span class="tag" data-category="${escapeHTML(t.category)}" data-bg="${escapeHTML(t.bg)}" data-border="${escapeHTML(t.border)}" data-color="${escapeHTML(t.color)}">${escapeHTML(t.prefix)} ${escapeHTML(t.text)}</span>`
-        ).join('\n');
-
-        const factsStr = state.facts.map(f => {
-          const truth = f.isTruth === true ? 'true' : f.isTruth === false ? 'false' : 'unset';
-          return `    <div class="fact" data-truth="${truth}">${escapeHTML(f.text)}</div>`;
-        }).join('\n');
-
-        const photoAttr = state.photo ? ` data-photo="${state.photo}"` : '';
-
-        return `<!-- EQC tile: ${safeName} -->
-<div class="tile" data-name="${safeName}" data-slug="${slug}"${photoAttr}
-     data-bg="${state.bg}" data-font-title="${state.fontTitle}" data-font-body="${state.fontBody}"
-     data-header-color="${state.headerColor}" data-body-color="${state.bodyColor}"
-     data-bio-size="${state.bioSize || 'm'}"
-     data-bio="${bioAttr}">
-  <h3 class="tile-name">${safeName}</h3>
-  <p class="tile-bio">${renderBioHtml(bioRaw)}</p>
-  <div class="tile-tags">
-${tagsStr}
-  </div>
-  <div class="tile-facts">
-${factsStr}
-  </div>
-</div>`;
+        return TileCode.tileToCode(state);
       }
 
       function renderCodeIntoTextarea() {
@@ -1668,42 +1655,49 @@ ${factsStr}
         ta.value = buildCodeString();
       }
 
+      // Reads the code back into the form's shape. null if there's no <div class="tile"> in it.
       function parseEditedCode(raw) {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = raw.trim();
-        const el = wrapper.querySelector('.tile');
-        if (!el) return null;
-        const name = el.getAttribute('data-name') || state.name;
-        const slug = el.getAttribute('data-slug') || getSlug(name);
-        const photo = el.getAttribute('data-photo') || null;
-        const bg = el.getAttribute('data-bg') || state.bg;
-        const fontTitle = el.getAttribute('data-font-title') || state.fontTitle;
-        const fontBody = el.getAttribute('data-font-body') || state.fontBody;
-        const headerColor = el.getAttribute('data-header-color') || state.headerColor;
-        const bodyColor = el.getAttribute('data-body-color') || state.bodyColor;
-        const bio = el.getAttribute('data-bio') || '';
-        const tags = [];
-        el.querySelectorAll('.tag').forEach(t => {
-          const text = t.textContent.trim();
-          tags.push({
-            text: text.replace(/^\S+\s+/, ''),
-            prefix: (text.match(/^\S+/) || [''])[0],
-            category: t.getAttribute('data-category') || 'learn',
-            bg: t.getAttribute('data-bg') || '#e3efd9',
-            border: t.getAttribute('data-border') || '#4a9956',
-            color: t.getAttribute('data-color') || '#1e4a28',
-          });
-        });
-        const facts = [];
-        el.querySelectorAll('.fact').forEach(f => {
-          const truth = f.getAttribute('data-truth');
-          facts.push({
-            text: f.textContent.trim(),
-            isTruth: truth === 'true' ? true : truth === 'false' ? false : null,
-          });
-        });
-        return { name, slug, photo, bg, fontTitle, fontBody, headerColor, bodyColor, bio, tags, facts };
+        const tile = TileCode.codeToTiles(raw, { currentPhoto: state.photo })[0];
+        if (!tile) return null;
+        const facts = tile.facts.slice(0, 3);
+        while (facts.length < 3) facts.push({ text: '', isTruth: null });
+        return { ...tile, facts };
       }
+
+      // Puts the state back into every form control (after the code was edited by hand).
+      function syncForm() {
+        $('f_name').value = state.name || '';
+        $('f_bio').value = state.bio || '';
+        $('f_bg').value = state.bg; $('f_bg_hex').value = state.bg;
+        $('f_header_color').value = state.headerColor; $('f_header_hex').value = state.headerColor;
+        $('f_body_color').value = state.bodyColor; $('f_body_hex').value = state.bodyColor;
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.toggle('active', b.dataset.size === state.bioSize));
+        [['titleFontPreview', 'titleFontName', 'fontTitle'], ['bodyFontPreview', 'bodyFontName', 'fontBody']].forEach(([prev, name, key]) => {
+          $(prev).style.fontFamily = fontStack(state[key]);
+          $(name).textContent = (FONTS.find(f => f.family === state[key])?.label) || state[key].toUpperCase();
+        });
+        [1, 2, 3].forEach(i => {
+          $('f_fact' + i).value = state.facts[i - 1].text || '';
+          const toggle = document.querySelector(`.truth-toggle[data-fact="${i}"]`);
+          toggle.querySelectorAll('.t-btn').forEach(b => b.classList.toggle('active', b.dataset.val === String(state.facts[i - 1].isTruth)));
+        });
+        renderTags();
+        updateSwatchActive();
+      }
+
+      // Typing in the code panel updates the preview and the form straight away.
+      let codeTimer;
+      $('codeBody').addEventListener('input', () => {
+        clearTimeout(codeTimer);
+        codeTimer = setTimeout(() => {
+          const parsed = parseEditedCode($('codeBody').value);
+          if (!parsed) return;
+          const { slug, ...rest } = parsed;
+          Object.assign(state, rest);
+          syncForm();
+          update();
+        }, 250);
+      });
 
       async function submitTile() {
         const codeTextarea = $('codeBody');
