@@ -1,7 +1,7 @@
 // Prompt Battle: the full-screen stage on the home page (the trainer's big screen).
 // Students play on class-games/battle.html?code=XXXX.
 import { createSession, listenSession, listen, write, updateAt, makeCode, setSessionStatus } from '../activity-store.js';
-import { esc, requireTrainer, isTrainer, toast, celebrate, qrBlock } from './hub.js';
+import { esc, requireTrainer, isTrainer, toast, celebrate, qrBlock, openModal } from './hub.js';
 import { play, startMusic, stopMusic } from './sound.js';
 import { CHALLENGES, rankRound, addRoundScores, entriesForRound } from './battle-logic.js';
 
@@ -27,7 +27,9 @@ export function openBattle({ resumeOnly = false } = {}) {
     <div class="battle-inner">
       <div class="battle-top">
         <div class="battle-title">🤖 Prompt Battle <span class="battle-round"></span></div>
-        <div class="row"><span class="battle-code-pill"></span><button class="btn btn-round" id="battle-close" aria-label="Close the battle screen">✕</button></div>
+        <div class="row"><span class="battle-code-pill"></span>
+          <button class="btn btn-tomato" id="battle-end-now" hidden>🏁 End battle</button>
+          <button class="btn btn-round" id="battle-close" aria-label="Close the battle screen (the game keeps going)" title="Close (the game keeps going)">✕</button></div>
       </div>
       <div class="battle-body"></div>
     </div>`;
@@ -55,6 +57,26 @@ export function openBattle({ resumeOnly = false } = {}) {
     document.body.classList.remove('stage-open');
   };
   stage.querySelector('#battle-close').onclick = close;
+  // End the battle from any screen, e.g. an empty lobby or yesterday's unfinished game.
+  stage.querySelector('#battle-end-now').onclick = async () => {
+    if (!(await requireTrainer())) return;
+    const box = document.createElement('div');
+    box.className = 'center';
+    box.innerHTML = `<h2>🏁 End this battle?</h2><p class="muted">It shows the final scores and clears the game from this screen.</p>
+      <div class="row" style="justify-content:center"><button class="btn btn-tomato confirm-yes">Yes, end it</button><button class="btn confirm-no">Keep playing</button></div>`;
+    const m = openModal(box);
+    box.querySelector('.confirm-no').onclick = () => m.close();
+    box.querySelector('.confirm-yes').onclick = async () => {
+      m.close();
+      try {
+        await save({ status: 'finished' });
+        setSessionStatus(code, 'ended').catch(() => {});
+        storage.clear();
+      } catch {
+        toast('Could not end the battle. Check the connection.', { tone: 'bad' });
+      }
+    };
+  };
 
   const playerList = () => Object.values(players).sort((a, b) => String(a.joined_at).localeCompare(String(b.joined_at)));
   const nameOf = pid => players[pid]?.name || Object.values(rows).find(r => r?.playerId === pid)?.name || 'Someone';
@@ -249,6 +271,7 @@ export function openBattle({ resumeOnly = false } = {}) {
     const status = code && state ? state.status : 'setup';
     stage.querySelector('.battle-round').textContent = state?.round ? `· Round ${state.round}` : '';
     stage.querySelector('.battle-code-pill').innerHTML = code && state ? `<span class="pill">Code ${esc(code)}</span>` : '';
+    stage.querySelector('#battle-end-now').hidden = !(code && state && state.status !== 'finished');
     const key = `${status}-${state?.round || 0}`;
     if (key !== mounted) {
       mounted = key;

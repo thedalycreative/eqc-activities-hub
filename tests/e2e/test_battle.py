@@ -177,3 +177,16 @@ def test_rescanning_the_qr_keeps_the_same_player(context, base_url):
     again.goto(f"{base_url}/class-games/battle.html?code={code}")
     again.wait_for_selector("text=You're in!")
     stage.wait_for_function("document.querySelectorAll('.lobby-chip').length === 1")
+
+
+def test_battle_can_be_ended_from_any_screen(context, base_url):
+    stage, code = open_lobby(context, base_url)  # an empty lobby: nobody has joined
+    stage.click("#battle-end-now")
+    stage.click(".confirm-yes")
+    stage.wait_for_function(
+        f"JSON.parse(localStorage.getItem('fake-db')).rows['battle-{code}'].state.status === 'finished'")
+    assert stage.evaluate("localStorage.getItem('eqc-battle-code')") is None
+    stage.reload()
+    stage.wait_for_selector("#noticeboard")
+    stage.wait_for_timeout(500)
+    assert stage.locator(".battle-stage").count() == 0
