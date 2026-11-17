@@ -2,6 +2,7 @@
 import { isTrainer, lockTrainer, requireTrainer, toast } from './hub.js';
 import { muteButton } from './sound.js';
 import { mountNoticeboard, showJoinQr } from './noticeboard.js';
+import { mountPicker } from './picker.js';
 
 const toolbar = document.getElementById('toolbar');
 const chip = document.createElement('button');
@@ -29,3 +30,4 @@ document.getElementById('games').addEventListener('click', e => {
 });
 
 mountNoticeboard(document.getElementById('noticeboard'));
+mountPicker(document.getElementById('picker-root'));
