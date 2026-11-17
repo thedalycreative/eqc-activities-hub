@@ -169,12 +169,14 @@ It's a speed bump that stops a curious student clearing the board, not real secu
 
 ## Bootstrap clone sites: get one on your computer
 
-| Site | What it is | See it live |
+These are **not hosted on the live site**. They copy real brands (logos, page titles, log-in buttons), and Google's Safe Browsing treated that as phishing and flagged the whole hub. Students download them and open them on their own computer instead.
+
+| Site | What it is | Code |
 |---|---|---|
-| 🍏 **Apple** | A multi-page Bootstrap 5 build, commented line by line | [/bootstrap-clone-apple/](https://eqc-activities-hub.vercel.app/bootstrap-clone-apple/) |
-| 🩺 **nib Health** | Three pages of health cover layouts | [/bootstrap-clone-nib-health/](https://eqc-activities-hub.vercel.app/bootstrap-clone-nib-health/) |
-| 🏝️ **Skywings Resorts** | A luxury travel site with destinations, packages and a blog | [/bootstrap-clone-skywings/](https://eqc-activities-hub.vercel.app/bootstrap-clone-skywings/) |
-| 🌲 **Forbidden Forest** | The night-time forest trail experience, rebuilt in Bootstrap | [/bootstrap-clone-forbidden-forrest/](https://eqc-activities-hub.vercel.app/bootstrap-clone-forbidden-forrest/) |
+| 🍏 **Apple** | A multi-page Bootstrap 5 build, commented line by line | [bootstrap-clone-apple/](bootstrap-clone-apple/) |
+| 🩺 **nib Health** | Three pages of health cover layouts | [bootstrap-clone-nib-health/](bootstrap-clone-nib-health/) |
+| 🏝️ **Skywings Resorts** | A luxury travel site with destinations, packages and a blog | [bootstrap-clone-skywings/](bootstrap-clone-skywings/) |
+| 🌲 **Forbidden Forest** | The night-time forest trail experience, rebuilt in Bootstrap | [bootstrap-clone-forbidden-forrest/](bootstrap-clone-forbidden-forrest/) |
 
 ### How to download one (students)
 
@@ -325,6 +327,7 @@ The old addresses still work and redirect to their new homes (see `vercel.json`)
 | `/dashboard.html`, `/game-dashboard.html`, `/play.html` | The home page |
 | `/slot-pick/` | The Name Picker on the home page |
 | `/class-games/prompts.html` | Prompt Battle |
+| `/bootstrap-clone-…/` | That clone's folder on GitHub (the clones aren't hosted live; see above) |
 
 ---
 
@@ -355,6 +358,8 @@ sh tests/run-all.sh
 ### Deploy
 
 Push to `main` and Vercel deploys it (project **eqc-activities-hub**). Every branch or pull request also gets its own preview link.
+
+`.vercelignore` keeps the Bootstrap clone folders (and the tests) off the live site. Don't host copies of real brands' sites on the hub: Google flags the whole address as dangerous.
 
 ### Add a new activity
 

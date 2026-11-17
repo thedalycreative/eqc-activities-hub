@@ -50,3 +50,26 @@ def test_no_console_errors(page, context, base_url, path):
     page.goto(f"{base_url}{path}")
     page.wait_for_timeout(600)
     assert context.console_errors == []
+
+
+CLONES = ["apple", "nib-health", "skywings", "forbidden-forrest"]
+GITHUB_TREE = "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-{}"
+
+
+def test_clone_sites_are_not_deployed():
+    """They copy real brands (logos, titles, log-in buttons), which got the site flagged as phishing."""
+    ignored = (ROOT / ".vercelignore").read_text().split()
+    cfg = json.loads((ROOT / "vercel.json").read_text())
+    redirects = {r["source"]: r["destination"] for r in cfg["redirects"]}
+    for name in CLONES:
+        assert f"bootstrap-clone-{name}" in ignored, name
+        assert redirects.get(f"/bootstrap-clone-{name}") == GITHUB_TREE.format(name)
+        assert redirects.get(f"/bootstrap-clone-{name}/:path*") == GITHUB_TREE.format(name)
+
+
+def test_clone_tiles_point_to_github(page, base_url):
+    page.goto(f"{base_url}/")
+    hrefs = page.eval_on_selector_all("#clones .tile", "els => els.map(e => e.href)")
+    assert hrefs == [GITHUB_TREE.format(n) for n in CLONES]
+    assert page.locator("#clones a[href$='#bootstrap-clone-sites-get-one-on-your-computer']").count() == 1
+    assert page.locator("#clones .tile .external").count() == 4
