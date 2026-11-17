@@ -1,7 +1,7 @@
 // Trivia Live: one page for the trainer (presenter) and the players (?mode=player).
 import { categories, makeQuizQuestions } from '../quiz-bank.js';
 import { createSession, id, joinSession, listen, listenSession, makeCode, write } from '../activity-store.js';
-import { esc, requireTrainer, qrBlock, toast, celebrate } from './hub.js';
+import { esc, requireTrainer, isTrainer, qrBlock, toast, celebrate } from './hub.js';
 import { play, startMusic, stopMusic, muteButton } from './sound.js';
 import { scoreFor, answerKey, answerCounts, leaderboard, rankShifts, streakFor } from './trivia-logic.js';
 
@@ -42,7 +42,7 @@ async function startQuestion(index) {
   await save({ status: 'question', questionIndex: index, questionStartedAt: Date.now() + INTRO_MS });
 }
 async function reveal() {
-  if (quizState.status !== 'question') return;
+  if (quizState.status !== 'question' || !isTrainer()) return;
   await save({ status: 'reveal' });
 }
 
@@ -404,6 +404,13 @@ async function boot() {
     document.getElementById('page').classList.add('narrow', 'phone');
     document.getElementById('home-link').hidden = true;
     renderJoin();
+  } else if (!(await requireTrainer())) {
+    // Someone opened the big-screen link without the PIN (for example by editing the join link).
+    sub.textContent = `Game code ${code}`;
+    app.innerHTML = `<section class="card center"><div style="font-size:3.5rem">🔒</div><h2>This screen is for the trainer</h2>
+      <p class="muted">Playing along? Join from your phone instead.</p>
+      <a class="btn btn-big btn-bulb" href="/quiz.html?mode=player&code=${encodeURIComponent(code)}">Join as a player</a></section>`;
+    return;
   }
   try {
     await listenSession(code, s => {

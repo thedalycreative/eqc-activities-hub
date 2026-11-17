@@ -119,7 +119,8 @@ def test_final_podium(context, base_url):
     assert quiz_state(host, code)["status"] == "finished"
 
 
-def test_old_state_without_seconds(page, base_url):
+def test_old_state_without_seconds(page, context, base_url):
+    unlock(context)
     page.goto(f"{base_url}/quiz.html?mode=presenter&code=ABCD")
     page.evaluate("""() => {
         const q = { category: 'HTML', question: 'Old question?', answers: ['a', 'b', 'c', 'd'], correct: 0, explanation: 'x' };
@@ -145,3 +146,34 @@ def test_rescanning_the_qr_keeps_the_same_player(context, base_url):
     again.wait_for_selector("text=You're in!")
     assert again.locator("input[name=name]").count() == 0
     host.wait_for_function("document.querySelectorAll('.lobby-chip').length === 1")
+
+
+def seed_lobby(page, code="WXYZ"):
+    page.evaluate("""code => {
+        const q = { category: 'HTML', question: 'Q?', answers: ['a', 'b', 'c', 'd'], correct: 0, explanation: 'x' };
+        const db = { rows: { ['quiz-' + code]: { state: { status: 'lobby', game: 'trivia', categories: ['HTML'], questions: [q],
+                     questionIndex: -1, questionStartedAt: null, seconds: 60, scores: {} } } },
+                     sessions: { [code]: { code, game: 'trivia', status: 'lobby' } }, players: {} };
+        localStorage.setItem('fake-db', JSON.stringify(db));
+    }""", code)
+
+
+def test_presenter_screen_needs_the_pin(page, base_url):
+    page.goto(f"{base_url}/quiz.html")
+    seed_lobby(page)
+    page.goto(f"{base_url}/quiz.html?mode=presenter&code=WXYZ")
+    page.wait_for_selector(".pin-pad")
+    assert page.locator("#start-game").count() == 0
+    page.click(".pin-pad [data-act='cancel']")
+    page.wait_for_selector("text=This screen is for the trainer")
+    assert page.locator("a[href*='mode=player&code=WXYZ']").count() == 1
+    assert page.locator("#start-game, #end, #reveal").count() == 0
+
+
+def test_presenter_screen_opens_after_the_pin(page, base_url):
+    page.goto(f"{base_url}/quiz.html")
+    seed_lobby(page)
+    page.goto(f"{base_url}/quiz.html?mode=presenter&code=WXYZ")
+    for d in "2468":
+        page.locator(f".pin-pad [data-digit='{d}']").click()
+    page.wait_for_selector("#start-game")
