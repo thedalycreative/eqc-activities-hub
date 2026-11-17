@@ -1,0 +1,163 @@
+/* README Builder only. Everything else (colours, fonts, tiles, buttons, cards) comes from ../assets/hub.css. */
+
+.rb-toolbar { justify-content: flex-start; margin-top: 0; }
+
+.rb-jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: -24px 0 clamp(32px, 4vw, 48px); }
+.rb-jump .pill { min-height: 44px; padding: 6px 18px 4px; font-size: 1.05rem; text-decoration: none; box-shadow: 0 4px 0 var(--ink); }
+.rb-jump .pill:hover { transform: translateY(-2px); }
+
+.rb-lede { max-width: 72ch; margin: 0 0 24px; font-size: 1.2rem; }
+.rb-lede code, .rb-next code, .rb-tip code { padding: 0 6px; background: rgba(255, 248, 231, .14); border-radius: 6px; }
+.card .rb-next code { background: rgba(27, 16, 53, .08); }
+
+/* ── Builder: form on the left, prompt on the right ───────── */
+.rb-builder { display: grid; gap: clamp(22px, 3vw, 32px); align-items: start; }
+.rb-builder > .card + .card { margin-top: 0; } /* hub.css spaces stacked cards; the grid gap does it here */
+@media (min-width: 1040px) {
+  .rb-builder { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); }
+  .rb-output { position: sticky; top: 18px; }
+}
+
+.rb-step { margin: 0; padding: 0; border: 0; min-width: 0; }
+.rb-step + .rb-step { margin-top: 26px; padding-top: 22px; border-top: 3px dashed rgba(27, 16, 53, .25); }
+/* Floating the legend keeps it inside the fieldset, so the dashed divider doesn't run behind it */
+.rb-step legend { float: left; width: 100%; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 0; font-size: 1.35rem; font-weight: 800; }
+.rb-step legend + * { clear: both; }
+.rb-num {
+  display: grid; place-items: center; flex: none;
+  width: 38px; height: 38px; padding-top: 3px;
+  font-family: var(--display); font-size: 1.1rem;
+  background: var(--bulb); border: 3px solid var(--ink); border-radius: 50%;
+}
+.field em { font-style: normal; font-weight: 600; opacity: .6; }
+
+/* Big tappable choice cards (radio buttons) */
+.rb-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 14px; }
+.rb-choice {
+  position: relative;
+  display: grid; gap: 2px;
+  padding: 14px 16px 14px 56px;
+  background: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 0 5px 0 var(--ink);
+  cursor: pointer;
+  transition: transform .1s ease, box-shadow .1s ease, background .15s ease;
+}
+.rb-choice:hover { transform: translateY(-2px); }
+.rb-choice input { position: absolute; opacity: 0; pointer-events: none; }
+.rb-choice-emoji { position: absolute; left: 14px; top: 12px; font-size: 1.9rem; line-height: 1; }
+.rb-choice strong { font-size: 1.2rem; line-height: 1.15; }
+.rb-choice small { font-size: .98rem; font-weight: 600; line-height: 1.3; opacity: .75; }
+.rb-choice a { color: var(--ink); font-weight: 800; text-decoration-thickness: 2px; }
+.rb-choice:has(input:checked) { background: var(--lime); transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
+.rb-choice:has(input:checked)::after {
+  content: "✓";
+  position: absolute; top: -12px; right: -10px;
+  display: grid; place-items: center;
+  width: 32px; height: 32px; padding-top: 2px;
+  font-weight: 800; color: var(--paper);
+  background: var(--ink); border-radius: 50%;
+}
+.rb-choice:has(input:focus-visible) { outline: 4px solid var(--sky); outline-offset: 3px; }
+
+.rb-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); column-gap: 14px; }
+.rb-fields .field { margin-bottom: 12px; }
+.rb-fields .rb-wide { grid-column: 1 / -1; }
+.rb-tip { margin: 4px 0 0; padding: 10px 14px; font-weight: 700; background: #DDF1FF; border: 3px solid var(--ink); border-radius: 14px; }
+
+/* Checklist chips */
+.rb-quick { margin-bottom: 14px; }
+.rb-quick .btn { min-height: 42px; font-size: 1rem; box-shadow: 0 4px 0 var(--ink); }
+.rb-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 10px; }
+.rb-check {
+  display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 8px;
+  padding: 8px 12px 8px 10px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background .15s ease;
+}
+.rb-check input { width: 22px; height: 22px; margin: 0; accent-color: var(--ink); cursor: pointer; }
+.rb-check-emoji { font-size: 1.45rem; line-height: 1; }
+.rb-check-text { display: grid; line-height: 1.15; }
+.rb-check-text strong { font-size: 1.02rem; }
+.rb-check-text small { font-size: .85rem; font-weight: 600; opacity: .7; }
+.rb-check:has(input:checked) { background: #E9FAD9; }
+.rb-check.locked { cursor: default; opacity: .8; }
+.rb-check:has(input:focus-visible) { outline: 4px solid var(--sky); outline-offset: 2px; }
+
+/* The prompt */
+.rb-output h3 { margin: 0; font-size: 1.5rem; }
+.rb-prompt {
+  margin: 14px 0 18px;
+  max-height: min(56vh, 560px);
+  overflow: auto;
+  padding: 16px 18px;
+  font: 600 .92rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  background: #fff;
+  border: 4px solid var(--ink);
+  border-radius: 16px;
+}
+.rb-prompt:focus-visible { outline: 4px solid var(--sky); outline-offset: 2px; }
+.rb-next-title { margin: 22px 0 6px; font-size: 1.2rem; }
+.rb-next { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; font-weight: 600; }
+.rb-next kbd { padding: 0 6px; font: inherit; font-size: .9em; background: var(--bulb); border: 2px solid var(--ink); border-radius: 6px; }
+
+/* ── Anatomy cards ─────────────────────────────────────────── */
+.rb-tier { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 30px 0 16px; font-size: clamp(1.4rem, 2.2vw, 1.7rem); }
+.rb-tier small { font-size: 1rem; font-weight: 600; color: rgba(255, 248, 231, .7); }
+.rb-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 22px; }
+#rb-must { grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); } /* all 5 must-haves in one row on a laptop */
+.rb-card {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 0 18px 18px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 4px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 0 7px 0 var(--ink);
+  overflow: hidden;
+}
+.rb-card-head {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 -18px 4px;
+  padding: 12px 18px 10px;
+  background: var(--sky);
+  border-bottom: 4px solid var(--ink);
+}
+.rb-card.must .rb-card-head { background: var(--bulb); }
+.rb-card-emoji { font-size: 1.8rem; line-height: 1; }
+.rb-card h4 { margin: 0; font-size: 1.3rem; line-height: 1.15; }
+.rb-card p { margin: 0; font-size: 1.02rem; line-height: 1.4; }
+.rb-md {
+  margin: 4px 0 0;
+  padding: 10px 12px;
+  font: 600 .82rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 12px;
+}
+.rb-see { margin-top: auto; padding-top: 6px; font-weight: 800; color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.rb-see:hover { color: var(--tomato); }
+
+/* ── Examples and tools ───────────────────────────────────── */
+.rb-examples .tile { min-height: 210px; }
+.rb-examples .tile .emoji { font-size: clamp(2.8rem, 4vw, 3.4rem); padding-bottom: 12px; }
+.rb-examples .tile h3 { font-size: clamp(1.35rem, 2vw, 1.6rem); padding-right: 4px; }
+.rb-examples .tile p { font-size: 1.02rem; }
+.rb-tools { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.rb-tools .btn { min-height: 44px; font-size: 1rem; box-shadow: 0 4px 0 var(--ink); }
+
+.rb-footer { margin-top: 64px; text-align: center; font-size: 1rem; color: rgba(255, 248, 231, .75); }
+.rb-footer a { color: var(--bulb); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-choice, .rb-choice:hover, .rb-choice:has(input:checked) { transform: none; }
+}

@@ -251,6 +251,7 @@ code bootstrap-clone-forbidden-forrest
 | `yearbook-wall/` | Yearbook Wall icebreaker: students build a tile that pops up on the projector | [/yearbook-wall/build.html](https://eqc-activities-hub.vercel.app/yearbook-wall/build.html) |
 | `quokka-careers/` | Quokka Careers: apply for ridiculous jobs, then roleplay the interview | [/quokka-careers/](https://eqc-activities-hub.vercel.app/quokka-careers/) |
 | `flexbox-exercise/` | Flexbox practice: line up the boxes using nothing but flexbox | [/flexbox-exercise/](https://eqc-activities-hub.vercel.app/flexbox-exercise/) |
+| `readme-builder/` | README Builder: tick a checklist, copy an AI prompt that writes a README like the Apple clone's, plus what goes in a great README | [/readme-builder/](https://eqc-activities-hub.vercel.app/readme-builder/) |
 
 Each of these used to be a separate repo; its full commit history came across with it.
 
