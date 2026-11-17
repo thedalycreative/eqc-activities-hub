@@ -53,6 +53,22 @@ export const updateAt = async (path, value) => {
   if (error) throw error;
 };
 
+// Deletes every row for one activity (used by "Clear board" and "Clear names").
+export const removeActivity = async activity => {
+  await ensureConnection();
+  const { error } = await supabase.from("activity_items").delete().eq("activity", activity);
+  if (error) throw error;
+};
+
+// Saves several rows for one activity in a single request. rows: { itemId: payload }
+export const writeMany = async (activity, rows) => {
+  await ensureConnection();
+  const list = Object.entries(rows).map(([item_id, payload]) => ({ activity, item_id, payload }));
+  if (!list.length) return;
+  const { error } = await supabase.from("activity_items").upsert(list);
+  if (error) throw error;
+};
+
 export const makeCode = () => Math.random().toString(36).slice(2, 6).toUpperCase();
 
 export const createSession = async (game, code) => {
