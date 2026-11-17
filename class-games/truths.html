@@ -1,1 +1,134 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Two truths and a lie · Submit</title><style>body{font:16px/1.5 system-ui;background:#fff4f8;color:#24152a;margin:0;padding:30px}.box{max-width:650px;margin:auto;background:#fff;border:1px solid #f1d5e2;border-radius:18px;padding:28px;box-shadow:0 12px 30px #24152a12}h1{letter-spacing:-.04em}label{display:block;font-weight:700;margin:16px 0 6px}input{width:100%;padding:12px;border:1px solid #d5c4ce;border-radius:9px;font:inherit}button{display:inline-block;margin-top:18px;padding:12px 16px;border:0;border-radius:9px;background:#e95091;color:#fff;font-weight:800;cursor:pointer}.status{margin-top:15px;color:#167a63}a{color:#e95091}</style></head><body><main class="box"><p><a href="/dashboard.html">← Trainer dashboard</a></p><h1>🎭 Two truths and a lie</h1><p>Write two true statements about yourself. The third statement is generated for you and will be mixed in on the trainer dashboard.</p><form id="form"><label>Your name<input name="name" required placeholder="Alex"></label><label>Truth one<input name="truth1" required placeholder="I have visited Japan"></label><label>Truth two<input name="truth2" required placeholder="I can juggle"></label><button>Send to the dashboard</button></form><p class="status" id="status"></p></main><script type="module">import{paths,write,id}from'../activity-store.js';const lies=['I once won a national cheese-rolling championship.','I can name every country in reverse alphabetical order.','I have a secret talent for solving a Rubik’s Cube blindfolded.','I was briefly the voice of a cartoon penguin.'];form.onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(form));const lie=lies[Math.floor(Math.random()*lies.length)];await write(`${paths.truths}/${id('truths')}`,{name:d.name,items:[{text:d.truth1,isLie:false},{text:d.truth2,isLie:false},{text:lie,isLie:true}],submittedAt:Date.now()});form.reset();status.textContent='Submitted — your trainer can reveal the lie from the dashboard.'}</script></body></html>
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Two Truths &amp; A Lie · Send yours</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/hub.css">
+  <style>
+    .how { margin: 0 0 18px; font-weight: 600; }
+    .cooking { text-align: center; padding: 30px 10px; }
+    .cooking .pot { font-size: 4.5rem; line-height: 1; display: inline-block; animation: bounce .7s ease-in-out infinite; }
+    .cooking h2 { margin-top: 14px; }
+    .dots span { display: inline-block; animation: bounce .9s ease-in-out infinite; }
+    .dots span:nth-child(2) { animation-delay: .15s; }
+    .dots span:nth-child(3) { animation-delay: .3s; }
+    .done { text-align: center; }
+    .done .big { font-size: 5rem; line-height: 1; margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <main class="page narrow">
+    <header class="marquee mini">
+      <h1>🎭 Two Truths</h1>
+      <p>&amp; a lie the AI writes for you</p>
+    </header>
+
+    <form class="card" id="truths-form" novalidate>
+      <p class="how">Write two true things about yourself. The AI sneaks in a believable lie, and the class has to spot it on the big screen.</p>
+      <label class="field"><span>Your name</span>
+        <input name="name" required maxlength="30" autocomplete="given-name" placeholder="Alex">
+      </label>
+      <label class="field"><span>Truth 1 <span class="count" data-for="truth1">0/160</span></span>
+        <input name="truth1" required maxlength="160" placeholder="I have been to Japan twice">
+      </label>
+      <label class="field"><span>Truth 2 <span class="count" data-for="truth2">0/160</span></span>
+        <input name="truth2" required maxlength="160" placeholder="I can play the ukulele">
+      </label>
+      <p class="muted" style="color:rgba(27,16,53,.65);margin-top:-4px">Tip: keep them everyday and specific. The lie copies your style.</p>
+      <div id="error" aria-live="assertive"></div>
+      <button class="btn btn-big btn-pink btn-block" id="submit">🤫 Send to the noticeboard</button>
+    </form>
+
+    <section class="card cooking" id="cooking" hidden aria-live="polite">
+      <div class="pot">🍳</div>
+      <h2>The AI is cooking up your lie… 🤫</h2>
+      <p class="dots" aria-hidden="true"><span>●</span> <span>●</span> <span>●</span></p>
+    </section>
+
+    <section class="card done" id="done" hidden>
+      <div class="big">🎉</div>
+      <h2>On the noticeboard!</h2>
+      <p class="muted">Your lie is a secret, even from you. Watch the big screen and keep a straight face!</p>
+      <button class="btn btn-big btn-teal btn-block" id="again">Add another</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import { write, id } from '../activity-store.js';
+    import { esc, celebrate } from '../assets/hub.js';
+    import { play } from '../assets/sound.js';
+    import { fallbackLie, buildTruthsCard } from '../assets/lie-bank.js';
+
+    const $ = sel => document.querySelector(sel);
+    const form = $('#truths-form');
+    let sending = false;
+
+    form.querySelectorAll('input[maxlength="160"]').forEach(input => {
+      const count = form.querySelector(`.count[data-for="${input.name}"]`);
+      input.addEventListener('input', () => { count.textContent = `${input.value.length}/160`; });
+    });
+
+    const showError = msg => { $('#error').innerHTML = msg ? `<div class="error-box">${esc(msg)}</div>` : ''; };
+
+    async function aiLie(truths) {
+      try {
+        const res = await fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task: 'lie', truths }),
+          signal: AbortSignal.timeout(8000)
+        });
+        if (!res.ok) return null;
+        const { text } = await res.json();
+        return typeof text === 'string' && text.trim() ? text.trim() : null;
+      } catch {
+        return null;
+      }
+    }
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      if (sending) return;
+      const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
+      const truths = [String(data.get('truth1') || '').trim(), String(data.get('truth2') || '').trim()];
+      if (!name) return showError('Add your name first.');
+      if (truths.some(t => !t)) return showError('Write two true things about yourself.');
+      showError('');
+      sending = true;
+      $('#submit').disabled = true;
+      form.hidden = true;
+      $('#cooking').hidden = false;
+      try {
+        const lie = await aiLie(truths);
+        const card = lie
+          ? buildTruthsCard(name, truths, lie, 'ai')
+          : buildTruthsCard(name, truths, fallbackLie(truths), 'bank');
+        await write(`truths/${id('truths')}`, card);
+        $('#cooking').hidden = true;
+        $('#done').hidden = false;
+        play('ding');
+        celebrate();
+      } catch {
+        $('#cooking').hidden = true;
+        form.hidden = false;
+        showError('Could not post it. Check your internet and try again.');
+      } finally {
+        sending = false;
+        $('#submit').disabled = false;
+      }
+    };
+
+    $('#again').onclick = () => {
+      const keepName = form.elements.name.value;
+      form.reset();
+      form.elements.name.value = keepName;
+      form.querySelectorAll('.count').forEach(c => { c.textContent = '0/160'; });
+      $('#done').hidden = true;
+      form.hidden = false;
+    };
+  </script>
+</body>
+</html>
