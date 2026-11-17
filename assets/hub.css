@@ -301,6 +301,7 @@ button.pill { cursor: pointer; }
 .modal.wide { width: min(100%, 1100px); }
 .modal-close {
   position: absolute;
+  z-index: 2;
   top: 12px;
   right: 12px;
   width: 44px;
