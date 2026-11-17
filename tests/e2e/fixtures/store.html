@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="UTF-8"><title>Store fixture</title></head>
+<body>
+  <script type="module">
+    import * as store from '/activity-store.js';
+    window.store = store;
+    window.got = [];
+    window.ready = store.listen('emoji', rows => window.got.push(Object.keys(rows).sort()));
+  </script>
+</body></html>
