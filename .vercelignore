@@ -1,0 +1,11 @@
+# Not published on the live site. The Bootstrap clone sites copy real brands
+# (logos, page titles, log-in buttons), which made Google flag the whole hub as
+# a phishing site. Students download them from GitHub instead (see README).
+bootstrap-clone-apple
+bootstrap-clone-nib-health
+bootstrap-clone-skywings
+bootstrap-clone-forbidden-forrest
+
+# Development-only files
+tests
+docs/superpowers

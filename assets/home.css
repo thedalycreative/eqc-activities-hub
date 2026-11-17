@@ -297,3 +297,6 @@ body.stage-open { overflow: hidden; }
 .podium-place.second .block { height: 160px; background: #D9DCE8; }
 .podium-place.third .block { height: 120px; background: var(--orange); }
 .battle-card.winner .stars { background: var(--paper); }
+
+.clones-note { margin: -4px 0 20px; font-weight: 600; font-size: 1.1rem; }
+.clones-note code { padding: 1px 6px; background: rgba(255, 248, 231, .12); border-radius: 6px; }

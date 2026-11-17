@@ -1,14 +1,110 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/yearbook-wall/wall/", "destination": "/yearbook-wall/wall.html", "permanent": false },
-    { "source": "/yearbook-wall/build/", "destination": "/yearbook-wall/build.html", "permanent": false },
-    { "source": "/flexbox-exercise/", "destination": "/flexbox-exercise/flexbox_starter.html", "permanent": false },
-    { "source": "/dashboard.html", "destination": "/", "permanent": false },
-    { "source": "/game-dashboard.html", "destination": "/", "permanent": false },
-    { "source": "/play.html", "destination": "/", "permanent": false },
-    { "source": "/slot-pick/", "destination": "/#picker", "permanent": false },
-    { "source": "/slot-pick/:path*", "destination": "/#picker", "permanent": false },
-    { "source": "/class-games/prompts.html", "destination": "/class-games/battle.html", "permanent": false }
+    {
+      "source": "/yearbook-wall/wall/",
+      "destination": "/yearbook-wall/wall.html",
+      "permanent": false
+    },
+    {
+      "source": "/yearbook-wall/build/",
+      "destination": "/yearbook-wall/build.html",
+      "permanent": false
+    },
+    {
+      "source": "/flexbox-exercise/",
+      "destination": "/flexbox-exercise/flexbox_starter.html",
+      "permanent": false
+    },
+    {
+      "source": "/dashboard.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/game-dashboard.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/play.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/slot-pick/",
+      "destination": "/#picker",
+      "permanent": false
+    },
+    {
+      "source": "/slot-pick/:path*",
+      "destination": "/#picker",
+      "permanent": false
+    },
+    {
+      "source": "/class-games/prompts.html",
+      "destination": "/class-games/battle.html",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-apple",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-apple",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-apple/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-apple",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-apple/:path*",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-apple",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-nib-health",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-nib-health",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-nib-health/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-nib-health",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-nib-health/:path*",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-nib-health",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-skywings",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-skywings",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-skywings/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-skywings",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-skywings/:path*",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-skywings",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-forbidden-forrest",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-forbidden-forrest",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-forbidden-forrest/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-forbidden-forrest",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-forbidden-forrest/:path*",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-forbidden-forrest",
+      "permanent": false
+    }
   ]
 }
