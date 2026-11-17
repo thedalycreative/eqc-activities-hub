@@ -21,7 +21,7 @@ def setup_game(context, base_url, seconds=20, count=5):
 def join(context, base_url, code, name):
     p = context.new_page()
     p.set_viewport_size({"width": 390, "height": 844})
-    p.goto(f"{base_url}/quiz.html?mode=player&code={code}")
+    p.goto(f"{base_url}/quiz.html?mode=player&code={code}&as={name}")
     p.fill("input[name=name]", name)
     p.click("#join")
     p.wait_for_selector("text=You're in!")
@@ -131,3 +131,17 @@ def test_old_state_without_seconds(page, base_url):
     page.reload()
     page.wait_for_selector(".timer-ring")
     assert int(page.inner_text(".timer-ring .num")) in (59, 60)
+
+
+def test_rescanning_the_qr_keeps_the_same_player(context, base_url):
+    host, code = setup_game(context, base_url)
+    first = context.new_page()
+    first.goto(f"{base_url}/quiz.html?mode=player&code={code}")
+    first.fill("input[name=name]", "Jo")
+    first.click("#join")
+    first.wait_for_selector("text=You're in!")
+    again = context.new_page()  # a new tab, like scanning the QR again
+    again.goto(f"{base_url}/quiz.html?mode=player&code={code}")
+    again.wait_for_selector("text=You're in!")
+    assert again.locator("input[name=name]").count() == 0
+    host.wait_for_function("document.querySelectorAll('.lobby-chip').length === 1")

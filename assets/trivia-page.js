@@ -17,9 +17,11 @@ const sub = document.getElementById('sub');
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const activity = c => `quiz-${c}`;
 
-// One player per browser tab (kept across refreshes), so several tabs on one laptop can play.
-const playerId = sessionStorage.getItem('quiz-player-id') || id('player');
-sessionStorage.setItem('quiz-player-id', playerId);
+// The phone remembers who it is for this game, so re-scanning the QR keeps your points.
+// Add &as=anything to the link to play as a second person on the same device (handy for demos).
+const PLAYER_KEY = `quiz-player-${code}${params.get('as') ? `-${params.get('as')}` : ''}`;
+const playerId = localStorage.getItem(PLAYER_KEY) || id('player');
+localStorage.setItem(PLAYER_KEY, playerId);
 
 let session = {};
 let quizState = {};
@@ -303,7 +305,7 @@ function renderJoin() {
     app.querySelector('#join').disabled = true;
     try {
       await joinSession(code, { id: playerId, name });
-      sessionStorage.setItem('quiz-player-name', name);
+      localStorage.setItem(`${PLAYER_KEY}-name`, name);
     } catch {
       err.innerHTML = '<div class="error-box">Could not join. Check the game code and try again.</div>';
       app.querySelector('#join').disabled = false;

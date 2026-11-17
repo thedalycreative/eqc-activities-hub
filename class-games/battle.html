@@ -47,10 +47,11 @@
     const $ = sel => document.querySelector(sel);
     const app = $('#app');
     const code = (new URLSearchParams(location.search).get('code') || '').toUpperCase().trim();
-    const PLAYER_KEY = 'eqc-battle-player';
-    // One player per browser tab (kept across refreshes), so several tabs on one laptop can play too.
-    const playerId = sessionStorage.getItem(PLAYER_KEY) || id('player');
-    sessionStorage.setItem(PLAYER_KEY, playerId);
+    // The phone remembers who it is for this game, so re-scanning the QR keeps your stars.
+    // Add &as=anything to the link to play as a second person on the same device (handy for demos).
+    const PLAYER_KEY = `eqc-battle-player-${code}${new URLSearchParams(location.search).get('as') ? `-${new URLSearchParams(location.search).get('as')}` : ''}`;
+    const playerId = localStorage.getItem(PLAYER_KEY) || id('player');
+    localStorage.setItem(PLAYER_KEY, playerId);
     $('#sub').textContent = code ? `Game code ${code}` : 'Join the battle';
 
     let session = {};
@@ -188,7 +189,7 @@
         t.closest('#submit-entry').disabled = true;
         try {
           await write(`battle-${code}/${myEntryKey()}`, {
-            playerId, name: sessionStorage.getItem('eqc-battle-name') || 'Player',
+            playerId, name: localStorage.getItem(`${PLAYER_KEY}-name`) || 'Player',
             prompt: d.prompt, reply: d.reply, tries: d.tries || 1, submittedAt: Date.now(), hidden: false
           });
         } catch {
@@ -215,7 +216,7 @@
       $('#join').disabled = true;
       try {
         await joinSession(code, { id: playerId, name });
-        sessionStorage.setItem('eqc-battle-name', name);
+        localStorage.setItem(`${PLAYER_KEY}-name`, name);
         showError('');
       } catch {
         showError("Couldn't join. Check the game code on the big screen.");
