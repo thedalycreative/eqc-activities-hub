@@ -296,3 +296,4 @@ body.stage-open { overflow: hidden; }
 .podium-place.first .block { height: 220px; background: var(--bulb); }
 .podium-place.second .block { height: 160px; background: #D9DCE8; }
 .podium-place.third .block { height: 120px; background: var(--orange); }
+.battle-card.winner .stars { background: var(--paper); }
