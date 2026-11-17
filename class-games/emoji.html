@@ -1,1 +1,184 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Emoji Guess · Add a clue</title><style>body{font:16px/1.5 system-ui;background:#f6f4ff;color:#182033;margin:0;padding:30px}.box{max-width:620px;margin:auto;background:#fff;border:1px solid #e5e7ef;border-radius:18px;padding:28px;box-shadow:0 12px 30px #18203312}h1{letter-spacing:-.04em}label{display:block;font-weight:700;margin:16px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd0dc;border-radius:9px;font:inherit}button,.link{display:inline-block;margin-top:18px;padding:12px 16px;border:0;border-radius:9px;background:#635bff;color:#fff;font-weight:800;cursor:pointer;text-decoration:none}.status{margin-top:15px;color:#167a63}</style></head><body><main class="box"><p><a href="/dashboard.html">← Trainer dashboard</a></p><h1>😀 Add an emoji guess</h1><p>Choose something the class can guess: a word, movie, book, TV show, place or song.</p><form id="form"><label>Your name<input name="contributor" required placeholder="Alex"></label><label>Category<select name="category"><option>Movie</option><option>Book</option><option>TV show</option><option>Word</option><option>Song</option><option>Other</option></select></label><label>Answer<input name="answer" required placeholder="The Lion King"></label><label>Emoji clue<input name="clue" required placeholder="🦁👑🌅"></label><button>Add to dashboard</button></form><p class="status" id="status"></p></main><script type="module">import{paths,write,id}from'../activity-store.js';form.onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(form));await write(`${paths.emoji}/${id('emoji')}`,{...d,submittedAt:Date.now()});form.reset();status.textContent='Added — ask the trainer to switch to the dashboard.'}</script></body></html>
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emoji Guess · Make a clue</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/hub.css">
+  <style>
+    .clue-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 8px;
+      min-height: 92px;
+      padding: 12px;
+      background: #fff;
+      border: 4px solid var(--ink);
+      border-radius: 18px;
+    }
+    .clue-box:empty::before { content: "No emojis yet: tap ＋ Add emoji"; align-self: center; margin: auto; font-weight: 700; opacity: .5; }
+    .chip { display: grid; place-items: center; width: 54px; height: 54px; font-size: 2.1rem; background: var(--bulb); border: 3px solid var(--ink); border-radius: 14px; animation: pop-in .25s cubic-bezier(.2, 1.4, .4, 1) both; }
+    .clue-tools { display: flex; gap: 10px; margin-top: 12px; }
+    .clue-tools .btn { flex: 1; white-space: nowrap; }
+    .clue-tools #add-emoji { flex: 2.4; }
+    .clue-count { font-weight: 800; float: right; opacity: .7; }
+    .sheet-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 0 48px 12px 4px; }
+    .sheet-head strong { font-size: 1.2rem; }
+    emoji-picker {
+      width: 100%;
+      height: 52vh;
+      --num-columns: 7;
+      --emoji-size: 1.8rem;
+      --background: var(--paper);
+      --border-color: var(--ink);
+      --border-size: 3px;
+      --border-radius: 16px;
+      --indicator-color: var(--tomato);
+      --input-border-color: var(--ink);
+      --input-border-radius: 12px;
+      --input-font-size: 1rem;
+      --outline-color: var(--bulb);
+      --button-active-background: var(--bulb);
+      --button-hover-background: #FFE58A;
+    }
+    .done { text-align: center; }
+    .done .big { font-size: 5rem; line-height: 1; margin: 10px 0; }
+    .done .clue-preview { font-size: 3rem; letter-spacing: .06em; margin: 12px 0 20px; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <main class="page narrow">
+    <header class="marquee mini">
+      <h1>😀 Emoji Guess</h1>
+      <p>Make an emoji clue for the class</p>
+    </header>
+
+    <form class="card" id="emoji-form" novalidate>
+      <label class="field"><span>Your name</span>
+        <input name="name" required maxlength="30" autocomplete="given-name" placeholder="Alex">
+      </label>
+      <label class="field"><span>What kind of thing is it?</span>
+        <select name="category">
+          <option>Movie</option><option>Book</option><option>TV show</option><option>Song</option>
+          <option>Word</option><option>Place</option><option>Other</option>
+        </select>
+      </label>
+      <label class="field"><span>The answer (kept secret until the reveal)</span>
+        <input name="answer" required maxlength="60" placeholder="The Lion King">
+      </label>
+      <div class="field">
+        <span>Your emoji clue <span class="clue-count" id="clue-count">0/12</span></span>
+        <div class="clue-box" id="clue" aria-live="polite" aria-label="Emoji clue"></div>
+        <div class="clue-tools">
+          <button type="button" class="btn btn-teal" id="add-emoji">＋ Add emoji</button>
+          <button type="button" class="btn" id="back-emoji" aria-label="Remove the last emoji">⌫</button>
+          <button type="button" class="btn" id="clear-emoji">Clear</button>
+        </div>
+      </div>
+      <div id="error" aria-live="assertive"></div>
+      <button class="btn btn-big btn-bulb btn-block" id="submit">📌 Post to the noticeboard</button>
+    </form>
+
+    <section class="card done" id="done" hidden>
+      <div class="big">🎉</div>
+      <h2>On the noticeboard!</h2>
+      <div class="clue-preview" id="done-clue"></div>
+      <p class="muted">Watch the big screen. The class has to guess it.</p>
+      <button class="btn btn-big btn-teal btn-block" id="again">Add another</button>
+    </section>
+  </main>
+
+  <script type="module">
+    import '../assets/vendor/emoji-picker/index.js';
+    import { write, id } from '../activity-store.js';
+    import { openModal, toast, celebrate, esc } from '../assets/hub.js';
+    import { play } from '../assets/sound.js';
+
+    const MAX = 12;
+    const $ = sel => document.querySelector(sel);
+    const form = $('#emoji-form');
+    let chips = [];
+    let sending = false;
+
+    const paint = () => {
+      $('#clue').innerHTML = chips.map(c => `<span class="chip">${esc(c)}</span>`).join('');
+      $('#clue-count').textContent = `${chips.length}/${MAX}`;
+      const sheetCount = document.getElementById('sheet-count');
+      if (sheetCount) sheetCount.textContent = `${chips.length}/${MAX} · ${chips.join('')}`;
+    };
+
+    // The picker is built once and reused every time the sheet opens.
+    const sheet = document.createElement('div');
+    sheet.innerHTML = `
+      <div class="sheet-head"><strong id="sheet-count"></strong><button type="button" class="btn btn-bulb" id="sheet-done">Done</button></div>
+      <emoji-picker class="light" data-source="../assets/vendor/emoji-picker/data.json"></emoji-picker>`;
+    let sheetModal = null;
+    sheet.querySelector('emoji-picker').addEventListener('emoji-click', e => {
+      if (chips.length >= MAX) { toast(`That's the max: ${MAX} emojis.`, { tone: 'bad' }); return; }
+      chips.push(e.detail.unicode);
+      play('pop');
+      paint();
+    });
+    sheet.querySelector('#sheet-done').onclick = () => sheetModal?.close();
+
+    $('#add-emoji').onclick = () => {
+      sheetModal = openModal(sheet, { sheet: true, onClose: () => { sheetModal = null; } });
+      paint();
+    };
+    $('#back-emoji').onclick = () => { chips.pop(); paint(); };
+    $('#clear-emoji').onclick = () => { chips = []; paint(); };
+
+    const showError = msg => { $('#error').innerHTML = msg ? `<div class="error-box">${esc(msg)}</div>` : ''; };
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      if (sending) return;
+      const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
+      const answer = String(data.get('answer') || '').trim();
+      if (!name) return showError('Add your name first.');
+      if (!answer) return showError('Add the answer, so the trainer can reveal it.');
+      if (!chips.length) return showError('Add at least one emoji to make your clue.');
+      showError('');
+      sending = true;
+      $('#submit').disabled = true;
+      $('#submit').textContent = 'Posting…';
+      try {
+        await write(`emoji/${id('emoji')}`, {
+          contributor: name,
+          category: String(data.get('category') || 'Other'),
+          answer,
+          clue: chips.join(''),
+          submittedAt: Date.now(),
+          revealed: false
+        });
+        $('#done-clue').textContent = chips.join('');
+        form.hidden = true;
+        $('#done').hidden = false;
+        play('ding');
+        celebrate();
+      } catch (err) {
+        showError('Could not post it. Check your internet and try again.');
+      } finally {
+        sending = false;
+        $('#submit').disabled = false;
+        $('#submit').textContent = '📌 Post to the noticeboard';
+      }
+    };
+
+    $('#again').onclick = () => {
+      const keepName = form.elements.name.value;
+      form.reset();
+      form.elements.name.value = keepName;
+      chips = [];
+      paint();
+      $('#done').hidden = true;
+      form.hidden = false;
+    };
+
+    paint();
+  </script>
+</body>
+</html>

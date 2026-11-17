@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Name Picker · Add yourself</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/hub.css">
+  <style>
+    .names { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .names li { padding: 4px 14px 2px; font-weight: 700; background: #fff; border: 3px solid var(--ink); border-radius: 999px; overflow-wrap: anywhere; }
+    .names li.me { background: var(--lime); }
+    .ok { text-align: center; }
+    .ok .big { font-size: 4rem; line-height: 1; }
+  </style>
+</head>
+<body>
+  <main class="page narrow">
+    <header class="marquee mini">
+      <h1>🎰 Name Picker</h1>
+      <p>Add your name to the machine</p>
+    </header>
+
+    <form class="card" id="picker-form" novalidate>
+      <label class="field"><span>Your name</span>
+        <input name="name" required maxlength="30" autocomplete="given-name" placeholder="Alex">
+      </label>
+      <div id="error" aria-live="assertive"></div>
+      <button class="btn btn-big btn-sky btn-block" id="submit">＋ Add me</button>
+    </form>
+
+    <section class="card ok" id="ok" hidden aria-live="polite">
+      <div class="big">🎟️</div>
+      <h2>You're on the list!</h2>
+      <p class="muted">Keep an eye on the big screen. You might be next.</p>
+      <button class="btn btn-teal" id="another">Add someone else</button>
+    </section>
+
+    <section class="card">
+      <h3>On the list now <span class="muted" id="count"></span></h3>
+      <ul class="names" id="names"><li>Loading…</li></ul>
+    </section>
+  </main>
+
+  <script type="module">
+    import { listen, write, id } from '../activity-store.js';
+    import { esc, celebrate } from '../assets/hub.js';
+    import { parseNameList } from '../assets/picker-logic.js';
+
+    const $ = sel => document.querySelector(sel);
+    const form = $('#picker-form');
+    let current = [];
+    let mine = '';
+    let sending = false;
+
+    const paint = () => {
+      $('#count').textContent = current.length ? `(${current.length})` : '';
+      $('#names').innerHTML = current.length
+        ? current.map(n => `<li class="${n.toLowerCase() === mine.toLowerCase() ? 'me' : ''}">${esc(n)}</li>`).join('')
+        : '<li>Nobody yet. Be the first!</li>';
+    };
+    const showError = msg => { $('#error').innerHTML = msg ? `<div class="error-box">${esc(msg)}</div>` : ''; };
+
+    listen('picker', data => {
+      current = Object.entries(data).filter(([k, v]) => k.startsWith('name-') && v?.name).map(([, v]) => v.name).sort((a, b) => a.localeCompare(b));
+      paint();
+    }).catch(() => showError('Could not reach the class list. Check your internet.'));
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      if (sending) return;
+      const raw = String(new FormData(form).get('name') || '');
+      if (!raw.trim()) return showError('Type your name first.');
+      const [name] = parseNameList(raw.replace(/,/g, ' '), current);
+      if (!name) return showError('That name is already on the list.');
+      showError('');
+      sending = true;
+      $('#submit').disabled = true;
+      try {
+        const key = id('name');
+        await write(`picker/${key}`, { id: key, name, picks: 0, pickedThisCycle: false, addedBy: 'student' });
+        mine = name;
+        form.hidden = true;
+        $('#ok').hidden = false;
+        celebrate();
+        paint();
+      } catch {
+        showError('Could not add you. Check your internet and try again.');
+      } finally {
+        sending = false;
+        $('#submit').disabled = false;
+      }
+    };
+
+    $('#another').onclick = () => {
+      form.reset();
+      $('#ok').hidden = true;
+      form.hidden = false;
+    };
+  </script>
+</body>
+</html>

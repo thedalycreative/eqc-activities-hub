@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt Battle · Play</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/hub.css">
+  <style>
+    .challenge { margin: 0 0 14px; padding: 14px 16px 10px; font-weight: 800; font-size: 1.25rem; line-height: 1.25; background: var(--bulb); border: 4px solid var(--ink); border-radius: 18px; }
+    .clock { float: right; font-family: var(--display); font-size: 1.1rem; }
+    .reply { margin: 14px 0; padding: 14px 16px; background: #E4F6FF; border: 3px solid var(--ink); border-radius: 18px 18px 18px 4px; font-weight: 600; white-space: pre-wrap; overflow-wrap: anywhere; animation: pop-in .3s ease both; }
+    .reply::before { content: "🤖 AI says"; display: block; font-weight: 800; font-size: .85rem; opacity: .6; margin-bottom: 4px; }
+    .tries { font-weight: 800; opacity: .7; }
+    .ai-error { margin: 12px 0; }
+    .vote-list { display: grid; gap: 12px; }
+    .vote-card { display: block; width: 100%; padding: 14px 16px; text-align: left; font: inherit; font-weight: 600; color: var(--ink); background: #fff; border: 4px solid var(--ink); border-radius: 18px; box-shadow: 0 5px 0 var(--ink); cursor: pointer; overflow-wrap: anywhere; }
+    .vote-card.voted { background: var(--bulb); }
+    .vote-card.voted::after { content: "⭐ Your vote"; display: block; margin-top: 6px; font-weight: 800; }
+    .big-msg { text-align: center; }
+    .big-msg .big { font-size: 4.5rem; line-height: 1; margin: 6px 0; }
+    .thinking { animation: pulse 1s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+  <main class="page narrow">
+    <header class="marquee mini">
+      <h1>🤖 Prompt Battle</h1>
+      <p id="sub">Join the battle</p>
+    </header>
+    <div id="error" aria-live="assertive"></div>
+    <section class="card" id="app">
+      <form id="join-form" novalidate>
+        <label class="field"><span>Your name</span>
+          <input name="name" required maxlength="30" autocomplete="given-name" placeholder="Alex">
+        </label>
+        <button class="btn btn-big btn-teal btn-block" id="join">Join the battle</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module">
+    import { listen, listenSession, joinSession, write, id } from '../activity-store.js';
+    import { esc, celebrate } from '../assets/hub.js';
+    import { MAX_TRIES, votableEntries, rankRound } from '../assets/battle-logic.js';
+
+    const $ = sel => document.querySelector(sel);
+    const app = $('#app');
+    const code = (new URLSearchParams(location.search).get('code') || '').toUpperCase().trim();
+    // The phone remembers who it is for this game, so re-scanning the QR keeps your stars.
+    // Add &as=anything to the link to play as a second person on the same device (handy for demos).
+    const PLAYER_KEY = `eqc-battle-player-${code}${new URLSearchParams(location.search).get('as') ? `-${new URLSearchParams(location.search).get('as')}` : ''}`;
+    const playerId = localStorage.getItem(PLAYER_KEY) || id('player');
+    localStorage.setItem(PLAYER_KEY, playerId);
+    $('#sub').textContent = code ? `Game code ${code}` : 'Join the battle';
+
+    let session = {};
+    let rows = {};
+    let state = null;
+    let joined = false;
+    let mounted = '';
+    let celebrated = '';
+
+    const showError = msg => { $('#error').innerHTML = msg ? `<div class="error-box">${esc(msg)}</div>` : ''; };
+    const draftKey = () => `eqc-battle-draft-${code}-${state?.round}-${playerId}`;
+    const draft = () => { try { return JSON.parse(localStorage.getItem(draftKey()) || '{}'); } catch { return {}; } };
+    const saveDraft = d => localStorage.setItem(draftKey(), JSON.stringify(d));
+    const myEntryKey = () => `entry-${playerId}-${state.round}`;
+    const myVoteKey = () => `vote-${playerId}-${state.round}`;
+
+    const screens = {
+      lobby() {
+        app.innerHTML = `<div class="big-msg"><div class="big">🙌</div><h2>You're in!</h2>
+          <p class="muted">${state.round ? 'The next round is coming up…' : 'Waiting for the trainer to start the round…'}</p></div>`;
+      },
+      writing() {
+        if (rows[myEntryKey()]) {
+          app.innerHTML = `<div class="big-msg"><div class="big">📨</div><h2>Submitted!</h2><p class="muted">Watch the big screen. Voting starts soon.</p></div>`;
+          return;
+        }
+        const d = draft();
+        app.innerHTML = `
+          <p class="challenge"><span class="clock" aria-label="Seconds left"></span>${esc(state.challenge)}</p>
+          <label class="field"><span>Your prompt <span class="count" id="count">0/300</span></span>
+            <textarea name="prompt" maxlength="300" placeholder="Write the prompt you'd give the AI…">${esc(d.typing || '')}</textarea>
+          </label>
+          <div class="row spread"><button class="btn btn-teal" id="try">✨ Try it</button><span class="tries"></span></div>
+          <div id="ai-out"></div>
+          <button class="btn btn-big btn-bulb btn-block" id="submit-entry" style="margin-top:14px">📨 Submit this one</button>`;
+        paintTries();
+        const ta = app.querySelector('textarea');
+        const count = () => { $('#count').textContent = `${ta.value.length}/300`; saveDraft({ ...draft(), typing: ta.value }); };
+        ta.addEventListener('input', count);
+        count();
+      },
+      voting() {
+        const list = votableEntries(rows, state.round, playerId);
+        app.innerHTML = list.length
+          ? `<h2>Vote for the best answer</h2><p class="muted">One ⭐ each. You can change your mind until the reveal.</p>
+             <div class="vote-list">${list.map(e => `<button class="vote-card" data-key="${esc(e.key)}">${esc(e.reply)}</button>`).join('')}</div>`
+          : '<div class="big-msg"><div class="big">🤷</div><h2>No other entries to vote on</h2><p class="muted">Watch the big screen.</p></div>';
+        paintVote();
+      },
+      reveal() {
+        const ranked = rankRound(rows, state.round);
+        const mine = ranked.find(r => r.playerId === playerId);
+        const won = mine && ranked[0]?.key === mine.key && mine.stars > 0;
+        app.innerHTML = `<div class="big-msg"><div class="big">${won ? '🏆' : '⭐'}</div>
+          <h2>${mine ? `You got ⭐ ${mine.stars}` : 'Round over'}</h2>
+          <p class="muted">${won ? 'You won this round!' : 'Look at the big screen to see the winning prompt.'}</p>
+          <p><strong>Total: ⭐ ${(state.scores || {})[playerId] || 0}</strong></p></div>`;
+        if (won && celebrated !== `${state.round}`) { celebrated = `${state.round}`; celebrate(); }
+      },
+      finished() {
+        app.innerHTML = `<div class="big-msg"><div class="big">🏁</div><h2>Game over!</h2>
+          <p class="muted">Look at the big screen for the podium.</p><p><strong>You finished with ⭐ ${(state.scores || {})[playerId] || 0}</strong></p></div>`;
+      }
+    };
+
+    function paintTries() {
+      const d = draft();
+      const tries = d.tries || 0;
+      const el = app.querySelector('.tries');
+      if (el) el.textContent = `${tries}/${MAX_TRIES} tries`;
+      const tryBtn = $('#try');
+      if (tryBtn) tryBtn.disabled = tries >= MAX_TRIES;
+      $('#ai-out').innerHTML = d.reply ? `<div class="reply">${esc(d.reply)}</div>` : '';
+      $('#submit-entry').disabled = !d.reply;
+    }
+
+    function paintVote() {
+      const v = rows[myVoteKey()];
+      app.querySelectorAll('.vote-card').forEach(c => c.classList.toggle('voted', v?.entryKey === c.dataset.key));
+    }
+
+    function render() {
+      if (!joined) return;
+      if (!state) { app.innerHTML = '<p>Connecting…</p>'; return; }
+      const submitted = state.status === 'writing' && rows[myEntryKey()] ? 'done' : '';
+      const key = `${state.status}-${state.round}-${submitted}`;
+      if (key !== mounted) { mounted = key; screens[state.status]?.(); }
+      if (state.status === 'voting') paintVote();
+    }
+
+    // Countdown on the phone
+    setInterval(() => {
+      const clock = app.querySelector('.clock');
+      if (clock && state?.roundEndsAt) clock.textContent = `${Math.max(0, Math.ceil((state.roundEndsAt - Date.now()) / 1000))}s`;
+    }, 500);
+
+    app.addEventListener('click', async e => {
+      const t = e.target;
+      if (t.closest('#try')) {
+        const ta = app.querySelector('textarea');
+        const prompt = ta.value.trim();
+        if (!prompt) { showError('Write a prompt first.'); return; }
+        const d = draft();
+        if ((d.tries || 0) >= MAX_TRIES) return;
+        showError('');
+        const btn = $('#try');
+        btn.disabled = true;
+        btn.textContent = '🤔 Thinking…';
+        btn.classList.add('thinking');
+        try {
+          const res = await fetch('/api/ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ task: 'battle', challenge: state.challenge, prompt }),
+            signal: AbortSignal.timeout(12000)
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.text) throw new Error('busy');
+          saveDraft({ ...draft(), tries: (d.tries || 0) + 1, reply: data.text, prompt });
+        } catch {
+          $('#ai-out').innerHTML = '<div class="error-box ai-error">The AI is busy — try again</div>';
+          btn.textContent = '✨ Try it';
+          btn.classList.remove('thinking');
+          btn.disabled = false;
+          return;
+        }
+        btn.textContent = '✨ Try again';
+        btn.classList.remove('thinking');
+        paintTries();
+        return;
+      }
+      if (t.closest('#submit-entry')) {
+        const d = draft();
+        if (!d.reply) return;
+        t.closest('#submit-entry').disabled = true;
+        try {
+          await write(`battle-${code}/${myEntryKey()}`, {
+            playerId, name: localStorage.getItem(`${PLAYER_KEY}-name`) || 'Player',
+            prompt: d.prompt, reply: d.reply, tries: d.tries || 1, submittedAt: Date.now(), hidden: false
+          });
+        } catch {
+          showError('Could not submit. Check your internet and try again.');
+          t.closest('#submit-entry').disabled = false;
+        }
+        return;
+      }
+      const card = t.closest('.vote-card');
+      if (card && state?.status === 'voting') {
+        try {
+          await write(`battle-${code}/${myVoteKey()}`, { voterId: playerId, entryKey: card.dataset.key });
+        } catch {
+          showError('Could not save your vote. Try again.');
+        }
+      }
+    });
+
+    $('#join-form').onsubmit = async e => {
+      e.preventDefault();
+      const name = String(new FormData(e.target).get('name') || '').trim();
+      if (!name) return showError('Type your name first.');
+      if (!session.game) return showError("That game code isn't running. Check the code on the big screen.");
+      $('#join').disabled = true;
+      try {
+        await joinSession(code, { id: playerId, name });
+        localStorage.setItem(`${PLAYER_KEY}-name`, name);
+        showError('');
+      } catch {
+        showError("Couldn't join. Check the game code on the big screen.");
+        $('#join').disabled = false;
+      }
+    };
+
+    if (!code) {
+      showError('This link is missing a game code. Scan the QR code on the big screen.');
+    } else {
+      listenSession(code, s => {
+        session = s || {};
+        const wasJoined = joined;
+        joined = Boolean(session.players?.[playerId]);
+        if (joined && !wasJoined) { mounted = ''; render(); }
+      }).catch(() => showError('Could not reach the game. Check your internet.'));
+      listen(`battle-${code}`, r => {
+        rows = r || {};
+        state = rows.state || null;
+        render();
+      }).catch(() => showError('Could not reach the game. Check your internet.'));
+    }
+  </script>
+</body>
+</html>
