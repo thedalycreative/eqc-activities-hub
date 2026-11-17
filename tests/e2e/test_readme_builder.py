@@ -29,7 +29,25 @@ def test_checklist_and_cards_are_drawn(page, base_url):
     assert page.inner_text("#rb-count") == f"{SECTION_COUNT} of {SECTION_COUNT} sections"
     links = page.eval_on_selector_all(".rb-see", "els => els.map(e => e.href)")
     assert all(h.startswith("https://github.com/thedalycreative/eqc-activities-hub/") for h in links)
-    assert page.locator(".rb-examples a[href='https://github.com/mhucka/readmine']").count() == 1
+
+REFERENCES = {
+    "https://github.com/mhucka/readmine": "github.com/mhucka/readmine",
+    "https://github.com/othneildrew/Best-README-Template": "github.com/othneildrew/Best-README-Template",
+    "https://github.com/matiassingers/awesome-readme": "github.com/matiassingers/awesome-readme",
+    "https://www.makeareadme.com/": "makeareadme.com",
+    "https://readme.so/": "readme.so",
+    "https://github.com/hackergrrl/art-of-readme": "github.com/hackergrrl/art-of-readme",
+}
+
+
+def test_reference_readmes_are_listed_with_their_addresses(page, base_url):
+    open_page(page, base_url)
+    assert page.inner_text("#g-examples") == "③ Great reference READMEs"
+    for href, shown in REFERENCES.items():
+        tile = page.locator(f".rb-examples a[href='{href}']")
+        assert tile.count() == 1, href
+        assert tile.locator(".rb-url").inner_text() == shown
+    assert page.locator(".rb-examples .rb-url").count() == 8
 
 
 def test_where_choice_changes_prompt_and_steps(page, base_url):

@@ -152,6 +152,17 @@
 .rb-examples .tile .emoji { font-size: clamp(2.8rem, 4vw, 3.4rem); padding-bottom: 12px; }
 .rb-examples .tile h3 { font-size: clamp(1.35rem, 2vw, 1.6rem); padding-right: 4px; }
 .rb-examples .tile p { font-size: 1.02rem; }
+.rb-url {
+  align-self: flex-start;
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 1px 10px 0;
+  font: 700 .8rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  overflow-wrap: anywhere;
+  background: rgba(255, 255, 255, .55);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
 .rb-tools { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
 .rb-tools .btn { min-height: 44px; font-size: 1rem; box-shadow: 0 4px 0 var(--ink); }
 

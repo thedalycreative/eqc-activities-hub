@@ -67,7 +67,16 @@ The page remembers your choices on that computer, so you can come back to it.
 |---|---|
 | **① Build your AI prompt** | A four-step form on the left, a live prompt on the right that updates as you tick, and a copy button with confetti 🎉 |
 | **② What's in a great README** | 17 anatomy cards: ⭐ 5 must-haves and 🚀 12 level-ups. Each one has *what*, *why*, a tiny Markdown example and a **See it ↗** link to that exact part of the Apple README |
-| **③ Great READMEs to steal ideas from** | Our two READMEs, an annotated example (READMINE), Best-README-Template, Awesome README, Make a README, readme.so and Art of README, plus handy tools (badges, GIF recorders, Markdown guides) |
+| **③ Great reference READMEs** | Our two READMEs plus the six below, each tile showing its web address, then handy tools (badges, GIF recorders, Markdown guides) |
+
+**The six reference READMEs on the page:**
+
+- 📝 [READMINE](https://github.com/mhucka/readmine): an annotated example
+- 🏆 [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+- 🌟 [Awesome README](https://github.com/matiassingers/awesome-readme)
+- 🛠 [Make a README](https://www.makeareadme.com/)
+- 🧱 [readme.so](https://readme.so/)
+- 💌 [Art of README](https://github.com/hackergrrl/art-of-readme)
 
 ---
 
