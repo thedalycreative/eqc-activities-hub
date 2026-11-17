@@ -23,3 +23,19 @@ def test_pin_modal_cancel_returns_false(page, base_url):
     page.click("#ask")
     page.click(".pin-pad [data-act='cancel']")
     page.wait_for_function("document.getElementById('out').textContent === 'false'")
+
+
+def test_sound_runs_in_browser(page, context, base_url):
+    page.goto(f"{base_url}/tests/e2e/fixtures/foundation.html")
+    page.click("#ask")  # a user gesture so audio is allowed
+    page.keyboard.press("Escape")
+    page.evaluate("""async () => {
+        const s = await import('/assets/sound.js');
+        ['tick','ding','buzz','drumroll','fanfare','pop','whoosh','lever','clunk'].forEach(s.play);
+        s.startMusic('lobby'); await new Promise(r => setTimeout(r, 300));
+        s.startMusic('think'); await new Promise(r => setTimeout(r, 300)); s.stopMusic();
+        document.body.append(s.muteButton());
+    }""")
+    page.click(".mute-btn")
+    assert page.inner_text(".mute-btn") == "🔇"
+    assert context.console_errors == []
