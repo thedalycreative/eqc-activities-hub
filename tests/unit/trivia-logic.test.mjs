@@ -32,8 +32,8 @@ test('leaderboard sums up to a question and breaks ties by name', () => {
   const after0 = leaderboard(players, rows, questions, 60, 0);
   assert.deepEqual(after0.map(p => [p.name, p.score]), [['Amy', 2000], ['Zoe', 2000], ['Ben', 0]]);
   const after1 = leaderboard(players, rows, questions, 60, 1);
-  assert.deepEqual(after1.map(p => p.name), ['Amy', 'Zoe', 'Ben']);
-  assert.equal(after1[2].score, 2000);
+  // Ben's second answer is right, so all three tie on 2000 and sort by name.
+  assert.deepEqual(after1.map(p => [p.name, p.score]), [['Amy', 2000], ['Ben', 2000], ['Zoe', 2000]]);
 });
 
 test('rankShifts gives each player their previous place', () => {
