@@ -261,8 +261,11 @@ export function mountPicker(root) {
     if (t.closest('#picker-add')) return addNames();
     if (t.closest('#picker-qr')) return showJoinQr('picker');
     if (t.closest('#picker-full')) {
-      if (document.fullscreenElement) document.exitFullscreen();
-      else root.closest('section')?.requestFullscreen?.().catch(() => {});
+      // The whole page goes full screen and the picker fills it, so pop-ups (PIN, QR, confetti) still show on top.
+      const on = !document.body.classList.contains('picker-theatre');
+      setTheatre(on);
+      if (on) document.documentElement.requestFullscreen?.().catch(() => {});
+      else if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
       return;
     }
     if (t.closest('#picker-new-round')) {
@@ -291,6 +294,13 @@ export function mountPicker(root) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addNames(); }
   });
   window.addEventListener('resize', () => { if (!busy) layoutCapsules(); });
+  function setTheatre(on) {
+    document.body.classList.toggle('picker-theatre', on);
+    $('#picker-full').textContent = on ? '✕ Exit full screen' : '⛶ Full screen';
+    if (!busy) layoutCapsules();
+  }
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) setTheatre(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('picker-theatre') && !document.querySelector('.modal-backdrop')) setTheatre(false); });
 
   renderMachine();
   renderList();

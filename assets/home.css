@@ -112,7 +112,8 @@ footer a { color: var(--bulb); }
 /* ── Name Picker ───────────────────────────────────────────── */
 .picker-wrap { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 36px); align-items: start; }
 @media (max-width: 900px) { .picker-wrap { grid-template-columns: 1fr; } }
-#picker:fullscreen { padding: 30px; overflow: auto; background: var(--stage-deep); }
+body.picker-theatre { overflow: hidden; }
+body.picker-theatre #picker { position: fixed; inset: 0; z-index: 35; margin: 0; padding: 26px clamp(16px, 3vw, 40px); overflow: auto; background: var(--stage-deep); }
 .picker-modes { margin-bottom: 16px; }
 .picker-modes .pill { min-height: 42px; padding: 4px 16px 2px; font-size: 1.05rem; }
 .picker-machine { margin-bottom: 22px; }

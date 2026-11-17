@@ -140,3 +140,18 @@ def test_picker_escapes_html(page, base_url):
     page.wait_for_selector(".picker-name")
     assert page.locator("#picker-root img").count() == 0
     assert "<img src=x onerror=alert(1)>" in page.inner_text(".picker-list")
+
+
+def test_full_screen_keeps_popups_on_top(page, base_url):
+    home(page, base_url)
+    add(page, "Sam")
+    page.wait_for_function("document.querySelectorAll('.picker-name').length === 1")
+    page.click("#picker-full")
+    page.click("#picker-go")  # trainer is locked, so the PIN pad should appear above the picker
+    pad = page.locator(".pin-pad")
+    pad.wait_for()
+    box = pad.bounding_box()
+    on_top = page.evaluate(
+        "([x, y]) => !!document.elementFromPoint(x, y)?.closest('.pin-pad')",
+        [box["x"] + box["width"] / 2, box["y"] + box["height"] / 2])
+    assert on_top
