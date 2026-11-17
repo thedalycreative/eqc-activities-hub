@@ -4,9 +4,14 @@
 const KEY = 'fake-db';
 const read = () => JSON.parse(localStorage.getItem(KEY) || '{"rows":{},"sessions":{},"players":{}}');
 const listeners = new Set();
+// Real Supabase echoes a change back 100–500 ms after the write. Tests can set
+// localStorage 'fake-echo-ms' to copy that; by default the echo is instant.
+const echoDelay = () => Number(localStorage.getItem('fake-echo-ms') || 0);
 const save = db => {
   localStorage.setItem(KEY, JSON.stringify(db));
-  queueMicrotask(() => listeners.forEach(fn => fn()));
+  const notify = () => listeners.forEach(fn => fn());
+  if (echoDelay()) setTimeout(notify, echoDelay());
+  else queueMicrotask(notify);
 };
 window.addEventListener('storage', e => { if (e.key === KEY) listeners.forEach(fn => fn()); });
 

@@ -216,7 +216,7 @@ body.picker-theatre #picker { position: fixed; inset: 0; z-index: 35; margin: 0;
 .claw-chute .capsule { position: static; margin-top: 8px; }
 .capsule.open { animation: pulse .6s ease 2; background: var(--bulb); }
 
-.picker-machine-col { position: relative; }
+.picker-machine-col { position: relative; z-index: 0; } /* keeps the winner banner inside the picker, under pop-ups and the battle stage */
 .picker-winner { position: absolute; left: 0; right: 0; bottom: 110px; z-index: 130; text-align: center; pointer-events: none; }
 .winner-card { display: inline-grid; gap: 4px; padding: 14px 34px 10px; color: var(--ink); background: var(--bulb); border: 5px solid var(--ink); border-radius: 26px; box-shadow: 0 8px 0 var(--ink); }
 .winner-label { font-weight: 800; font-size: 1.1rem; }

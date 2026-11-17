@@ -155,3 +155,53 @@ def test_full_screen_keeps_popups_on_top(page, base_url):
         "([x, y]) => !!document.elementFromPoint(x, y)?.closest('.pin-pad')",
         [box["x"] + box["width"] / 2, box["y"] + box["height"] / 2])
     assert on_top
+
+
+def slow_echo_and_fixed_random(context):
+    """Copy real Supabase's echo delay, and make the random pick always choose the first eligible name."""
+    context.add_init_script("""try { localStorage.setItem('fake-echo-ms', '400') } catch (e) {}
+        crypto.getRandomValues = a => { a.fill(0); return a; };""")
+
+
+def test_quick_second_spin_uses_the_latest_picks(page, context, base_url):
+    unlock(context)
+    slow_echo_and_fixed_random(context)
+    home(page, base_url)
+    add(page, "Jo\nSam")
+    page.wait_for_function("document.querySelectorAll('.picker-name').length === 2")
+    spin(page)
+    assert page.inner_text("#picker-winner .winner-name") == "Jo"
+    spin(page)  # straight away, before the database echo arrives
+    assert page.inner_text("#picker-winner .winner-name") == "Sam"
+
+
+def test_claw_prize_stays_in_the_chute(page, context, base_url):
+    unlock(context)
+    slow_echo_and_fixed_random(context)
+    home(page, base_url)
+    add(page, "Jo\nSam")
+    page.wait_for_function("document.querySelectorAll('.picker-name').length === 2")
+    page.click(".mode-btn[data-mode='claw']")
+    spin(page)
+    page.wait_for_timeout(900)  # the echo has arrived by now
+    assert page.locator(".claw-chute .capsule").count() == 1
+    assert page.inner_text(".claw-chute .capsule") == "Jo"
+    assert page.locator(".picker-name.sat-out").count() == 1
+
+
+def test_winner_banner_stays_under_the_battle_stage(page, context, base_url):
+    unlock(context)
+    home(page, base_url)
+    add(page, "Jo")
+    page.wait_for_function("document.querySelectorAll('.picker-name').length === 1")
+    spin(page)
+    page.locator("#picker-winner .winner-card").scroll_into_view_if_needed()
+    box = page.locator("#picker-winner .winner-card").bounding_box()
+    assert 0 < box["y"] < 900
+    page.evaluate("document.querySelector(\"[data-game='battle']\").click()")
+    page.wait_for_selector(".battle-stage")
+    page.evaluate("document.querySelector('#picker-winner').style.pointerEvents = 'auto'")  # so the hit test can see it
+    covered = page.evaluate(
+        "([x, y]) => !document.elementFromPoint(x, y)?.closest('.picker-winner')",
+        [box["x"] + box["width"] / 2, box["y"] + box["height"] / 2])
+    assert covered

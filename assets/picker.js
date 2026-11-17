@@ -19,6 +19,7 @@ export function mountPicker(root) {
   let fairMode = true;
   let mode = getMode();
   let busy = false;
+  let holdMachine = false; // keep the last result on show until the next pick
   let spins = 0;
 
   root.innerHTML = `
@@ -209,7 +210,12 @@ export function mountPicker(root) {
       if (mode === 'slot') await spinSlot(plan.winner);
       else await grabClaw(plan.winner);
       showWinner(plan.winner);
-      await writeMany('picker', Object.fromEntries(plan.updates.map(u => [u.id, u])));
+      // Use the new tallies straight away; the database echo can take a moment to come back.
+      const changed = Object.fromEntries(plan.updates.map(u => [u.id, u]));
+      names = names.map(n => (changed[n.id] ? { ...n, ...changed[n.id] } : n));
+      holdMachine = true;
+      renderList();
+      await writeMany('picker', changed);
     } catch {
       toast('Could not save the pick. Check the connection.', { tone: 'bad' });
     } finally {
@@ -228,6 +234,7 @@ export function mountPicker(root) {
       rows[key] = { id: key, name, picks: 0, pickedThisCycle: false, addedBy: 'trainer' };
     });
     try {
+      holdMachine = false;
       await writeMany('picker', rows);
       input.value = '';
       play('pop');
@@ -254,6 +261,7 @@ export function mountPicker(root) {
       if (busy) return;
       mode = t.closest('.mode-btn').dataset.mode;
       try { localStorage.setItem(MODE_KEY, mode); } catch { /* ignore */ }
+      holdMachine = false;
       renderMachine();
       return;
     }
@@ -278,6 +286,7 @@ export function mountPicker(root) {
     if (t.closest('#picker-clear')) {
       if (!(await requireTrainer())) return;
       if (await confirmBox('🧹 Clear every name?', 'This empties the picker list for everyone.', 'Yes, clear names')) {
+        holdMachine = false;
         await removeActivity('picker');
         winnerBox.innerHTML = '';
       }
@@ -286,6 +295,7 @@ export function mountPicker(root) {
     const remove = t.closest('.picker-remove');
     if (remove) {
       if (!(await requireTrainer())) return;
+      holdMachine = false;
       await removeAt(`picker/${remove.closest('.picker-name').dataset.id}`);
     }
   });
@@ -311,7 +321,7 @@ export function mountPicker(root) {
       .map(([k, v]) => ({ ...v, id: k }))
       .sort((a, b) => a.name.localeCompare(b.name));
     renderList();
-    if (!busy) renderMachine();
+    if (!busy && !holdMachine) renderMachine();
   }).catch(() => {
     $('.picker-list').innerHTML = '<li class="error-box">Could not reach the names database. Check the internet connection.</li>';
   });
