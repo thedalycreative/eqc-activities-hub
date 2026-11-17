@@ -1,3 +1,4 @@
+import pytest
 import re
 import time
 
@@ -177,3 +178,20 @@ def test_presenter_screen_opens_after_the_pin(page, base_url):
     for d in "2468":
         page.locator(f".pin-pad [data-digit='{d}']").click()
     page.wait_for_selector("#start-game")
+
+
+@pytest.mark.parametrize("motion", ["no-preference"])
+def test_full_animation_smoke(context, base_url, motion):
+    """Run the real 3-2-1 intro, reveal bars and leaderboard slide once, with no errors."""
+    host, code = setup_game(context, base_url, seconds=20)
+    jo = join(context, base_url, code, "Jo")
+    host.wait_for_function("document.querySelectorAll('.lobby-chip').length === 1")
+    host.click("#start-game")
+    host.wait_for_selector(".q-intro:not([hidden])")
+    jo.wait_for_selector(".answer-btn", timeout=6000)
+    jo.locator(".answer-btn").first.click()
+    host.wait_for_selector(".answer-bar")
+    host.click("#show-leaderboard")
+    host.wait_for_selector(".lb-row")
+    host.wait_for_timeout(1200)
+    assert context.console_errors == []

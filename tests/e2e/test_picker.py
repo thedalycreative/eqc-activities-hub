@@ -1,3 +1,4 @@
+import pytest
 from conftest import rows, seed, unlock
 
 
@@ -205,3 +206,18 @@ def test_winner_banner_stays_under_the_battle_stage(page, context, base_url):
         "([x, y]) => !document.elementFromPoint(x, y)?.closest('.picker-winner')",
         [box["x"] + box["width"] / 2, box["y"] + box["height"] / 2])
     assert covered
+
+
+@pytest.mark.parametrize("motion", ["no-preference"])
+@pytest.mark.parametrize("machine", ["slot", "claw"])
+def test_full_animation_smoke(page, context, base_url, machine, motion):
+    """The animations Tim projects: run them for real once and check they land on a winner cleanly."""
+    unlock(context)
+    home(page, base_url)
+    add(page, "Jo\nSam\nAli\nPriya")
+    page.wait_for_function("document.querySelectorAll('.picker-name').length === 4")
+    page.click(f".mode-btn[data-mode='{machine}']")
+    page.click("#picker-go")
+    page.wait_for_selector("#picker-winner .winner-name", timeout=9000)
+    assert page.inner_text("#picker-winner .winner-name") in ("Jo", "Sam", "Ali", "Priya")
+    assert context.console_errors == []
