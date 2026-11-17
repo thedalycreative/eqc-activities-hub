@@ -64,6 +64,7 @@ def test_clone_sites_are_not_deployed():
     for name in CLONES:
         assert f"bootstrap-clone-{name}" in ignored, name
         assert redirects.get(f"/bootstrap-clone-{name}") == GITHUB_TREE.format(name)
+        assert redirects.get(f"/bootstrap-clone-{name}/") == GITHUB_TREE.format(name)  # the usual old link
         assert redirects.get(f"/bootstrap-clone-{name}/:path*") == GITHUB_TREE.format(name)
 
 

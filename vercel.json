@@ -52,12 +52,22 @@
       "permanent": false
     },
     {
+      "source": "/bootstrap-clone-apple/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-apple",
+      "permanent": false
+    },
+    {
       "source": "/bootstrap-clone-apple/:path*",
       "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-apple",
       "permanent": false
     },
     {
       "source": "/bootstrap-clone-nib-health",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-nib-health",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-nib-health/",
       "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-nib-health",
       "permanent": false
     },
@@ -72,12 +82,22 @@
       "permanent": false
     },
     {
+      "source": "/bootstrap-clone-skywings/",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-skywings",
+      "permanent": false
+    },
+    {
       "source": "/bootstrap-clone-skywings/:path*",
       "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-skywings",
       "permanent": false
     },
     {
       "source": "/bootstrap-clone-forbidden-forrest",
+      "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-forbidden-forrest",
+      "permanent": false
+    },
+    {
+      "source": "/bootstrap-clone-forbidden-forrest/",
       "destination": "https://github.com/thedalycreative/eqc-activities-hub/tree/main/bootstrap-clone-forbidden-forrest",
       "permanent": false
     },
